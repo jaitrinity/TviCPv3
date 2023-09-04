@@ -1,0 +1,152 @@
+<div class="row" style="margin:0px 0px 10px;">
+  <div class="col-md-12">
+    <label class="addMore" (click)="addMoreEmployee()"> 
+      <i class="fa fa-plus" aria-hidden="true"></i> Add More Employee
+    </label>
+  </div>
+</div>
+
+
+<div class="row" style="margin:0px 0px 10px;overflow:auto;">
+  <div class="col-md-12 table-data-div">
+    <ng2-smart-table [settings]="setting" [source]="employeeList" (custom)="onCustomAction($event)"></ng2-smart-table>
+  </div>
+</div>
+
+<div class="modal fade" id="addMoreModal" role="dialog" >
+  <div class="modal-dialog modal-lg" style="max-width:  1020px !important">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+        <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <label>Employee Id</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="employeeId"/>
+          </div>
+
+          <div class="col-md-3">
+            <label>Employee Name</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="employeeName"/>
+          </div>
+
+          <div class="col-md-3">
+            <label>Mobile</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" OnlyNumber="true" LengthValidater = "10"
+            [(ngModel)]="mobile"/>
+          </div>
+        
+          <div class="col-md-3">
+            <label>Email Id</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="emailId"/>
+          </div>
+
+        </div>
+
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <label>Role</label> <span class="text-danger">*</span>
+            <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+            [data]="roleList" [(ngModel)]="selectedRoleList"
+            (onSelect)="onSelectOrDeSelectRole($event)" (onDeSelect)="onSelectOrDeSelectRole($event)"> 
+            </ng-multiselect-dropdown>
+          </div>
+
+          <div class="col-md-3" *ngIf="isAllowOperator">
+            <label>Operator</label> <span class="text-danger">*</span>
+            <select class="form-control input-sm" [(ngModel)] = "operator">
+              <option value="">Select</option>
+              <option value="{{o.paramCode}}" *ngFor="let o of operatorList">{{o.paramDesc}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-3" *ngIf="isAllowCircle">
+            <label>Circle</label> <span class="text-danger">*</span>
+            <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+            [data]="circleList" [(ngModel)]="selectedCircleList"> 
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="submitEmployee(0)">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary tvi-yellow" (click)="closeAnyModal('addMoreModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" role="dialog" >
+  <div class="modal-dialog  modal-lg" style="max-width:  1020px !important"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+        <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <label>Employee Id</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="editEmployeeId" [disabled]="true"/>
+          </div>
+
+          <div class="col-md-3">
+            <label>Employee Name</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="editEmployeeName"/>
+          </div>
+
+          <div class="col-md-3">
+            <label>Mobile</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" OnlyNumber="true" LengthValidater = "10" 
+            [(ngModel)]="editMobile"/>
+          </div>
+        
+          <div class="col-md-3">
+            <label>Email Id</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control input-sm" [(ngModel)]="editEmailId"/>
+          </div>
+
+        </div>
+
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <label>Role</label> <span class="text-danger">*</span>
+            <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+            [data]="roleList" [(ngModel)]="editSelectedRoleList"
+            (onSelect)="onSelectOrDeselectEditRole($event)" (onDeSelect)="onSelectOrDeselectEditRole($event)"> 
+            </ng-multiselect-dropdown>
+          </div>
+
+          <div class="col-md-3" *ngIf="isAllowEditOperator">
+            <label>Operator</label> <span class="text-danger">*</span>
+            <select class="form-control input-sm" [(ngModel)] = "editOperator">
+              <option value="">Select</option>
+              <option value="{{o.paramCode}}" *ngFor="let o of operatorList">{{o.paramDesc}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-3" *ngIf="isAllowEditCircle">
+            <label>Circle</label> <span class="text-danger">*</span>
+            <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+            [data]="circleList" [(ngModel)]="editSelectedCircleList"> 
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div class="row mr-t mr-b">
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="submitEmployee(1)">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary tvi-yellow" (click)="closeAnyModal('editModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

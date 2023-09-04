@@ -1,0 +1,74 @@
+<div class="row mr-t mr-b">
+  <div class="col-md-3">
+    <label>Feasibility <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="mcbFeas{{viewSrNumber}}" 
+    (change)="changeFeasibility($event,'nonEditMcb','editMcb',1)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label>Total No of MCB Required</label>
+    <div class="nonEditMcb1">{{mcbData.Total_No_of_MCB_Required}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcbTotalNo" [value]="mcbData.Total_No_of_MCB_Required"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>06A</label>
+    <div class="nonEditMcb1">{{mcbData._06A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb6" [value]="mcbData._06A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>10A</label>
+    <div class="nonEditMcb1">{{mcbData._10A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb10" [value]="mcbData._10A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>16A</label>
+    <div class="nonEditMcb1">{{mcbData._16A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb16"[value]="mcbData._16A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>24A</label>
+    <div class="nonEditMcb1">{{mcbData._24A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb24" [value]="mcbData._24A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>32A</label>
+    <div class="nonEditMcb1">{{mcbData._32A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb32" [value]="mcbData._32A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>40A</label>
+    <div class="nonEditMcb1">{{mcbData._40A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb40" [value]="mcbData._40A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>63A</label>
+    <div class="nonEditMcb1">{{mcbData._63A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb63" [value]="mcbData._63A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>80A</label>
+    <div class="nonEditMcb1">{{mcbData._80A}}</div>
+    <div class="edit editMcb1">
+      <input type="text" class="form-control" id="mcb80" [value]="mcbData._80A" OnlyNumber="true" (input)="totalMcb($event)"/>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<div class="container-fluid">
+  <div class="row mr-0" style="margin-bottom: 10px">
+    <div class="col-md-2 form-group ng-autocomplete">
+        <label>Employee Id</label>
+        <!-- <input type="text" class="form-control" [(ngModel)] = "saveEmpModel.empId"/> -->
+        <!-- (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)'
+        (inputFocused)='onFocused($event)' -->
+        <ng-autocomplete 
+        [data]="empIdArr"
+        [(ngModel)] = "saveEmpModel.empId"
+        [searchKeyword]="keyword"
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate">                                 
+      </ng-autocomplete>
+      
+      <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+      </ng-template>
+      
+      <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+
+    <div class="col-md-2 form-group">
+        <label>Employee Name</label>
+        <input type="text" class="form-control" [(ngModel)] = "saveEmpModel.empName"/>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Mobile</label>
+        <input type="text" OnlyNumber="true" class="form-control" [(ngModel)] = "saveEmpModel.mobile"/>
+    </div>
+    <div class="col-md-2 form-group">
+        <label>Email Id</label>
+        <input type="text" class="form-control" [(ngModel)] = "saveEmpModel.emailId"/>
+    </div>
+    <div class="col-md-2 form-group">
+      <!-- (onDeSelect)="onDeSelectCircle($event)" (onDeSelectAll)="onDeSelectAllCircle($event)" 
+      (onSelectAll)="onSelectAllCircle($event)" -->
+      <label>Circle Name</label>
+      <ng-multiselect-dropdown [placeholder]="'Select'" [data]="circleNameList"
+      [(ngModel)]="saveEmpModel.selectedCircleNameList" [settings]="singleSelectropdownSettings" 
+      (onSelect)="onSelectCircle($event)" >
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="col-md-2 form-group">
+        <label style="color: transparent">NAN</label>
+        <button class="btn btn-block btn-primary tvi-yellow" (click)="saveEmployeeDetails()">Submit</button>
+    </div>
+
+  </div>
+
+  <div class="row mr-0">
+      <div class="col-md-12 form-group">
+        <ng2-smart-table [settings]="settings" [source]="empWrappedList" (delete)="activeOrDeactiveEmployee('N',$event)" (edit)="activeOrDeactiveEmployee('Y',$event)"></ng2-smart-table>
+      </div>
+  </div>
+
+  <!-- <table>
+    <tr> 
+      <th>Emp Id</th> <th>Emp Name</th> <th>Mobile</th> <th>Email Id</th> <th>Status</th> <th>Active</th> 
+    </tr>
+    <tr *ngFor="let el of empWrappedList"> 
+      <td>{{el.empId}}</td>
+      <td>{{el.empName}}</td>
+      <td>{{el.mobile}}</td>
+      <td>{{el.emailId}}</td>
+      <td>{{el.activeStatus}}</td>
+      <td>
+        <button [disabled] = "el.isActive == 'Y'"  (click) = "activeOrDeactiveEmployee('Y',el)" style="background: green">Active</button>
+        <button [disabled] = "el.isActive == 'N'"  (click) = "activeOrDeactiveEmployee('N',el)" style="background: red">De-Active</button>
+      </td>
+    </tr>
+  </table> -->
+</div>

@@ -1,0 +1,43 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th> 
+      <th>MWAntenna i_WAN</th> 
+      <th>Size of MW</th> 
+      <th>Height in Mtrs</th> 
+      <th>Azimuth Degree</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mw of mwAntennaList;">
+      <td>{{mw.Feasibility}}</td>
+      <td>{{mw.MWAntenna_i_WAN}}</td>
+      <td>{{mw.Size_of_MW}}</td>
+      <td>{{mw.Height_in_Mtrs}}</td>
+      <td>{{mw.Azimuth_Degree}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="row mr-t mr-b" *ngFor="let mw of mwAntennaList;">
+  <div class="col-md-3" *ngIf = "mw.Feasibility != ''">
+    <label>Feasibility - {{mw.typeNo}}</label>
+    <div>{{mw.Feasibility}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>MWAntenna i_WAN - {{mw.typeNo}}</label>
+    <div>{{mw.MWAntenna_i_WAN}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Size of MW - {{mw.typeNo}}</label>
+    <div>{{mw.Size_of_MW}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Height in Mtrs - {{mw.typeNo}}</label>
+    <div>{{mw.Height_in_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Azimuth Degree - {{mw.typeNo}}</label>
+    <div>{{mw.Azimuth_Degree}}</div>
+  </div>
+</div> -->

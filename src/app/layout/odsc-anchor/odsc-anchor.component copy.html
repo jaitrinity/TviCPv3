@@ -1,0 +1,349 @@
+<!-- <ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-circus"></ngx-spinner>
+
+<div class="container-fluid">
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Circle</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="circleName">
+          <option value="">Select</option>
+          <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>TVI Site Id</label></div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="tviSiteId" />
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Airtel Site Id</label></div>
+      <div class="col-md-3"><input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control"
+          [(ngModel)]="airtelSiteId" /></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Airtel Locator</label></div>
+      <div class="col-md-3"><input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20
+          class="form-control" [(ngModel)]="airtelLocatorId" /></div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Technology</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="technology">
+          <option value="ODSC Anchor">ODSC Anchor</option>
+        </select>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Site Address</label></div>
+      <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="siteAddress" /></div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>City</label></div>
+      <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="city" /></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Town/Village</label></div>
+      <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="townVillage" /></div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>District</label></div>
+      <div class="col-md-3">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" [data]="districtList"
+          [(ngModel)]="selectedDistrictList" (onSelect)="onSelectOrDeSelectDistrict($event)"
+          (onDeSelect)="onSelectOrDeSelectDistrict($event)">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>State</label></div>
+      <div class="col-md-3">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" [data]="stateList"
+          [(ngModel)]="selectedStateList" (onSelect)="onSelectOrDeSelectState($event)"
+          (onDeSelect)="onSelectOrDeSelectState($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Pincode</label></div>
+      <div class="col-md-3"><input type="text" OnlyNumber="true" maxlength=6 class="form-control"
+          [(ngModel)]="pincode" /></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Clutter</label></div>
+      <div class="col-md-3">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" [data]="clutterList"
+          [(ngModel)]="selectedClutterList" (onSelect)="onSelectOrDeSelectClutter($event)"
+          (onDeSelect)="onSelectOrDeSelectClutter($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Site Type</label></div>
+      <div class="col-md-3">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" [data]="siteTypeList"
+          [(ngModel)]="selectedSiteTypeList" (onSelect)="onSelectOrDeSelectSiteType($event)"
+          (onDeSelect)="onSelectOrDeSelectSiteType($event)">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Latitude Provide By Airtel</label></div>
+      <div class="col-md-3"><input type="text" OnlyNumberWithDecimal="true" class="form-control"
+          [(ngModel)]="latitude1" /></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Longitude Provide By Airtel</label></div>
+      <div class="col-md-3"><input type="text" OnlyNumberWithDecimal="true" class="form-control"
+          [(ngModel)]="longitude1" /></div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Latitude finalised for building Anchor Site by TVI</label></div>
+      <div class="col-md-3"><input type="text" OnlyNumberWithDecimal="true" class="form-control"
+          [(ngModel)]="latitude2" /></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Longitude finalised for building Anchor Site by TVI</label></div>
+      <div class="col-md-3"><input type="text" OnlyNumberWithDecimal="true" class="form-control"
+          [(ngModel)]="longitude2" /></div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>AGL required for ODSC</label></div>
+      <div class="col-md-3">
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="aglRequiredODSC" />
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>AGL required for MW/UBR</label></div>
+      <div class="col-md-3">
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="aglRequiredMW" />
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Active Information</legend>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>No of ODSC</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfODSC">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfODSCList">{{a.id}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="noOfODSC == '1' || noOfODSC == '2' 
+    || noOfODSC == '3' || noOfODSC == '4'  ">
+      <div class="col-md-2" *ngIf="noOfODSC >= 1">
+        <label>Make 1</label>
+        <input type="text" class="form-control" id="odscMake1" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 1">
+        <label>Model 1</label>
+        <input type="text" class="form-control" id="odscModel1" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 2">
+        <label>Make 2</label>
+        <input type="text" class="form-control" id="odscMake2" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 2">
+        <label>Model 1</label>
+        <input type="text" class="form-control" id="odscModel2" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="noOfODSC == '3' || noOfODSC == '4'  ">
+      <div class="col-md-2" *ngIf="noOfODSC >= 3">
+        <label>Make 3</label>
+        <input type="text" class="form-control" id="odscMake3" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 3">
+        <label>Model 3</label>
+        <input type="text" class="form-control" id="odscModel3" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 4">
+        <label>Make 4</label>
+        <input type="text" class="form-control" id="odscMake4" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfODSC >= 4">
+        <label>Model 4</label>
+        <input type="text" class="form-control" id="odscModel4" />
+      </div>
+    </div>
+
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Pole Height</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="poleHeight">
+          <option value="">Select</option>  
+          <option>3 Mtr</option>  
+          <option>6 Mtr</option>
+          <option>9 Mtr</option>
+          <option>12 Mtr</option>
+        </select>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Additional Poles</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="additionalPoles">
+          <option value="">Select</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Airtel Backhaul</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="airtelBackhaul">
+          <option value="">Select</option>
+          <option>Fiber</option>
+          <option>MW</option>
+        </select>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>AC + DC Backup</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="acDcBackup">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of Microwave</label>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfMicrowave">
+          <option value="0">Select</option>
+          <option *ngFor="let a of noOfMicrowaveList">{{a.id}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="noOfMicrowave == '1' || noOfMicrowave == '2' 
+    || noOfMicrowave == '3' || noOfMicrowave == '4' || noOfMicrowave == '5' || noOfMicrowave == '6' ">
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 1">
+        <label>Height of Microwave 1</label>
+        <input type="text" class="form-control" id="microwaveHeight1" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 1">
+        <label>Dia 1</label>
+        <input type="text" class="form-control" id="microwaveDia1" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 1">
+        <label>Azimuth 1</label>
+        <input type="text" class="form-control" id="microwaveAzimuth1" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 2">
+        <label>Height of Microwave 2</label>
+        <input type="text" class="form-control" id="microwaveHeight2" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 2">
+        <label>Dia 2</label>
+        <input type="text" class="form-control" id="microwaveDia2" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 2">
+        <label>Azimuth 2</label>
+        <input type="text" class="form-control" id="microwaveAzimuth2" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="noOfMicrowave == '3' || noOfMicrowave == '4' || noOfMicrowave == '5' || noOfMicrowave == '6'  ">
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 3">
+        <label>Height of Microwave 3</label>
+        <input type="text" class="form-control" id="microwaveHeight3" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 3">
+        <label>Dia 3</label>
+        <input type="text" class="form-control" id="microwaveDia3" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 3">
+        <label>Azimuth 3</label>
+        <input type="text" class="form-control" id="microwaveAzimuth3" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 4">
+        <label>Height of Microwave 4</label>
+        <input type="text" class="form-control" id="microwaveHeight4" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 4">
+        <label>Dia 4</label>
+        <input type="text" class="form-control" id="microwaveDia4" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 4">
+        <label>Azimuth 4</label>
+        <input type="text" class="form-control" id="microwaveAzimuth4" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="noOfMicrowave == '5' || noOfMicrowave == '6'  ">
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 5">
+        <label>Height of Microwave 5</label>
+        <input type="text" class="form-control" id="microwaveHeight5" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 5">
+        <label>Dia 5</label>
+        <input type="text" class="form-control" id="microwaveDia5" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 5">
+        <label>Azimuth 5</label>
+        <input type="text" class="form-control" id="microwaveAzimuth5" />
+      </div>
+
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 6">
+        <label>Height of Microwave 6</label>
+        <input type="text" class="form-control" id="microwaveHeight6" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 6">
+        <label>Dia 6</label>
+        <input type="text" class="form-control" id="microwaveDia6" />
+      </div>
+      <div class="col-md-2" *ngIf="noOfMicrowave >= 6">
+        <label>Azimuth 6</label>
+        <input type="text" class="form-control" id="microwaveAzimuth6" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Additional power back up of 2 Hrs</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="additionalPowerBackup">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"><label>Total Rated Power (in Watt)</label></div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="totalRatedPower" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>Camuflauging</label></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="camuflauging">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+
+</div> -->

@@ -1,0 +1,73 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th>RadioAntenna i WAN</th>
+      <th>Height AGL m</th>
+      <th>Azimuth Degree</th>
+      <th>Length m</th>
+      <th>Width m</th>
+      <th>Depth m</th>
+      <th>No of Ports</th>
+      <th>RadioAntenna Type</th>
+      <th>BandFrequencyMHz FrequencyCombination</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let radio of radioAntennaList">
+      <td>{{radio.Feasibility}}</td>
+      <td>{{radio.RadioAntenna_i_WAN}}</td>
+      <td>{{radio.Height_AGL_m}}</td>
+      <td>{{radio.Azimuth_Degree}}</td>
+      <td>{{radio.Length_m}}</td>
+      <td>{{radio.Width_m}}</td>
+      <td>{{radio.Depth_m}}</td>
+      <td>{{radio.No_of_Ports}}</td>
+      <td>{{radio.RadioAntenna_Type}}</td>
+      <td>{{radio.BandFrequencyMHz}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="row mr-t mr-b" *ngFor="let radio of radioAntennaList">
+  <div class="col-md-3" *ngIf = "radio.Feasibility != ''">
+    <label>Feasibility - {{radio.typeNo}}</label>
+    <div>{{radio.Feasibility}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>RadioAntenna i WAN - {{radio.typeNo}}</label>
+    <div>{{radio.RadioAntenna_i_WAN}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Height AGL m - {{radio.typeNo}}</label>
+    <div>{{radio.Height_AGL_m}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Azimuth Degree - {{radio.typeNo}}</label>
+    <div>{{radio.Azimuth_Degree}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Length m - {{radio.typeNo}}</label>
+    <div>{{radio.Length_m}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Width m - {{radio.typeNo}}</label>
+    <div>{{radio.Width_m}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Depth m - {{radio.typeNo}}</label>
+    <div>{{radio.Depth_m}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>No of Ports - {{radio.typeNo}}</label>
+    <div>{{radio.No_of_Ports}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>RadioAntenna Type - {{radio.typeNo}}</label>
+    <div>{{radio.RadioAntenna_Type}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BandFrequencyMHz FrequencyCombination - {{radio.typeNo}}</label>
+    <div>{{radio.BandFrequencyMHz}}</div>
+  </div>
+</div> -->

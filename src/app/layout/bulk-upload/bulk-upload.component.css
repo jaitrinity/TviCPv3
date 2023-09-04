@@ -1,0 +1,17 @@
+.input-sm{
+    height: 30px !important;
+    border-radius: 10px;
+    padding: 0px 10px;
+  }
+.fa-download{
+  color: rgb(138, 5, 5);
+  cursor: pointer;
+}
+.blink{
+  animation: blink 1s linear infinite;
+}
+@keyframes blink{
+  0%{opacity: 0;}
+  50%{opacity: .5;}
+  100%{opacity: 1;}
+}

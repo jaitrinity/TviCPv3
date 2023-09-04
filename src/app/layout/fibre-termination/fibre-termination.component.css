@@ -1,0 +1,16 @@
+.mr-t{
+  margin-top: 5px;
+}
+.mr-b{
+  margin-bottom: 5px;
+}
+.table{
+  margin-bottom: 0px !important;
+}
+
+.table > tbody > tr > td{
+  border : none;
+  color:#003977;
+  font-weight: bold;
+  padding:10px;
+}

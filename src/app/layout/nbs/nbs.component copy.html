@@ -1,0 +1,226 @@
+<!-- <ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-circus"></ngx-spinner>
+
+<div class="container-fluid">
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Circle</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="circle">
+          <option></option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>TVI Site Id</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="tviSiteId">
+        <option></option>
+      </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Airtel Site Id</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="airtelSiteId" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Airtel Locator</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="airtelLocatorId" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Technology</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="technology">
+        <option>2G</option>
+        <option>3G</option>
+        <option>4G</option>
+        <option>4G FDD</option>
+        <option>4G TDD</option>
+      </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Site Address</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="siteAddress" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>City</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="city" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Town/Village</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="townVillage" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>District</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="district" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>State</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="state" /></div>
+  </div>
+  <div class="row mr-t mr-b"> 
+    <div class="col-md-2"><label>Pincode</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="pincode" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Clutter</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="clutter">
+        <option>Urban</option>
+        <option>Semi Urban</option>
+        <option>Rural</option>
+        <option>Metro</option>
+        <option>Densc</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Wind Speed(In KMPH)</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="windSpeed" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Site Type</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="siteType" >
+        <option>GBT</option> <option>RTT</option> <option>RTP</option> <option>GBM</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Tower Height(in Meter)</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="towerHeight" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>AGL Required (in Meter)</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="aglRequired" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Frequency/Band used by opco</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="frequencyUserByOpco">
+        <option>900</option><option>1800</option><option>2100</option><option>2300</option>
+        <option>2500</option>
+      </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>AGL Required (in Meter)</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="aglRequired" /></div>
+  </div>
+
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Latitude Provide By Airtel</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="latitude1" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Longitude Provide By Airtel</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="longitude1" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Latitude finalised for building Anchor Site by TVI</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="latitude2" /></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Longitude finalised for building Anchor Site by TVI</label></div>
+    <div class="col-md-3"><input type="text" class="form-control" [(ngModel)]="longitude2" /></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>EB Availability</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="ebAvailability">
+          <option>Yes</option> <option>No</option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Site Type</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="siteType">
+          <option>DG</option> <option>Non DG</option>
+        </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>No Of RF Antenna</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfRfAntenna">
+          <option value="">Select</option>
+          <option>1</option> <option>2</option> <option>3</option> <option>4</option><option>5</option> 
+          <option>6</option> <option>7</option> <option>8</option> <option>9</option><option>10</option>
+        </select>
+    </div>
+  </div>
+
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>No of MW Antenna with Dia</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfMwAntenna">
+          <option>0</option> <option>1</option> <option>2</option> <option>3</option> 
+          <option>4</option><option>5</option> <option>6</option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Azimuth of MW Antenna</label></div>
+    <div class="col-md-3"> <input type="text" [(ngModel)]="azimuthOfMwAntenna"/> </div>
+  </div>
+
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>BTS Type 1</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="btsType1">
+          <option>ID</option> <option>OD</option>
+        </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>BTS Type 2</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="btsType2">
+          <option>Cabinate</option> <option>RRU+BBU</option>
+        </select>
+    </div>
+  </div>
+
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>MCB Number</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="mcbNumber">
+            <option>1</option> <option>2</option> <option>3</option> <option>4</option><option>5</option> 
+            <option>6</option> <option>7</option> <option>8</option> <option>9</option><option>10</option>
+        </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>MW Rack</label></div>
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="mwRack">
+            <option>1</option> <option>2</option> <option>3</option> <option>4</option><option>5</option> 
+            <option>6</option> <option>7</option> <option>8</option> <option>9</option><option>10</option>
+        </select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>Height of Additional Antenna</label></div>
+    <div class="col-md-3"> <input type="text" [(ngModel)]="additionalAntennaHeight"/> </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>RF Antenna Mount Height</label></div>
+    <div class="col-md-3"><input type="text" [(ngModel)]="rfAntennaMountHeight"/> </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-2"><label>MW Antenna Mount Height</label></div>
+    <div class="col-md-3"><input type="text" [(ngModel)]="mwAntennaMountHeight"/></div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>No Of RRU</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="noOfRru">
+          <option>1</option> <option>2</option> <option>3</option> <option>4</option><option>5</option> 
+          <option>6</option> <option>7</option> <option>8</option> <option>9</option><option>10</option>
+          <option>11</option> <option>12</option> <option>13</option> <option>14</option><option>15</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>No Of BBU</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="noOfBBU">
+          <option>1</option> <option>2</option> <option>3</option> <option>4</option><option>5</option> 
+          <option>6</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mr-t mr-b">
+    <div class="col-md-2"><label>Fiber Termination</label></div>
+    <div class="col-md-3">
+      <select class="form-control" [(ngModel)]="fiberTermination">
+          <option>Yes</option> <option>No</option>
+      </select>
+    </div>
+  </div>
+</div> -->

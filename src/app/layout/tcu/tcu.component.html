@@ -1,0 +1,117 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+  
+      <div class="col-md-2">
+          <label>TVI Site Id</label> <span class="text-danger">*</span>
+          <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+          [data]="tviSiteIdList" [(ngModel)]="selectedTviSiteIdList" 
+          (onSelect)="onSelectOrDeSelectTviSiteId($event)" (onDeSelect)="onSelectOrDeSelectTviSiteId($event)"
+          [disabled]="circleName == '' "> 
+          </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-2">
+          <label>Site Name</label> <span class="text-danger">*</span>
+          <input type="text" class="form-control" [(ngModel)]="siteName" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>VIL Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric = "true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2">
+        <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="aglRequired" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Latitude</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude1" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+          <label>Longitude</label> <span class="text-danger">*</span>
+          <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude1" [disabled]="true"/>
+      </div>
+      
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+          <label>Site Address</label> <span class="text-danger">*</span>
+          <textarea class="form-control" [(ngModel)] = "siteAddress" style="resize:none" [disabled]="true"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+        <div class="col-md-2">
+            <label>District</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control" [(ngModel)] = "district" [disabled]="true"/>
+        </div>
+        <div class="col-md-2">
+            <label>State</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control" [(ngModel)] = "state" [disabled]="true"/>
+        </div>
+        <div class="col-md-2">
+            <label>Site Type</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control" [(ngModel)] = "siteType" [disabled]="true"/>
+        </div>
+        <div class="col-md-2">
+            <label>Cluster</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control" [(ngModel)] = "clutter" [disabled]="true"/>
+        </div>
+    </div>
+  </fieldset>
+  <fieldset  class="the-fieldset">
+    <legend class="the-legend"></legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Rack Space In U</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="rackSpaceInU">
+          <option value="">Select</option>
+          <option [value]="rs.paramCode" *ngFor="let rs of rackSpaceInUList">{{rs.paramDesc}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Civil Foundation</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="civFou">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>Power Provisioning In Watts</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)]="powPro"/>
+      </div>
+      <div class="col-md-2">
+        <label>Temp Required (in deg C)</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="tempReq">
+          <option value="">Select</option>
+          <option [value]="tr.paramCode" *ngFor="let tr of tempReqList">{{tr.paramDesc}}</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset  class="the-fieldset" style="margin-bottom: 30px">
+    <legend class="the-legend">Remark</legend>
+    <div class="row mr-t mr-b" >
+        <div class="col-md-12">
+        <label>Remark</label> <span class="text-danger">*</span>
+        <textarea class="form-control" rows=4 style="resize: none" [(ngModel)] = "remark"></textarea>
+        </div>
+    </div>
+    <div class="row mr-t mr-b" >
+        <div class="col-md-2">
+        <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+        </div>
+    </div>
+  </fieldset>
+</div>

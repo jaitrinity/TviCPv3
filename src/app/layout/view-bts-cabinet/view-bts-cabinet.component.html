@@ -1,0 +1,141 @@
+<button (click)="show = !show" class="more-less-btn">
+  <span *ngIf="!show; else less">More</span>
+  <ng-template #less>
+    <span>Less</span>
+  </ng-template>
+</button>
+
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th>Network Type</th>
+      <th>BTS Type</th>
+      <th>Band</th>
+      <th>Manufacturer</th>
+      <th>Make of BTS</th>
+      <th>Length Mtrs</th>
+      <th>Width Mtrs</th>
+      <th>Height Mtrs</th>
+      <th>BTS Power Rating KW</th>
+      <th *ngIf="show">BTS Location</th>
+      <th *ngIf="show">BTS Voltage</th>
+      <th *ngIf="show">Main Unit incase of TT Split Version</th>
+      <th *ngIf="show">Space Occupied in Us incase of TT Split Version</th>
+      <th *ngIf="show">RRU Unit</th>
+      <th *ngIf="show">No of RRU Units incase of TT Split Version</th>
+      <th *ngIf="show">Combined wt of RRU Unit incase of TT Split Version</th>
+      <th *ngIf="show">AGL of RRU unit in M</th>
+      <th *ngIf="show">Weight of BTS including TMA TMB Kg</th>
+      <th *ngIf="show">Billable Weigtht</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bts of btsCabinetList">
+      <td>{{bts.Feasibility}}</td>
+      <td>{{bts.NetWork_Type}}</td>
+      <td>{{bts.BTS_Type}}</td>
+      <td>{{bts.Band}}</td>
+      <td>{{bts.Manufacturer}}</td>
+      <td>{{bts.Make_of_BTS}}</td>
+      <td>{{bts.Length_Mtrs}}</td>
+      <td>{{bts.Width_Mtrs}}</td>
+      <td>{{bts.Height_Mtrs}}</td>
+      <td>{{bts.BTS_Power_Rating_KW}}</td>
+      <td *ngIf="show">{{bts.BTS_Location}}</td>
+      <td *ngIf="show">{{bts.BTS_Voltage}}</td>
+      <td *ngIf="show">{{bts.Main_Unit_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.Space_Occupied_in_Us_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.RRU_Unit}}</td>
+      <td *ngIf="show">{{bts.No_of_RRU_Units_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.Combined_wt_of_RRU_Unit_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.AGL_of_RRU_unit_in_M}}</td>
+      <td *ngIf="show">{{bts.Weight_of_BTS_including_TMA_TMB_Kg}}</td>
+      <td *ngIf="show">{{bts.Billable_Weigtht}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="row mr-t mr-b" *ngFor="let bts of btsCabinetList">
+  <div class="col-md-3" *ngIf = "bts.Feasibility != ''">
+    <label>Feasibility - {{bts.typeNo}}</label>
+    <div>{{bts.Feasibility}}</div>
+  </div>
+  
+  <div class="col-md-3">
+    <label>Network Type - {{bts.typeNo}}</label>
+    <div>{{bts.NetWork_Type}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Type - {{bts.typeNo}}</label>
+    <div>{{bts.BTS_Type}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Band - {{bts.typeNo}}</label>
+    <div>{{bts.Band}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Manufacturer - {{bts.typeNo}}</label>
+    <div>{{bts.Manufacturer}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Make of BTS - {{bts.typeNo}}</label>
+    <div>{{bts.Make_of_BTS}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{bts.typeNo}}</label>
+    <div>{{bts.Length_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Width Mtrs - {{bts.typeNo}}</label>
+    <div>{{bts.Width_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Height Mtrs - {{bts.typeNo}}</label>
+    <div>{{bts.Height_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Power Rating KW - {{bts.typeNo}}</label>
+    <div>{{bts.BTS_Power_Rating_KW}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Location - {{bts.typeNo}}</label>
+    <div>{{bts.BTS_Location}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Voltage - {{bts.typeNo}}</label>
+    <div>{{bts.BTS_Voltage}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Main Unit incase of TT Split Version - {{bts.typeNo}}</label>
+    <div>{{bts.Main_Unit_incase_of_TT_Split_Version}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Space Occupied in Us incase of TT Split Version - {{bts.typeNo}}</label>
+    <div>{{bts.Space_Occupied_in_Us_incase_of_TT_Split_Version}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>RRU Unit - {{bts.typeNo}}</label>
+    <div>{{bts.RRU_Unit}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>No of RRU Units incase of TT Split Version - {{bts.typeNo}}</label>
+    <div>{{bts.No_of_RRU_Units_incase_of_TT_Split_Version}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Combined wt of RRU Unit incase of TT Split Version - {{bts.typeNo}}</label>
+    <div>{{bts.Combined_wt_of_RRU_Unit_incase_of_TT_Split_Version}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>AGL of RRU unit in M - {{bts.typeNo}}</label>
+    <div>{{bts.AGL_of_RRU_unit_in_M}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight of BTS including TMA TMB Kg - {{bts.typeNo}}</label>
+    <div>{{bts.Weight_of_BTS_including_TMA_TMB_Kg}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Billable Weigtht - {{bts.typeNo}}</label>
+    <div>{{bts.Billable_Weigtht}}</div>
+  </div>
+</div> -->

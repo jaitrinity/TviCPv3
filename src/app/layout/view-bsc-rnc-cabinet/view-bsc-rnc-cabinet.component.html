@@ -1,0 +1,66 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th>NetWork Type</th>
+      <th>BSC RNC Manufacturer</th>
+      <th>BSC RNC Make</th>
+      <th>Length Mtrs</th>
+      <th>Breadth Mtrs</th>
+      <th>Height AGL</th>
+      <th>BSC RNC Power_Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let btsRnc of bscRncCabinetList;">
+      <td>{{btsRnc.Feasibility}}</td>
+      <td>{{btsRnc.NetWork_Type}}</td>
+      <td>{{btsRnc.BSC_RNC_Type}}</td>
+      <td>{{btsRnc.BSC_RNC_Manufacturer}}</td>
+      <td>{{btsRnc.BSC_RNC_Make}}</td>
+      <td>{{btsRnc.Length_Mtrs}}</td>
+      <td>{{btsRnc.Breadth_Mtrs}}</td>
+      <td>{{btsRnc.Height_AGL}}</td>
+      <td>{{btsRnc.BSC_RNC_Power_Rating}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="row mr-t mr-b" *ngFor="let btsRnc of bscRncCabinetList;">
+  <div class="col-md-3" *ngIf = "btsRnc.Feasibility != ''">
+    <label>Feasibility - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.Feasibility}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>NetWork Type - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.NetWork_Type}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Type - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.BSC_RNC_Type}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Manufacturer - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.BSC_RNC_Manufacturer}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Make - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.BSC_RNC_Make}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.Length_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Breadth Mtrs - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.Breadth_Mtrs}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>Height AGL - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.Height_AGL}}</div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Power_Rating - {{btsRnc.typeNo}}</label>
+    <div>{{btsRnc.BSC_RNC_Power_Rating}}</div>
+  </div>
+</div> -->

@@ -1,0 +1,16 @@
+.btn-group{
+    margin-right: 10px;
+}
+.btn-group>button{
+    background: transparent;
+    color: white;
+    font-weight: 400;
+}
+.menu-separator{
+    border-top: 1px solid #2E57A7;
+}
+.dropdown-item{
+    padding :5px 16px !important;
+    font-weight: bold !important;
+    /* color: #2E57A7 !important; */
+}

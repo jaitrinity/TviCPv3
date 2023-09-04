@@ -1,0 +1,78 @@
+<div class="row mr-t mr-b" *ngFor="let tmaTmb of tmaTmbList">
+  <div class="col-md-3" *ngIf = "tmaTmb.Feasibility != ''">
+    <label>Feasibility - {{tmaTmb.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="tmaTmbFeas{{tmaTmb.typeNo}}" 
+    (change)="changeFeasibility($event,'nonEditTmaTmb','editTmaTmb',tmaTmb.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label>Action - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Action}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbAc{{tmaTmb.typeNo}}" [value]="tmaTmb.Action" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Source - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Source}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbSo{{tmaTmb.typeNo}}" [value]="tmaTmb.Source" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>No of TMA TMB - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.No_of_TMA_TMB}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbNoOfTmTm{{tmaTmb.typeNo}}" 
+      [value]="tmaTmb.No_of_TMA_TMB" OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight of each TMA TMB - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Weight_of_each_TMA_TMB}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbWeOfEaTmTm{{tmaTmb.typeNo}}" 
+      [value]="tmaTmb.Weight_of_each_TMA_TMB" OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Combined wt of TMA TMB Kgs - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Combined_wt_of_TMA_TMB_Kgs}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbCoWtOfTmTmKg{{tmaTmb.typeNo}}" 
+      [value]="tmaTmb.Combined_wt_of_TMA_TMB_Kgs" OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height at which needs to be mounted Mtrs - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Height_at_which_needs_to_be_mounted_Mtrs}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbHeiAtWhNeToBeMoMt{{tmaTmb.typeNo}}" 
+      [value]="tmaTmb.Height_at_which_needs_to_be_mounted_Mtrs" OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Customer Punched Or Planning - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Customer_Punched_Or_Planning}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <!-- <input type="text" class="form-control" id="tmaTmbCuPuOrPl{{tmaTmb.typeNo}}" [value]="tmaTmb.Customer_Punched_Or_Planning"/> -->
+      <input type="text" class="form-control" id="tmaTmbCuPuOrPl{{tmaTmb.typeNo}}" value="Planning"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Source Request Ref No - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Source_Request_Ref_No}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbSoReReNo{{tmaTmb.typeNo}}" [value]="tmaTmb.Source_Request_Ref_No"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Delete Request Ref No - {{tmaTmb.typeNo}}</label>
+    <div class="nonEditTmaTmb{{tmaTmb.typeNo}}">{{tmaTmb.Delete_Request_Ref_No}}</div>
+    <div class="edit editTmaTmb{{tmaTmb.typeNo}}">
+      <input type="text" class="form-control" id="tmaTmbDeReReNo{{tmaTmb.typeNo}}" [value]="tmaTmb.Delete_Request_Ref_No"/>
+    </div>
+  </div>
+</div>
