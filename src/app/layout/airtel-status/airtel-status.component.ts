@@ -369,6 +369,7 @@ export class AirtelStatusComponent implements OnInit {
   viewSoNumber = "";
   viewCircleName = "";
   viewRfiDate = "";
+  viewTocoSiteId = "";
   buttonList = [];
   attachmentList = [];
   currentStatus = "";
@@ -422,6 +423,7 @@ export class AirtelStatusComponent implements OnInit {
       (response)=>{
         let wrappedList = response.wrappedList[0];
         this.srViewObj = wrappedList;
+        this.viewTocoSiteId = this.srViewObj.TOCO_Site_Id;
         //console.log(JSON.stringify(this.srViewObj));
         // this.Power_Rating = this.srViewObj.Total_Rated_Power_In_Watt;
         this.Power_Rating = this.srViewObj.Total_Rated_Power_In_KW;
@@ -1964,6 +1966,7 @@ export class AirtelStatusComponent implements OnInit {
       Longitude : this.spLongitude,
       clutter : this.clutter,
       TOCO_Site_Id : this.TOCO_Site_Id,
+      viewTocoSiteId: this.viewTocoSiteId,
       Date_of_Proposal : this.Date_of_Proposal,
       Power_Rating : this.Power_Rating,
       Site_Electrification_Distance : this.Site_Electrification_Distance,
