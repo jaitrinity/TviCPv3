@@ -18,7 +18,7 @@ export class OnlyAlphanumeric {
         // Allow: Ctrl+C
         (e.keyCode === 67 && (e.ctrlKey || e.metaKey)) ||
         // Allow: Ctrl+V
-        (e.keyCode === 86 && (e.ctrlKey || e.metaKey)) ||
+        //(e.keyCode === 86 && (e.ctrlKey || e.metaKey)) ||
         // Allow: Ctrl+X
         (e.keyCode === 88 && (e.ctrlKey || e.metaKey)) ||
         // Allow: home, end, left, right
@@ -28,7 +28,7 @@ export class OnlyAlphanumeric {
         }
 
         // prevent pressing Shift and Space key
-        if (e.shiftKey || (e.keyCode == 32) ) {
+        if (e.shiftKey || (e.keyCode == 32) || (e.keyCode === 86 && (e.ctrlKey || e.metaKey)) ) {
             e.preventDefault();
         }
       }

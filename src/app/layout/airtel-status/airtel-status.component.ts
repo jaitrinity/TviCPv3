@@ -78,6 +78,17 @@ export class AirtelStatusComponent implements OnInit {
   Wind_Speed = "";
   TowerHeight = "";
   Recommended_Product_Type_by_Acquisition = "";
+  Association_AreyouWorkingInAnyBhartiGroup="";
+  Association_IfyesmentiontheBhartiUnitName="";
+  Association_NameOftheEmployee="";
+  Association_EmployeeId="";
+  Relative_AnyRelativesareWorkingWithBhartiGroup="";
+  Relative_IfyesmentiontheBhartiUnitName="";
+  Relative_NameOftheEmployee="";
+  Relative_EmployeeId="";
+  Relative_LandlordRelationshipwithEmployee="";
+  Relative_MobileNumberOfrelativeWithAirtel="";
+  Declaration="";
   Agl = "";
   Distance_from_P1_Lat_Long_in_meter = "";
   Rejection_Remarks = "";
@@ -1119,6 +1130,8 @@ export class AirtelStatusComponent implements OnInit {
   }
 
   validateNbsSnMData() : any{
+    let asso = this.Association_AreyouWorkingInAnyBhartiGroup.trim();
+    let rel = this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim();
     if(this.Power_Rating == ""){
       this.alertMsg = "Please enter `Power Rating`";
       $("#_nbs13").focus();
@@ -1229,7 +1242,62 @@ export class AirtelStatusComponent implements OnInit {
       $("#_rptba").focus();
       return false;
     }
-
+    else if(this.Association_AreyouWorkingInAnyBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Association_AreyouWorkingInAnyBhartiGroup`";
+      $("#_ass1").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_IfyesmentiontheBhartiUnitName.trim() == ""){
+        this.alertMsg = "Please enter `Association_IfyesmentiontheBhartiUnitName`";
+        $("#_ass2").focus();
+        return false;
+    }
+    else if(asso == "Yes" && this.Association_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Association_NameOftheEmployee`";
+      $("#_ass3").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Association_EmployeeId`";
+      $("#_ass4").focus();
+      return false;
+    }
+    
+    else if(asso == "No" && this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Relative_AnyRelativesareWorkingWithBhartiGroup`";
+      $("#_rel1").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_IfyesmentiontheBhartiUnitName.trim() == ""){
+      this.alertMsg = "Please enter `Relative_IfyesmentiontheBhartiUnitName`";
+      $("#_rel2").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_NameOftheEmployee`";
+      $("#_rel3").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Relative_EmployeeId`";
+      $("#_rel4").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_LandlordRelationshipwithEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_LandlordRelationshipwithEmployee`";
+      $("#_rel5").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_MobileNumberOfrelativeWithAirtel.trim() == ""){
+      this.alertMsg = "Please enter `Relative_MobileNumberOfrelativeWithAirtel`";
+      $("#_rel6").focus();
+      return false;
+    }
+    else if(this.Declaration == ""){
+      this.alertMsg = "Please select `Declaration`";
+      $("#_dec").focus();
+      return false;
+    }
     return true;
   }
 
@@ -1293,6 +1361,8 @@ export class AirtelStatusComponent implements OnInit {
   }
 
   validateNewTenencySnMData() : any{
+    let asso = this.Association_AreyouWorkingInAnyBhartiGroup.trim();
+    let rel = this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim();
     if(this.Power_Rating == ""){
       this.alertMsg = "Please enter `Power Rating`";
       $("#_nt12").focus();
@@ -1403,10 +1473,68 @@ export class AirtelStatusComponent implements OnInit {
       $("#_nt33").focus();
       return false;
     }
+    else if(this.Association_AreyouWorkingInAnyBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Association_AreyouWorkingInAnyBhartiGroup`";
+      $("#_ass1").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_IfyesmentiontheBhartiUnitName.trim() == ""){
+        this.alertMsg = "Please enter `Association_IfyesmentiontheBhartiUnitName`";
+        $("#_ass2").focus();
+        return false;
+    }
+    else if(asso == "Yes" && this.Association_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Association_NameOftheEmployee`";
+      $("#_ass3").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Association_EmployeeId`";
+      $("#_ass4").focus();
+      return false;
+    }
+    
+    else if(asso == "No" && this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Relative_AnyRelativesareWorkingWithBhartiGroup`";
+      $("#_rel1").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_IfyesmentiontheBhartiUnitName.trim() == ""){
+      this.alertMsg = "Please enter `Relative_IfyesmentiontheBhartiUnitName`";
+      $("#_rel2").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_NameOftheEmployee`";
+      $("#_rel3").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Relative_EmployeeId`";
+      $("#_rel4").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_LandlordRelationshipwithEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_LandlordRelationshipwithEmployee`";
+      $("#_rel5").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_MobileNumberOfrelativeWithAirtel.trim() == ""){
+      this.alertMsg = "Please enter `Relative_MobileNumberOfrelativeWithAirtel`";
+      $("#_rel6").focus();
+      return false;
+    }
+    else if(this.Declaration == ""){
+      this.alertMsg = "Please select `Declaration`";
+      $("#_dec").focus();
+      return false;
+    }
     return true;
   }
 
   validateSiteUpgradeSnMData() : any{
+    let asso = this.Association_AreyouWorkingInAnyBhartiGroup.trim();
+    let rel = this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim();
     if(this.Date_of_Proposal == ""){
       this.alertMsg = "Please enter `Date of Proposal`";
       $("#_su1").focus();
@@ -1577,6 +1705,62 @@ export class AirtelStatusComponent implements OnInit {
       $("#_su34").focus();
       return false;
     }
+    else if(this.Association_AreyouWorkingInAnyBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Association_AreyouWorkingInAnyBhartiGroup`";
+      $("#_ass1").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_IfyesmentiontheBhartiUnitName.trim() == ""){
+        this.alertMsg = "Please enter `Association_IfyesmentiontheBhartiUnitName`";
+        $("#_ass2").focus();
+        return false;
+    }
+    else if(asso == "Yes" && this.Association_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Association_NameOftheEmployee`";
+      $("#_ass3").focus();
+      return false;
+    }
+    else if(asso == "Yes" && this.Association_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Association_EmployeeId`";
+      $("#_ass4").focus();
+      return false;
+    }
+    
+    else if(asso == "No" && this.Relative_AnyRelativesareWorkingWithBhartiGroup.trim() == ""){
+      this.alertMsg = "Please select `Relative_AnyRelativesareWorkingWithBhartiGroup`";
+      $("#_rel1").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_IfyesmentiontheBhartiUnitName.trim() == ""){
+      this.alertMsg = "Please enter `Relative_IfyesmentiontheBhartiUnitName`";
+      $("#_rel2").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_NameOftheEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_NameOftheEmployee`";
+      $("#_rel3").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_EmployeeId.trim() == ""){
+      this.alertMsg = "Please enter `Relative_EmployeeId`";
+      $("#_rel4").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_LandlordRelationshipwithEmployee.trim() == ""){
+      this.alertMsg = "Please enter `Relative_LandlordRelationshipwithEmployee`";
+      $("#_rel5").focus();
+      return false;
+    }
+    else if(rel == "Yes" && this.Relative_MobileNumberOfrelativeWithAirtel.trim() == ""){
+      this.alertMsg = "Please enter `Relative_MobileNumberOfrelativeWithAirtel`";
+      $("#_rel6").focus();
+      return false;
+    }
+    else if(this.Declaration == ""){
+      this.alertMsg = "Please select `Declaration`";
+      $("#_dec").focus();
+      return false;
+    }
     return true;
   }
 
@@ -1710,8 +1894,12 @@ export class AirtelStatusComponent implements OnInit {
         alert(this.alertMsg);
         return;
       } 
+      else if(this.isHPSC_SR && afterStatus == "NB09" && !this.validateNbsSnMData()){
+        alert(this.alertMsg);
+        return;
+      }
     }
-    else if((this.isNBS_SR || this.isHPSC_SR) && afterStatus == "NB09" && !this.validateNbsSnMData()){
+    else if((this.isNBS_SR) && afterStatus == "NB09" && !this.validateNbsSnMData()){
       alert(this.alertMsg);
       return;
     }
@@ -1999,6 +2187,17 @@ export class AirtelStatusComponent implements OnInit {
       Wind_Speed: this.Wind_Speed,
       TowerHeight: this.TowerHeight,
       Recommended_Product_Type_by_Acquisition:this.Recommended_Product_Type_by_Acquisition,
+      Association_AreyouWorkingInAnyBhartiGroup:this.Association_AreyouWorkingInAnyBhartiGroup,
+      Association_IfyesmentiontheBhartiUnitName:this.Association_IfyesmentiontheBhartiUnitName,
+      Association_NameOftheEmployee:this.Association_NameOftheEmployee,
+      Association_EmployeeId:this.Association_EmployeeId,
+      Relative_AnyRelativesareWorkingWithBhartiGroup:this.Relative_AnyRelativesareWorkingWithBhartiGroup,
+      Relative_IfyesmentiontheBhartiUnitName:this.Relative_IfyesmentiontheBhartiUnitName,
+      Relative_NameOftheEmployee:this.Relative_NameOftheEmployee,
+      Relative_EmployeeId:this.Relative_EmployeeId,
+      Relative_LandlordRelationshipwithEmployee:this.Relative_LandlordRelationshipwithEmployee,
+      Relative_MobileNumberOfrelativeWithAirtel:this.Relative_MobileNumberOfrelativeWithAirtel,
+      Declaration:this.Declaration,
       Agl: this.Agl,
       Distance_from_P1_Lat_Long_in_meter: this.Distance_from_P1_Lat_Long_in_meter,
       Rejection_Remarks : this.Rejection_Remarks,

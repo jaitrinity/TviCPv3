@@ -904,6 +904,50 @@
                   <label>Difficult</label>
                   <div>{{srViewObj.Difficult}}</div>
                 </div>
+                <div class="col-md-3">
+                  <label>Association AreyouWorkingInAnyBhartiGroup</label>
+                  <div>{{srViewObj.Association_AreyouWorkingInAnyBhartiGroup}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Association IfyesmentiontheBhartiUnitName</label>
+                  <div>{{srViewObj.Association_IfyesmentiontheBhartiUnitName}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Association NameOftheEmployee</label>
+                  <div>{{srViewObj.Association_NameOftheEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Association EmployeeId</label>
+                  <div>{{srViewObj.Association_EmployeeId}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative AnyRelativesareWorkingWithBhartiGroup</label>
+                  <div>{{srViewObj.Relative_AnyRelativesareWorkingWithBhartiGroup}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative IfyesmentiontheBhartiUnitName</label>
+                  <div>{{srViewObj.Relative_IfyesmentiontheBhartiUnitName}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative NameOftheEmployee</label>
+                  <div>{{srViewObj.Relative_NameOftheEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative EmployeeId</label>
+                  <div>{{srViewObj.Relative_EmployeeId}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative LandlordRelationshipwithEmployee</label>
+                  <div>{{srViewObj.Relative_LandlordRelationshipwithEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative MobileNumberOfrelativeWithAirtel</label>
+                  <div>{{srViewObj.Relative_MobileNumberOfrelativeWithAirtel}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration</label>
+                  <div>{{srViewObj.Declaration}}</div>
+                </div>
               </div>
             </fieldset>
             <fieldset  class="the-fieldset" *ngIf="viewSoNumber !='NA'">
@@ -1409,6 +1453,75 @@
                     <option value="Other">Other</option>
                   </select>
                 </div>
+                <!-- New field -->
+                <div class="col-md-3">
+                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative IfyesmentiontheBhartiUnitName
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative NameOftheEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative EmployeeId
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative LandlordRelationshipwithEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative MobileNumberOfrelativeWithAirtel
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
               </div>
             </fieldset>
             <fieldset  class="the-fieldset" *ngIf="isActionPending && isSiteUpgrade_SR && 
@@ -1675,6 +1788,75 @@
                   <label>Difficult <span class="text-danger">*</span></label>
                   <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Difficult" id="_su34"/>
                 </div>
+                <!-- New field -->
+                <div class="col-md-3">
+                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative IfyesmentiontheBhartiUnitName
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative NameOftheEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative EmployeeId
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative LandlordRelationshipwithEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative MobileNumberOfrelativeWithAirtel
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
               </div>
             </fieldset>
             <!-- Deployment Fields -->
@@ -1935,6 +2117,75 @@
                   <label>Rejection_Remarks <span class="text-danger">*</span></label>
                   <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Rejection_Remarks" 
                   id="_nt33"/>
+                </div>
+                <!-- New field -->
+                <div class="col-md-3">
+                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative IfyesmentiontheBhartiUnitName
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative NameOftheEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative EmployeeId
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative LandlordRelationshipwithEmployee
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Relative MobileNumberOfrelativeWithAirtel
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
               </div>
             </fieldset>
