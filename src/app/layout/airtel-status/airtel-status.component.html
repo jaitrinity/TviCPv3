@@ -905,43 +905,43 @@
                   <div>{{srViewObj.Difficult}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Association AreyouWorkingInAnyBhartiGroup</label>
+                  <label>Landlord Working with Bharti Group</label>
                   <div>{{srViewObj.Association_AreyouWorkingInAnyBhartiGroup}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Association IfyesmentiontheBhartiUnitName</label>
+                  <label>Landlord's Bharti Unit Name</label>
                   <div>{{srViewObj.Association_IfyesmentiontheBhartiUnitName}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Association NameOftheEmployee</label>
+                  <label>Landlord Name</label>
                   <div>{{srViewObj.Association_NameOftheEmployee}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Association EmployeeId</label>
+                  <label>Landlord Employee ID</label>
                   <div>{{srViewObj.Association_EmployeeId}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative AnyRelativesareWorkingWithBhartiGroup</label>
+                  <label>Landlord's Relative Working with Bharti Group</label>
                   <div>{{srViewObj.Relative_AnyRelativesareWorkingWithBhartiGroup}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative IfyesmentiontheBhartiUnitName</label>
+                  <label>Landlord's Relative Bharti Unit Name</label>
                   <div>{{srViewObj.Relative_IfyesmentiontheBhartiUnitName}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative NameOftheEmployee</label>
+                  <label>Landlord's Relative Name</label>
                   <div>{{srViewObj.Relative_NameOftheEmployee}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative EmployeeId</label>
+                  <label>Landlord's Relative Employee ID</label>
                   <div>{{srViewObj.Relative_EmployeeId}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative LandlordRelationshipwithEmployee</label>
+                  <label>Landlord's Relationship with Employee</label>
                   <div>{{srViewObj.Relative_LandlordRelationshipwithEmployee}}</div>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative MobileNumberOfrelativeWithAirtel</label>
+                  <label>Mobile Number Of Relative Registered With Airtel</label>
                   <div>{{srViewObj.Relative_MobileNumberOfrelativeWithAirtel}}</div>
                 </div>
                 <div class="col-md-3">
@@ -1455,7 +1455,7 @@
                 </div>
                 <!-- New field -->
                 <div class="col-md-3">
-                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
                   <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
                     <option value="">Select</option>
                     <option value="Yes">Yes</option>
@@ -1463,19 +1463,19 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord's Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                  <label>Landlord's Relative Working with Bharti Group 
                     <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
                   </label>
                   <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
@@ -1485,32 +1485,32 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative IfyesmentiontheBhartiUnitName
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative NameOftheEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative EmployeeId
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative LandlordRelationshipwithEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative MobileNumberOfrelativeWithAirtel
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
                 </div>
@@ -1789,8 +1789,8 @@
                   <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Difficult" id="_su34"/>
                 </div>
                 <!-- New field -->
-                <div class="col-md-3">
-                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                <!-- <div class="col-md-3">
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
                   <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
                     <option value="">Select</option>
                     <option value="Yes">Yes</option>
@@ -1798,19 +1798,19 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord's Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                  <label>Landlord's Relative Working with Bharti Group 
                     <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
                   </label>
                   <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
@@ -1820,32 +1820,32 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative IfyesmentiontheBhartiUnitName
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative NameOftheEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative EmployeeId
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative LandlordRelationshipwithEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative MobileNumberOfrelativeWithAirtel
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
                 </div>
@@ -1856,7 +1856,7 @@
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
-                </div>
+                </div> -->
               </div>
             </fieldset>
             <!-- Deployment Fields -->
@@ -2120,7 +2120,7 @@
                 </div>
                 <!-- New field -->
                 <div class="col-md-3">
-                  <label>Association AreyouWorkingInAnyBhartiGroup <span class="text-danger">*</span></label>
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
                   <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
                     <option value="">Select</option>
                     <option value="Yes">Yes</option>
@@ -2128,19 +2128,19 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Association IfyesmentiontheBhartiUnitName <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association NameOftheEmployee <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Association EmployeeId <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
                   <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative AnyRelativesareWorkingWithBhartiGroup 
+                  <label>Landlord's Relative Working with Bharti Group 
                     <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
                   </label>
                   <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
@@ -2150,32 +2150,32 @@
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative IfyesmentiontheBhartiUnitName
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative NameOftheEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative EmployeeId
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative LandlordRelationshipwithEmployee
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
                 </div>
                 <div class="col-md-3">
-                  <label>Relative MobileNumberOfrelativeWithAirtel
-                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No' && Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
                   </label>
                   <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
                 </div>

@@ -53,7 +53,9 @@
     <label>Height AGL - {{btsRnc.typeNo}}</label>
     <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.Height_AGL}}</div>
     <div class="edit editRnc{{btsRnc.typeNo}}">
-      <input type="text" class="form-control" id="bscRncG{{btsRnc.typeNo}}" [value]="btsRnc.Height_AGL" [disabled]="true"/>
+      <!-- <input type="text" class="form-control" id="bscRncG{{btsRnc.typeNo}}" [value]="btsRnc.Height_AGL" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="bscRncG{{btsRnc.typeNo}}" [value]="btsRnc.Height_AGL" 
+      OnlyNumberWithDecimal="true"/>
     </div>
   </div>
   <div class="col-md-3">

@@ -61,8 +61,9 @@
     <label>Height Mtrs - {{fibreNode.typeNo}}</label>
     <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Height_Mtrs}}</div>
     <div class="edit editFibreNode{{fibreNode.typeNo}}">
-      <input type="text" class="form-control" id="fibreNodeG{{fibreNode.typeNo}}" [value]="fibreNode.Height_Mtrs"
-      [disabled]="true"/>
+      <!-- <input type="text" class="form-control" id="fibreNodeG{{fibreNode.typeNo}}" [value]="fibreNode.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="fibreNodeG{{fibreNode.typeNo}}" [value]="fibreNode.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
     </div>
   </div>
   <div class="col-md-3">

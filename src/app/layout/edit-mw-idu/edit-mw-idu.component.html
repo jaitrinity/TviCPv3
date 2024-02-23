@@ -56,7 +56,9 @@
     <label>Height Mtrs - {{mwIdu.typeNo}}</label>
     <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Height_Mtrs}}</div>
     <div class="edit editMwIdu{{mwIdu.typeNo}}">
-      <input type="text" class="form-control" id="mwIduG{{mwIdu.typeNo}}" [value]="mwIdu.Height_Mtrs" [disabled]="true"/>
+      <!-- <input type="text" class="form-control" id="mwIduG{{mwIdu.typeNo}}" [value]="mwIdu.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="mwIduG{{mwIdu.typeNo}}" [value]="mwIdu.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
     </div>
   </div>
   <div class="col-md-3">

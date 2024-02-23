@@ -60,7 +60,9 @@
     <label>Height Mtrs - {{rru.typeNo}}</label>
     <div class="nonEditRru{{rru.typeNo}}">{{rru.Height_Mtrs}}</div>
     <div class="edit editRru{{rru.typeNo}}">
-      <input type="text" class="form-control" id="rruHeightMtrs{{rru.typeNo}}" [value]="rru.Height_Mtrs" [disabled]="true"/>
+      <!-- <input type="text" class="form-control" id="rruHeightMtrs{{rru.typeNo}}" [value]="rru.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="rruHeightMtrs{{rru.typeNo}}" [value]="rru.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
     </div>
   </div>
   <div class="col-md-3">
