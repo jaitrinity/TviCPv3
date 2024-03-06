@@ -215,7 +215,7 @@ export class AirtelStatusComponent implements OnInit {
       else if(paramCode == 'allOperator'){
         this.allOperatorList = paramDesc.split(",");
       }
-      else if(paramCode == 'productTypeList'){
+      else if(paramCode == 'iDeployProductTypeList'){
         let productTypeSplit = paramDesc.split(",");
         let tempProductTypeList = [];
         for(let i=0;i<productTypeSplit.length;i++){

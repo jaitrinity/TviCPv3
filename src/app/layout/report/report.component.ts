@@ -3,6 +3,7 @@ import { Constant } from 'src/app/shared/constant/Constant';
 import { Router } from '@angular/router';
 import { CreateNBSService } from 'src/app/shared/services/createNBSService';
 import { ToastrService } from 'ngx-toastr';
+declare var $;
 
 @Component({
   selector: 'app-report',
@@ -21,6 +22,7 @@ export class ReportComponent implements OnInit {
   version : number = 0;
   portalRunningVersion : number = 0;
   productTypeList = [];
+  iDeployProductTypeList = [];
   loginEmpId = "";
   loginEmpRole = "";
   isHoUser = "";
@@ -67,7 +69,18 @@ export class ReportComponent implements OnInit {
             tempProductTypeList.push(json);
           }
           this.productTypeList = tempProductTypeList;
-
+        }
+        else if(paramCode == 'iDeployProductTypeList'){
+          let productTypeSplit = paramDesc.split(",");
+          let tempProductTypeList = [];
+          for(let i=0;i<productTypeSplit.length;i++){
+            let json = {
+              "paramCode" : productTypeSplit[i].split(":")[0],
+              "paramDesc" : productTypeSplit[i].split(":")[1]
+            }
+            tempProductTypeList.push(json);
+          }
+          this.iDeployProductTypeList = tempProductTypeList;
         }
 
         if(i == this.allNoOfList.length-1){
@@ -125,6 +138,101 @@ export class ReportComponent implements OnInit {
       // millisecond : millisecond
     }
     window.open(Constant.phpServerURL+'downloadReport.php?jsonData='+JSON.stringify(sendJson));
+  }
+
+  iDeployReport(){
+    if(this.filterProductType == ""){
+      alert("Select a product type");
+      $("#iPT").focus();
+      return;
+    }
+    let localCircle = "";
+    let localOperator = "Airtel";
+    if(this.isHoUser == "N"){
+      localCircle = this.circleName;
+    }
+    else{
+      localCircle = this.allCircleList;
+    }
+
+    let localRole = "";
+    if(this.loginEmpRole == "S&M"){
+      localRole = "SnM";
+    }
+    else if(this.loginEmpRole == "HO_S&M"){
+      localRole = "HO_SnM";
+    }
+    else if(this.loginEmpRole == "S&M_MIS_Head"){
+      localRole = "SnM_MIS_Head";
+    }
+    else{
+      localRole = this.loginEmpRole;
+    }
+
+    let sendJson = {
+      loginEmpId : this.loginEmpId,
+      loginEmpRole : localRole,
+      isHoUser : this.isHoUser,
+      circleName : localCircle,
+      operator : localOperator,
+      filterCircleName : this.filterCircleName,
+      filterProductType : this.filterProductType,
+      filterSrStatus : this.filterSrStatus,
+      filterStartDate : this.filterStartDate,
+      filterEndDate : this.filterEndDate
+    }
+    window.open(Constant.phpServerURL+'iDeployReport.php?jsonData='+JSON.stringify(sendJson));
+  }
+
+  tviAuditReport(){
+    if(this.filterProductType == ""){
+      alert("Select a product type");
+      $("#tPT").focus();
+      return;
+    }
+    let localCircle = "";
+    let localOperator = "";
+    if(this.isHoUser == "N"){
+      localCircle = this.circleName;
+      localOperator = this.operator;
+    }
+    else{
+      localCircle = this.allCircleList;
+      localOperator = this.allOperatorList;
+    }
+
+    if(this.filterOperator != "") localOperator = this.filterOperator;
+
+    let localRole = "";
+    if(this.loginEmpRole == "S&M"){
+      localRole = "SnM";
+    }
+    else if(this.loginEmpRole == "HO_S&M"){
+      localRole = "HO_SnM";
+    }
+    else if(this.loginEmpRole == "S&M_MIS_Head"){
+      localRole = "SnM_MIS_Head";
+    }
+    else{
+      localRole = this.loginEmpRole;
+    }
+    // var time = new Date();
+    // let millisecond = Math.round(time.getTime()/1000);
+
+    let sendJson = {
+      loginEmpId : this.loginEmpId,
+      loginEmpRole : localRole,
+      isHoUser : this.isHoUser,
+      circleName : localCircle,
+      operator : localOperator,
+      filterCircleName : this.filterCircleName,
+      filterProductType : this.filterProductType,
+      filterSrStatus : this.filterSrStatus,
+      filterStartDate : this.filterStartDate,
+      filterEndDate : this.filterEndDate
+      // millisecond : millisecond
+    }
+    window.open(Constant.phpServerURL+'tviAuditReport.php?jsonData='+JSON.stringify(sendJson));
   }
 
 }
