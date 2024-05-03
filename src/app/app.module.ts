@@ -11,7 +11,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { HttpModule } from '@angular/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
-import { LoginService } from './shared/services/loginService';
+import { LoginService } from './shared/services/loginService'; 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CreateNbsComponent } from './layout/create-nbs/create-nbs.component';
