@@ -1,0 +1,157 @@
+<div class="row mr-t mr-b" *ngFor="let bts of btsCabinetList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{bts.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="btsFeas{{bts.typeNo}}" 
+    (change)="changeFeasibility($event,'nonEditBts','editBts',bts.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Action}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsAction{{bts.typeNo}}" [value]="bts.Action"  [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Network Type - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.NetWork_Type}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsNetworkType{{bts.typeNo}}" [value]="bts.NetWork_Type"  [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Type - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.BTS_Type}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsType{{bts.typeNo}}" [value]="bts.BTS_Type" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Band - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Band}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsBand{{bts.typeNo}}" [value]="bts.Band" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Manufacturer - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Manufacturer}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsManufacturer{{bts.typeNo}}" [value]="bts.Manufacturer"  [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Make of BTS - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Make_of_BTS}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsMakeOfBts{{bts.typeNo}}" [value]="bts.Make_of_BTS" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Length_Mtrs}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsLengthMtrs{{bts.typeNo}}" [value]="bts.Length_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Width Mtrs - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Width_Mtrs}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsWidthMtrs{{bts.typeNo}}" [value]="bts.Width_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height Mtrs - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Height_Mtrs}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <!-- <input type="text" class="form-control" id="btsHeightMtrs{{bts.typeNo}}" [value]="bts.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="btsHeightMtrs{{bts.typeNo}}" [value]="bts.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Power Rating KW - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.BTS_Power_Rating_KW}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsBtsPowerRaingKW{{bts.typeNo}}" [value]="bts.BTS_Power_Rating_KW" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Location - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.BTS_Location}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsLocation{{bts.typeNo}}" [value]="bts.BTS_Location" [disabled]="true"/>
+      
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BTS Voltage - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.BTS_Voltage}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsVoltage{{bts.typeNo}}" [value]="bts.BTS_Voltage" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Main Unit incase of TT Split Version - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Main_Unit_incase_of_TT_Split_Version}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <select class="form-control" id="btsMainUnit{{bts.typeNo}}">
+        <option value="">Select</option>
+        <option [value]="mu" *ngFor="let mu of btsMainUnit" [selected]="mu == bts.Main_Unit_incase_of_TT_Split_Version">{{mu}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Space Occupied in Us incase of TT Split Version - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Space_Occupied_in_Us_incase_of_TT_Split_Version}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsSpaceOccupied{{bts.typeNo}}" [value]="bts.Space_Occupied_in_Us_incase_of_TT_Split_Version" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>RRU Unit - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.RRU_Unit}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsRruUnit{{bts.typeNo}}" [value]="bts.RRU_Unit" [disabled]="true"/>
+     
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>No of RRU Units incase of TT Split Version - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.No_of_RRU_Units_incase_of_TT_Split_Version}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsNoOfRru{{bts.typeNo}}" [value]="bts.No_of_RRU_Units_incase_of_TT_Split_Version" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Combined wt of RRU Unit incase of TT Split Version - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Combined_wt_of_RRU_Unit_incase_of_TT_Split_Version}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsCombinedWt{{bts.typeNo}}" [value]="bts.Combined_wt_of_RRU_Unit_incase_of_TT_Split_Version" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>AGL of RRU unit in M - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.AGL_of_RRU_unit_in_M}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsAgl{{bts.typeNo}}" [value]="bts.AGL_of_RRU_unit_in_M" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight of BTS including TMA TMB Kg - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Weight_of_BTS_including_TMA_TMB_Kg}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsWeight{{bts.typeNo}}" [value]="bts.Weight_of_BTS_including_TMA_TMB_Kg" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Billable Weigtht - {{bts.typeNo}}</label>
+    <div class="nonEditBts{{bts.typeNo}}">{{bts.Billable_Weigtht}}</div>
+    <div class="edit editBts{{bts.typeNo}}">
+      <input type="text" class="form-control" id="btsBillingWeight{{bts.typeNo}}" [value]="bts.Billable_Weigtht" [disabled]="true"/>
+    </div>
+  </div>
+</div>

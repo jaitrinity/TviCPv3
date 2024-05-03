@@ -1,0 +1,231 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+<div class="container-fluid">
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Summary Report</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Operator <span title="Reset Operator" (click) = "filterOperator = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterOperator" [disabled]="loginEmpRole == 'OPCO' ">
+          <option value="">Select</option>
+          <option value="{{op}}" *ngFor="let op of allOperatorList?.split(',')">{{op}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Product Type <span title="Reset Product Type" (click) = "filterProductType = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterProductType">
+          <option value="">Select</option>
+          <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-2">
+        <label>From Date <span title="Reset start date" (click) = "filterStartDate = '';filterEndDate=''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "2020-07-01" [(ngModel)]="filterStartDate"/>
+      </div>
+      <div class="col-md-2">
+        <label>To Date <span title="Reset end date" (click) = "filterEndDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "{{filterStartDate}}" [(ngModel)]="filterEndDate" [disabled] = "filterStartDate == '' "/>
+      </div>
+      <div class="col-md-2">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm btn-block tvi-yellow text-white" (click)="downloadReport(1)">
+          <i class="fa fa-download" aria-hidden="true"></i> Summary Report
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Detail Report</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Operator <span title="Reset Operator" (click) = "filterOperator = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterOperator" [disabled]="loginEmpRole == 'OPCO' ">
+          <option value="">Select</option>
+          <option value="{{op}}" *ngFor="let op of allOperatorList?.split(',')">{{op}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Product Type <span title="Reset Product Type" (click) = "filterProductType = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterProductType">
+          <option value="">Select</option>
+          <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label>SR Status <span title="Reset SR Status" (click) = "filterSrStatus = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterSrStatus">
+          <option value="">Select</option>
+          <option>SR</option>
+          <option>SP</option>
+          <option>SO</option>
+          <option>RFI</option>
+          <option>RFI Accepted</option>
+          <option>RFS</option>
+        </select>
+      </div>
+      
+      <div class="col-md-2">
+        <label>From Date <span title="Reset start date" (click) = "filterStartDate = '';filterEndDate=''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "2020-07-01" [(ngModel)]="filterStartDate"/>
+      </div>
+     
+      <div class="col-md-2">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm btn-block tvi-yellow text-white" (click)="downloadReport(2)">
+          <i class="fa fa-download" aria-hidden="true"></i> Detail Report
+        </button>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>To Date <span title="Reset end date" (click) = "filterEndDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "{{filterStartDate}}" [(ngModel)]="filterEndDate" [disabled] = "filterStartDate == '' "/>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">iDeploy Audit Report</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Product Type <span class="text-danger">*</span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterProductType" id="iPT">
+          <option value="">Select</option>
+          <option value="{{pt.paramCode}}" *ngFor="let pt of iDeployProductTypeList">{{pt.paramDesc}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>From Date <span title="Reset start date" (click) = "filterStartDate = '';filterEndDate=''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "2023-01-01" [(ngModel)]="filterStartDate"/>
+      </div>
+      <div class="col-md-2">
+        <label>To Date <span title="Reset end date" (click) = "filterEndDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "{{filterStartDate}}" [(ngModel)]="filterEndDate" [disabled] = "filterStartDate == '' "/>
+      </div>
+      <div class="col-md-2">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm btn-block tvi-yellow text-white" (click)="iDeployReport()">
+          <i class="fa fa-download" aria-hidden="true"></i> iDeploy Audit Report
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">TVI Audit Report</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Product Type <span class="text-danger">*</span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterProductType" id="tPT">
+          <option value="">Select</option>
+          <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Operator <span title="Reset Operator" (click) = "filterOperator = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterOperator" [disabled]="loginEmpRole == 'OPCO' ">
+          <option value="">Select</option>
+          <option value="{{op}}" *ngFor="let op of allOperatorList?.split(',')">{{op}}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-2">
+        <label>From Date <span title="Reset start date" (click) = "filterStartDate = '';filterEndDate=''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "2020-07-01" [(ngModel)]="filterStartDate"/>
+      </div>
+
+      <div class="col-md-2">
+        <label>To Date <span title="Reset end date" (click) = "filterEndDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+        <input type="date" class="input-sm form-control" min = "{{filterStartDate}}" [(ngModel)]="filterEndDate" [disabled] = "filterStartDate == '' "/>
+      </div>
+     
+      <div class="col-md-2">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm btn-block tvi-yellow text-white" (click)="tviAuditReport()">
+          <i class="fa fa-download" aria-hidden="true"></i> TVI Audit Report
+        </button>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Active Asset</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+          <option value="">Select</option>
+          <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Operator <span title="Reset Operator" (click) = "filterOperator = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+        <select class="input-sm form-control" [(ngModel)]="filterOperator" [disabled]="loginEmpRole == 'OPCO' ">
+          <option value="">Select</option>
+          <option value="{{op}}" *ngFor="let op of allOperatorList?.split(',')">{{op}}</option>
+        </select>
+      </div>
+      <!-- <div class="col-md-6">
+
+      </div> -->
+      <div class="col-md-2">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm btn-block tvi-yellow text-white" (click)="downloadReport(3)">
+          <i class="fa fa-download" aria-hidden="true"></i> Active Asset Report
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</div>

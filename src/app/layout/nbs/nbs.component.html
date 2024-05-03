@@ -1,0 +1,1023 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<!-- <button (click)="refreshPage()">Refresh</button> -->
+
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <!-- <div class="row mr-t mr-b">
+      <div class="col-md-2"><label>OPCO Id</label></div>
+      <div class="col-md-3"><input type="text" class="form-control" [(ngModel)] = "opcoId"/></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-3"></div>
+    </div> -->
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+        <label>TVI Site Id</label>
+        <input type="text" class="form-control" [(ngModel)] = "tviSiteId" *ngIf="!is_Sharing_Tab" [disabled]="true"/>
+        <!-- {{latitude1}} - {{longitude1}} -->
+        <ng-multiselect-dropdown *ngIf="is_Sharing_Tab" [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="tviSiteIdList" [(ngModel)]="selectedTviSiteIdList" 
+        (onSelect)="onSelectOrDeSelectTviSiteId($event)" (onDeSelect)="onSelectOrDeSelectTviSiteId($event)"> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3">
+        <label>Airtel Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-3">
+        <label>Airtel Locator Id</label>
+        <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Technology</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+        [data]="technologyList" [(ngModel)]="selectedTechnologyList" 
+        (onSelect)="onSelectTechnology($event)" (onSelectAll)="onSelectAllTechnology($event)" 
+        (onDeSelect)="onDeSelectTechnology($event)" (onDeSelectAll)="onDeSelectAllTechnology($event)" > 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3">
+        <label>Site Address</label>
+        <input type="text" class="form-control" [(ngModel)]="siteAddress" />
+      </div>
+      <div class="col-md-3">
+        <label>City</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)]="city" />
+      </div>
+      <div class="col-md-3">
+          <label>Town/Village</label>
+          <input type="text" class="form-control" [(ngModel)]="townVillage" />
+      </div>
+    </div>
+    
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>District</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="districtList" [(ngModel)]="selectedDistrictList" 
+        (onSelect)="onSelectOrDeSelectDistrict($event)" (onDeSelect)="onSelectOrDeSelectDistrict($event)"> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3">
+        <label>State</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="stateList" [(ngModel)]="selectedStateList" 
+        (onSelect)="onSelectOrDeSelectState($event)" (onDeSelect)="onSelectOrDeSelectState($event)"> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3">
+        <label>Pincode</label>
+        <input type="text" OnlyNumber="true" maxlength=6 class="form-control" [(ngModel)]="pincode" />
+      </div>
+      <div class="col-md-3">
+        <label>Clutter</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="clutterList" [(ngModel)]="selectedClutterList" 
+        (onSelect)="onSelectOrDeSelectClutter($event)" (onDeSelect)="onSelectOrDeSelectClutter($event)"> 
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_Massive_MIMO_Sharing_Tab">
+      <div class="col-md-3">
+        <label>Existing Airtel configuration before MIMO</label>
+        <input class="form-control" [(ngModel)]="existingAirtelConfigurationBeforeMIMO"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_Massive_MIMO_Sharing_Tab">
+        <div class="col-md-3">
+          <label>U space for BBU</label>
+          <input class="form-control" OnlyNumber="true" [(ngModel)]="uSpaceForBBU"/>
+        </div>
+        <div class="col-md-3">
+          <label>Power requirement</label>
+          <input class="form-control" OnlyNumber="true" [(ngModel)]="powerRequirement"/>
+        </div>
+        <div class="col-md-3">
+          <label>Power Threshold in case of MIMO Expansion</label>
+          <input class="form-control" OnlyNumber="true" [(ngModel)]="powerThresholdInCaseOfMIMOExpansion"/>
+        </div>
+        <div class="col-md-3">
+          <label>Additional LLR due to Addition of MIMO</label>
+          <input class="form-control" [(ngModel)]="additionalLLRDueToAdditionalMIMO"/>
+        </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODC_Smart_Split_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_ODC_Smart_Split_Sharing_Tab">
+        <label>Smart Split Type</label>
+        <select class="form-control" [(ngModel)]="smartSplitType">
+          <option value="">Select</option>
+          <option value="Colocation">Colocation</option>
+          <option value="Stand Alone">Stand Alone</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODC_Smart_Split_Sharing_Tab">
+        <label>Floor Space Of OD Cabinate</label>
+        <select class="form-control" [(ngModel)]="floorSpaceOfODCabinet">
+          <option value="">Select</option>
+          <option value="Small Cabinet">Small Cabinet</option>
+          <option value="Large Cabinet">Large Cabinet</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODC_Smart_Split_Sharing_Tab">
+        <label>AC Power Load</label>
+        <select class="form-control" [(ngModel)]="acPowerLoad">
+          <option value="">Select</option>
+          <option value="2 KW">2 KW</option>
+          <option value="3 KW">3 KW</option>
+          <option value="4 KW">4 KW</option>
+          <option value="5 KW">5 KW</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODC_Smart_Split_Sharing_Tab">
+        <label>Total Power Required</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="totalPowerRequired"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab">
+        <label>Wind Speed Zone(In KMPH)</label> <span class="text-danger">*</span>
+        <!-- <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="windSpeed" /> -->
+        <select class="form-control" [(ngModel)]="windSpeed">
+          <option value="">Select</option>
+          <option *ngFor="let ws of windSpeedList" value={{ws.id}}>{{ws.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODSC_Anchor_Tab || 
+      is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+        <label>Site Type</label>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="siteTypeList" [(ngModel)]="selectedSiteTypeList" 
+        (onSelect)="onSelectOrDeSelectSiteType($event)" (onDeSelect)="onSelectOrDeSelectSiteType($event)"> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab">
+        <label>Tower Height(in Meter)</label>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="towerHeight" />
+      </div>
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab">
+        <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="aglRequired" />
+      </div>
+    </div>
+    
+    <div class="row mr-t mr-b" *ngIf="is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-3">
+        <label>Service Order Contract Period</label>
+        <input type="text" class="form-control" [(ngModel)]="serviceContractPeriod" /> 
+      </div>
+      <div class="col-md-3">
+        <label>Rated Power Consumption</label>
+        <input type="text" OnlyNumber="true" class="form-control" [(ngModel)]="ratedPowerConsumption" /> 
+      </div>
+      <div class="col-md-3">
+        <label>Weight on Tower</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="towerWeight" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-3">
+        <label>Rack space for BBU</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="rackSpaceForBBU" />
+      </div>
+      <div class="col-md-3">
+        <label>Rack space for MW IDU</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="rackSpaceForMW" />
+      </div>
+      <div class="col-md-3">
+        <label>Power Supply</label>
+        <select class="form-control" [(ngModel)]="powerSupply">
+          <option value="">Select</option>
+          <option>Non DG</option>
+          <option>Non EB</option>
+          <option>EB+DG</option>
+        </select>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_COW_Tab || is_COW_Sharing_Tab">
+        <label>Additional BTS floor Space</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="additionBTSFloorSpace" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab">
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab">
+        <label>Frequency/Band used by opco</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+        [data]="opcoFrequencyList" [(ngModel)]="selectedOpcoFrequencyList" 
+        (onSelect)="onSelectOrDeSelectOpcoFrequency($event)" (onSelectAll)="onSelectAllOrDeSelectAllOpcoFrequency($event)" 
+        (onDeSelect)="onSelectOrDeSelectOpcoFrequency($event)" (onDeSelectAll)="onSelectAllOrDeSelectAllOpcoFrequency($event)" > 
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-3">
+        <label>Latitude 1</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude1"/>
+      </div>
+      <div class="col-md-3">
+        <label>Longitude 1</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude1"/>
+      </div>
+      <div class="col-md-3">
+        <label>Latitude 2</label>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude2"/>
+      </div>
+      <div class="col-md-3">
+        <label>Longitude 2</label>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude2"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODSC_Anchor_Tab ||  is_ODC_Smart_Split_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODC_Smart_Split_Sharing_Tab">
+        <!-- <label>EB Availability</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="ebAvailability">
+          <option value="">Select</option><option>Yes</option> <option>No</option>
+        </select> -->
+        <label>EB Availability Distance(In Meter)</label>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "ebAvailabilityDistance"/>
+      </div>
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab">
+        <label>DG Availability</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="dgAvailability">
+          <option value="">Select</option><option>Yes</option> <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>AGL required for ODSC</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="aglRequiredODSC" />
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>AGL required for MW/UBR</label>
+        <input type="text" OnlyNumber="true" maxlength=2 class="form-control" [(ngModel)]="aglRequiredMW" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Anchor_Tab">
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>Pole Height</label>
+        <select class="form-control" [(ngModel)]="poleHeight">
+          <option value="">Select</option>  
+          <option>3 Mtr</option>  
+          <option>6 Mtr</option>
+          <option>9 Mtr</option>
+          <option>12 Mtr</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>Additional Poles</label>
+        <select class="form-control" [(ngModel)]="additionalPoles">
+          <option value="0">Select</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>Airtel Backhaul</label>
+        <select class="form-control" [(ngModel)]="airtelBackhaul">
+          <option value="">Select</option>
+          <option>Fiber</option>
+          <option>MW</option>
+        </select>
+      </div>
+      
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>AC + DC Backup</label>
+        <select class="form-control" [(ngModel)]="acDcBackup">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>Additional power back up of 2 Hrs</label>
+        <select class="form-control" [(ngModel)]="additionalPowerBackup2Hrs">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab || is_NBS_Sharing_Tab || is_CreateNBS_Tab ">
+        <label>Total Rated Power (in Watt)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="totalRatedPower" />
+        <!-- <input type="text" [disabled]="true" class="form-control" [(ngModel)]="totalRatedPower" /> -->
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Anchor_Tab">
+        <label>Camuflauging</label>
+        <select class="form-control" [(ngModel)]="camuflauging">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>No of Small Cell</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="noOfSmallCell"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>Area per Small Cell</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="areaPerSmallCell"/>
+      </div>
+      
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>Depth per Small cell</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="depthPerSmallCell"/>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+        <label>Height of highest Antenna</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="heightOfHighestAntenna"/>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>Weight of Small cell</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="weightOfSmallCell"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+        <label>Rated Power</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="ratedPower"/>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>U Space</label>
+        <input class="form-control" OnlyNumber="true" [(ngModel)]="uSpace"/>
+      </div>
+
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>AC Backup Required 2 Hrs </label>
+        <select class="form-control" [(ngModel)]="acbackupRequired2Hrs">
+          <option value="=">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+        <label>Additional ODSC Required</label>
+        <select class="form-control" [(ngModel)]="additionalODSCRequired">
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Sharing_Tab || is_Massive_MIMO_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab"> 
+        <label>Additional Power required</label>
+        <select class="form-control" [(ngModel)]="additionalPowerRequired">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab || is_Massive_MIMO_Sharing_Tab">
+          <label>Existing LLR of TVI Site</label>
+          <input class="form-control" [(ngModel)]="existingLLROfTVISite"/>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+          <label>Additional LLR due to Addition of ODSC</label>
+          <input class="form-control" [(ngModel)]="additionalLLRDueToAdditionalODSC"/>
+      </div>
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+          <label>Cumulative PAN India ODSC Sharing SO count</label>
+          <input class="form-control" [(ngModel)]="cumulativePANIndiaODCSSharingSOCount"/>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_ODSC_Sharing_Tab">
+          <label>Conversion of Sharing ODSC into Macro Site</label>
+          <select class="form-control" [(ngModel)]="conversionOfSharingODSCIntoMacroSite">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+      </div>
+    </div>
+    
+  </fieldset>
+  
+  <fieldset  class="the-fieldset">
+    <legend class="the-legend">Active Information</legend>
+
+    <div class="row mr-t mr-b" *ngIf="is_ODSC_Anchor_Tab">
+      <div class="col-md-2"><label>No of ODSC</label> <span class="text-danger">*</span></div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfODSC">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfODSCList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfODSC != '' && noOfODSC != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('odscModal')">Click to fill ODSC Details</a>
+      </div>
+    </div>
+
+    <div id="odscModal" class="modal fade" role="dialog" *ngIf="is_ODSC_Anchor_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">ODSC</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let odsc of createRange(noOfODSC); let eleIndex = index">
+              <div class="col-md-2">
+                <label>Make {{odsc}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="odscMake{{odsc}}" />
+              </div>
+        
+              <div class="col-md-2" *ngIf="noOfODSC >= 1">
+                <label>Model {{odsc}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="odscModel{{odsc}}" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeOdscModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_Massive_MIMO_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of Massive MIMO Antenna</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfMassiveMIMOAntenna">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfMassiveMIMOAntennaList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfMassiveMIMOAntenna != '' && noOfMassiveMIMOAntenna != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('massiveMIMOAntennaModal')">Click to fill Massive MIMO Antenna Details</a>
+      </div>
+    </div>
+
+    <div id="massiveMIMOAntennaModal" class="modal fade" role="dialog" *ngIf="is_Massive_MIMO_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Massive MIMO antenna</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let mimo of createRange(noOfMassiveMIMOAntenna); let eleIndex = index">
+              <div class="col-md-3">
+                <label>Weight Of Antenna {{mimo}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="mimoAntennaWeight{{mimo}}"/>
+              </div>
+              <div class="col-md-3">
+                <label>Area Of Antenna {{mimo}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="mimoAntennaArea{{mimo}}"/>
+              </div>
+              <div class="col-md-3">
+                <label>Make Of Antenna {{mimo}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="mimoAntennaMake{{mimo}}"/>
+              </div>
+              <div class="col-md-3">
+                <label>Model of Antenna {{mimo}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="mimoAntennaModel{{mimo}}"/>
+              </div>
+            </div>
+		      </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeMassiveMimoModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of RF antenna</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfRFAntenna">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfRFAntennaList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfRFAntenna != '' && noOfRFAntenna != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('rfAntennaModal')">Click to fill RF Antenna Details</a>
+      </div>
+    </div>
+
+    <div id="rfAntennaModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_Massive_MIMO_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">RF antenna</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <input type="hidden" id="rfTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let rf of createRange(noOfRFAntenna); let eleIndex = index">
+              <div class="col-md-12">
+                <table class="table">
+                  <tr >
+                    <td>Height of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Weight of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Azimuth of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Make of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Model of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Rated Power Consumption of RF Antenna(In Watt) {{rf}} <span class="text-danger">*</span></td>
+                    <td>Gain of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                    <td>Band of RF Antenna {{rf}} <span class="text-danger">*</span></td>
+                  </tr>
+
+                  <tr>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rfSize{{rf}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rfWeight{{rf}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rfAzimuth{{rf}}"/></td>
+                    <td><input type="text" class="form-control" id="rfMake{{rf}}"/></td>
+                    <td><input type="text" class="form-control" id="rfModel{{rf}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rfRatedPowerConsumption{{rf}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rfGain{{rf}}"/></td>
+                    <td>
+                      <select class="form-control" id="rfBand{{rf}}">
+                        <option value="">Select</option>
+                        <option value="Single">Single</option> <option value="Dual">Dual</option>
+                        <option value="Tri">Tri</option> <option value="Penta">Penta</option>
+                        <option value="Multi">Multi</option>
+                      </select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!-- <div class="col-md-2">
+                <label>Height of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rfSize{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Weight of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rfWeight{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Azimuth of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rfAzimuth{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Make of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="rfMake{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Model of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="rfModel{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Rated Power Consumption of RF Antenna(In Watt) {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rfRatedPowerConsumption{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Gain of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="rfGain{{rf}}"/>
+              </div>
+
+              <div class="col-md-2">
+                <label>Band of RF Antenna {{rf}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="rfBand{{rf}}">
+                  <option value="">Select</option>
+                  <option value="Single">Single</option> <option value="Dual">Dual</option>
+                  <option value="Tri">Tri</option> <option value="Penta">Penta</option>
+                  <option value="Multi">Multi</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeRFAntennaModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODSC_Anchor_Tab || is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of Microwave</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfMicrowave">
+          <option value="0">Select</option>
+          <option *ngFor="let a of noOfMicrowaveList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfMicrowave != '' && noOfMicrowave != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('microwaveModal')">Click to fill Microwave Details</a>
+      </div>
+    </div>
+
+    <div id="microwaveModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODSC_Anchor_Tab || is_ODSC_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Microwave</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let mw of createRange(noOfMicrowave); let eleIndex = index">
+              <div class="col-md-2">
+                <label>Height of Microwave {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="microwaveHeight{{mw}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Dia {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="microwaveDia{{mw}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Azimuth {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="microwaveAzimuth{{mw}}"/>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeMWAntennaModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab">
+      <div class="col-md-2">
+        <label>BTS Type</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="btsType">
+          <option value="">Select</option>
+          <option *ngFor="let bt of btsTypeList" value={{bt.id}}>{{bt.id}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of BBU</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfBBU">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfBBUList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfBBU != '' && noOfBBU != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('bbuModal')">Click to fill BBU Details</a>
+      </div>
+    </div>
+
+    <div id="bbuModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">BBU</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+              <input type="hidden" id="bbuTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let bbu of createRange(noOfBBU); let eleIndex = index">
+              <div class="col-md-6">
+                <table class="table">
+                  <tr>
+                    <td>Make {{bbu}} <span class="text-danger">*</span></td>
+                    <td>Model {{bbu}} <span class="text-danger">*</span></td>
+                    <td>Rated Power Consumption(In Watt) {{bbu}} <span class="text-danger">*</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <select class="form-control" id="bbuMake{{bbu}}">
+                        <option value="">Select</option>
+                        <option value="Huawei">Huawei</option>
+                        <option value="Ericsson">Ericsson</option>
+                        <option value="NSN">NSN</option>
+                        <option value="ZTE">ZTE</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="form-control" id="bbuModel{{bbu}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="bbuPowerConsumption{{bbu}}"/></td>
+                  </tr>
+                </table>
+              </div>
+              <!-- <div class="col-md-2">
+                <label>Make {{bbu}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="bbuMake{{bbu}}">
+                  <option value="">Select</option>
+                  <option value="Huawei">Huawei</option>
+                  <option value="Ericsson">Ericsson</option>
+                  <option value="NSN">NSN</option>
+                  <option value="ZTE">ZTE</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Model {{bbu}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="bbuModel{{bbu}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Rated Power Consumption(In Watt) {{bbu}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="bbuPowerConsumption{{bbu}}"/>
+              </div> -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeBbuModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of RRU</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfRRU">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfRRUList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfRRU != '' && noOfRRU != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('rruModal')">Click to fill RRU Details</a>
+      </div>
+    </div>
+
+    <div id="rruModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">RRU</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+              <input type="hidden" id="rruTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let rru of createRange(noOfRRU); let eleIndex = index">
+              <div class="col-md-8">
+                <table class="table">
+                  <tr>
+                    <td>Make of RRU {{rru}} <span class="text-danger">*</span></td>
+                    <td>Model of RRU {{rru}} <span class="text-danger">*</span></td>
+                    <td>Rated Power Consumption of RRU(In Watt) {{rru}} <span class="text-danger">*</span></td>
+                    <td>Weight of RRU {{rru}} <span class="text-danger">*</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <select class="form-control" id="rruMake{{rru}}">
+                        <option value="">Select</option>
+                        <option value="Huawei">Huawei</option>
+                        <option value="Ericsson">Ericsson</option>
+                        <option value="NSN">NSN</option>
+                        <option value="ZTE">ZTE</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="form-control" id="rruModel{{rru}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rruPowerConsumption{{rru}}"/></td>
+                    <td><input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="rruWeight{{rru}}"/></td>
+                  </tr>
+                </table>
+              </div>
+              <!-- <div class="col-md-2">
+                <label>Make of RRU {{rru}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="rruMake{{rru}}">
+                  <option value="">Select</option>
+                  <option value="Huawei">Huawei</option>
+                  <option value="Ericsson">Ericsson</option>
+                  <option value="NSN">NSN</option>
+                  <option value="ZTE">ZTE</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label>Model of RRU {{rru}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="rruModel{{rru}}"/>
+              </div>
+              <div class="col-md-2" >
+                <label>Rated Power Consumption of RRU(In Watt) {{rru}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rruPowerConsumption{{rru}}"/>
+              </div>
+              <div class="col-md-2">
+                <label>Weight of RRU {{rru}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumber="true" class="form-control" id="rruWeight{{rru}}"/>
+              </div> -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeRruModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-2">
+        <label>No of BTS</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfBTS">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfBTSList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfBTS != '' && noOfBTS != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('btsModal')">Click to fill BTS Details</a>
+      </div>
+    </div>
+
+    <div id="btsModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">BTS</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let bts of createRange(noOfBTS); let eleIndex = index">
+              <!-- <div class="col-md-2">
+                <label>BTS Type {{bts}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="btsType{{bts}}">
+                  <option value="">Select</option>
+                  <option value="ID">ID</option>
+                  <option value="OD">OD</option>
+                  <option value="TT">TT</option>
+                  <option value="BBU">BBU</option>
+                </select>
+              </div> -->
+              <div class="col-md-2">
+                <label> BTS Make {{bts}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="btsMakel{{bts}}">
+                  <option value="">Select</option>
+                  <option value="Nokia">Nokia</option>
+                  <option value="Huwaie">Huwaie</option>
+                  <option value="Erriscion">Erriscion</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Model {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control" id="btsModel{{bts}}"/>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Floorspace {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="btsFloorspace{{bts}}"/>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Power {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control" id="btsPower{{bts}}"/>
+              </div>
+            </div>
+		      </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeBtsModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab">
+      <div class="col-md-2">
+        <label>MCB Number</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="noOfMCB">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfMCBList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfMCB != '' && noOfMCB != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('mcbModal')">Click to fill MCB Details</a>
+      </div>
+    </div>
+
+    <div id="mcbModal" class="modal fade" role="dialog" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">MCB</h4>
+          </div>
+          <div class="modal-body" style="height: 430px;overflow: auto;">
+            <div class="row mr-t mr-b" >
+              <div class="col-md-2" *ngFor="let mcb of createRange(noOfMCB); let eleIndex = index">
+                <label>MCB Rating {{mcb}}</label> <span class="text-danger">*</span>
+                <select class="form-control" id="mcbRating{{mcb}}">
+                  <option value="">Select</option>
+                  <option value="16Amp">16Amp</option>
+                  <option value="32Amp">32Amp</option>
+                  <option value="50Amp">50Amp</option>
+                  <option value="64Amp">64Amp</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary tvi-yellow" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeMcbModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab">
+      <div class="col-md-2">
+        <label>Additional Load (Node/Misc.) (in Watt)</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-3">
+        <!-- <input type="text" OnlyNumberWithDecimal = "true" (keyup)="onKey($event)" class="form-control" [(ngModel)] = "additionalLoad"/> -->
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "additionalLoad"/>
+      </div>
+      <div class="col-md-7" *ngIf="additionalLoad != '' ">
+        <a href="javascript:void(0)" (click)="addInTotalRatedPower()">Click to add in Total Rated Power</a>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab">
+        <label>MW Rack</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "mwRack">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <!-- <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+        <label>Weight of Additional Antenna</label>
+        <input type="text" class="form-control" [(ngModel)] = "weightOfAdditionalAntenna"/>
+      </div> -->
+      <!-- <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+          <label>RF Antenna Mount Height</label>
+          <input type="text" class="form-control" [(ngModel)] = "rfAntennaMountHeight"/>
+      </div> -->
+      <!-- <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_COW_Tab || is_COW_Sharing_Tab">
+          <label>MW Antenna Mount Height</label>
+          <input type="text" class="form-control" [(ngModel)] = "mwAntennaMountHeight"/>
+      </div> -->
+    </div>
+
+    <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab || is_ODC_Smart_Split_Sharing_Tab">
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_NBS_Sharing_Tab">
+        <label>No of U space required</label> <span class="text-danger">*</span>
+        <!-- <input type="text" OnlyNumber="true" class="form-control" [(ngModel)] = "noOfUSpaceRequired"/> -->
+        <select class="form-control" [(ngModel)]="noOfUSpaceRequired">
+          <option value="">Select</option>
+          <option *ngFor="let us of uSpaceList" value={{us.id}}>{{us.id}}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-3" *ngIf="is_CreateNBS_Tab || is_ODC_Smart_Split_Sharing_Tab">
+        <label>Fiber termination</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "fiberTermination">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" >
+      <div class="col-md-8">
+        <label>Remark</label> <span class="text-danger">*</span>
+        <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-2">
+        <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</div>

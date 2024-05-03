@@ -1,0 +1,18 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Floorspace</th>
+      <th>Power</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bts of btsList">
+      <td>{{bts.btsMake}}</td>
+      <td>{{bts.btsModel}}</td>
+      <td>{{bts.btsFloorspace}}</td>
+      <td>{{bts.btsPower}}</td>
+    </tr>
+  </tbody>
+</table>

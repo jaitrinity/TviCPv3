@@ -1,0 +1,165 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+        </div>
+    
+        <div class="col-md-2">
+            <label>TVI Site Id</label> <span class="text-danger">*</span>
+            <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+            [data]="tviSiteIdList" [(ngModel)]="selectedTviSiteIdList" 
+            (onSelect)="onSelectOrDeSelectTviSiteId($event)" (onDeSelect)="onSelectOrDeSelectTviSiteId($event)"
+            [disabled]="circleName == '' "> 
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="col-md-2">
+            <label>Site Name</label> <span class="text-danger">*</span>
+            <input type="text" class="form-control" [(ngModel)]="siteName" [disabled]="true"/>
+        </div>
+        <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+            <label>Airtel Site Id</label> <span class="text-danger">*</span>
+            <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+        </div>
+        <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+            <label>Airtel Locator Id</label>
+            <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+        </div>
+        <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+            <label>RJIO Site Id</label> <span class="text-danger">*</span>
+            <input type="text" OnlyAlphanumeric="true" maxlength=30 class="form-control" [(ngModel)]="airtelSiteId" />
+        </div>
+        <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+            <label>RJIO SAP Id</label>
+            <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+        </div>
+        <div class="col-md-2">
+            <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+            <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="aglRequired" [disabled]="true"/>
+        </div>
+
+        <div class="col-md-2">
+            <label>Latitude</label> <span class="text-danger">*</span>
+            <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude1" [disabled]="true"/>
+        </div>
+        <div class="col-md-2">
+            <label>Longitude</label> <span class="text-danger">*</span>
+            <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude1" [disabled]="true"/>
+        </div>
+      </div>
+      <div class="row mr-t mr-b">
+        <div class="col-md-12">
+            <label>Site Address</label> <span class="text-danger">*</span>
+            <textarea class="form-control" [(ngModel)] = "siteAddress" style="resize:none" [disabled]="true"></textarea>
+        </div>
+      </div>
+      <div class="row mr-t mr-b">
+          <div class="col-md-2">
+              <label>District</label> <span class="text-danger">*</span>
+              <input type="text" class="form-control" [(ngModel)] = "district" [disabled]="true"/>
+          </div>
+          <div class="col-md-2">
+              <label>State</label> <span class="text-danger">*</span>
+              <input type="text" class="form-control" [(ngModel)] = "state" [disabled]="true"/>
+          </div>
+          <div class="col-md-2">
+              <label>Site Type</label> <span class="text-danger">*</span>
+              <input type="text" class="form-control" [(ngModel)] = "siteType" [disabled]="true"/>
+          </div>
+          <div class="col-md-2">
+              <label>Cluster</label> <span class="text-danger">*</span>
+              <input type="text" class="form-control" [(ngModel)] = "clutter" [disabled]="true"/>
+          </div>
+      </div>
+  </fieldset>
+
+  <fieldset  class="the-fieldset">
+    <legend class="the-legend">Active Information</legend>
+    <div class="row mr-t mr-b">
+        <div class="col-md-3">
+          <label>Total Rated Power (in Watt)</label> <span class="text-danger">*</span>
+          <input type="text" [disabled]="true" class="form-control forMakeBlank" [(ngModel)]="totalRatedPower" />
+        </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of UBR Antenna</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="noOfUBR_Antenna">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of noOfUBRAntennaList">{{data.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Weight of Antenna</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="weightOfAntenna">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of weightOfAntennaList">{{data.id}} KG</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Type of Antenna</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="typeOfAntenna">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of typeOfAntennaList">{{data.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>U Space</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="uSpace">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of noOfUSpaceList">{{data.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Power Required(In Watt)</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="powerRequired">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of powerRequiredList">{{data.id}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>No of MCB of 6 Amp Rating</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)]="noOfMCB">
+          <option value="">Select</option>
+          <option value="{{data.id}}" *ngFor="let data of noOfMCBList">{{data.id}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+        <div class="col-md-3">
+            <label>Additional Load (Node/Misc.) (in Watt)</label> <span class="text-danger">*</span>
+            <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" [(ngModel)] = "additionalLoad"/>
+        </div>
+        <div class="col-md-7" *ngIf="additionalLoad != '' ">
+            <label style="color: transparent;display: block;">Click</label>
+            <a href="javascript:void(0)" (click)="addInTotalRatedPower()">Click to add in Total Rated Power</a>
+        </div>
+    </div>
+  </fieldset>
+  <fieldset  class="the-fieldset" style="margin-bottom: 30px">
+      <legend class="the-legend">Remark</legend>
+      <div class="row mr-t mr-b" >
+          <div class="col-md-12">
+          <label>Remark</label> <span class="text-danger">*</span>
+          <textarea class="form-control" rows=4 style="resize: none" [(ngModel)] = "remark"></textarea>
+          </div>
+      </div>
+      <div class="row mr-t mr-b" >
+          <div class="col-md-2">
+          <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+          </div>
+      </div>
+  </fieldset>
+</div>

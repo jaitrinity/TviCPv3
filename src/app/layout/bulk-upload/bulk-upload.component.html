@@ -1,0 +1,128 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Site Upgrade</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Select Header File <span class="text-danger">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('NBS_MASTER_HDR')"></i> 
+        </label>
+        <input type="file" #headerFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,1)"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="rfChecked" (click)= "checkboxClick(1)"/> Is 0 ? : </label>&nbsp;
+        <label>Select RF Antenna File <span class="text-danger" *ngIf="!rfChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('RF_Antenna')"></i>
+        </label>
+        <input type="file" #rfAntennaFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'RF_Antenna')" [disabled]="rfChecked"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="bbuChecked" (click)= "checkboxClick(2)"/> Is 0 ? : </label>&nbsp;
+        <label>Select BBU File <span class="text-danger" *ngIf="!bbuChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('BBU')"></i>
+        </label>
+        <input type="file" #bbuFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'BBU')" [disabled]="bbuChecked"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="rruChecked" (click)= "checkboxClick(3)"/> Is 0 ? : </label>&nbsp;
+        <label>Select RRU File <span class="text-danger" *ngIf="!rruChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('RRU')"></i>
+        </label>
+        <input type="file" #rruFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'RRU')" [disabled]="rruChecked"/>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="mwChecked" (click)= "checkboxClick(4)"/> Is 0 ? : </label>&nbsp;
+        <label>Select MW File <span class="text-danger" *ngIf="!mwChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('MW')"></i>
+        </label>
+        <input type="file" #mwFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'MW')"  [disabled]="mwChecked"/>
+      </div>
+
+      <div class="col-md-9">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm tvi-yellow text-white" (click)="uploadFile()">
+          <i class="fa fa-upload" aria-hidden="true" ></i> Upload
+        </button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-sm tvi-yellow text-white" (click)="makeAsDefault()">
+          <i class="fa fa-refresh" aria-hidden="true" ></i> Refresh
+        </button>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+        <h6 class="text-danger blink"><i>{{info}}</i></h6>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">HPSC Anchor</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Select Header File <span class="text-danger">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('HPSC_MASTER_HDR')"></i> 
+        </label>
+        <input type="file" #headerFile2 class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'HPSC_MASTER_HDR')"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="polesChecked" (click)= "checkboxClick(5)"/> Is 0 ? : </label>&nbsp;
+        <label>Select Poles File <span class="text-danger" *ngIf="!polesChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('HPSC_POLES')"></i>
+        </label>
+        <input type="file" #polesFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'HPSC_POLES')" [disabled]="polesChecked"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="hpscAntennaChecked" (click)= "checkboxClick(6)"/> Is 0 ? : </label>&nbsp;
+        <label>Select HPSC Antenna File <span class="text-danger" *ngIf="!hpscAntennaChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('HPSC_Antenna')"></i>
+        </label>
+        <input type="file" #hpscAntennaFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'HPSC_Antenna')" [disabled]="hpscAntennaChecked"/>
+      </div>
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="hpscBbuChecked" (click)= "checkboxClick(7)"/> Is 0 ? : </label>&nbsp;
+        <label>Select BBU File <span class="text-danger" *ngIf="!hpscBbuChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('HPSC_BBU')"></i>
+        </label>
+        <input type="file" #bbuFile2 class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'HPSC_BBU')" [disabled]="hpscBbuChecked"/>
+      </div>
+      
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="hpscRruChecked" (click)= "checkboxClick(8)"/> Is 0 ? : </label>&nbsp;
+        <label>Select RRU File <span class="text-danger" *ngIf="!hpscRruChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('HPSC_RRU')"></i>
+        </label>
+        <input type="file" #rruFile2 class="input-sm form-control" accept=".xlsx"  
+        (change)="selectFileForUpload($event,'HPSC_RRU')" [disabled]="hpscRruChecked"/>
+      </div>
+      <div class="col-md-9">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm tvi-yellow text-white" (click)="uploadHPSCFile()">
+          <i class="fa fa-upload" aria-hidden="true" ></i> Upload
+        </button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-sm tvi-yellow text-white" (click)="makeHPSCAsDefault()">
+          <i class="fa fa-refresh" aria-hidden="true" ></i> Refresh
+        </button>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+        <h6 class="text-danger blink"><i>{{info}}</i></h6>
+      </div>
+    </div>
+  </fieldset>
+</div>

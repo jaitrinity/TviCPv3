@@ -1,0 +1,230 @@
+<div class="row mg-0">
+  <div class="col-md-2">
+    <label>Period</label>
+    <select class="input-sm form-control" [(ngModel)] = "filterPeriod">
+      <option value="">Select</option>
+      <option>YTD</option>
+      <option>MTD</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label>Product Type</label>
+    <select class="input-sm form-control" [(ngModel)]="filterProductType">
+      <option value="">Select</option>
+      <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label style="display: block;color:transparent">Apply filter</label>
+    <button class="btn btn-sm tvi-yellow text-white" (click)="generateGraph123()">Generate Graph</button>
+  </div>
+</div>
+
+<div class="my-row" style="margin: 0px;">
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SR</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'graph1', 'SR')" title="Expand SR Graph"></span>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SP</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'spGraph', 'SP')" title="Expand SP Graph"></span>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SO</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'soGraph', 'SO')" title="Expand SO Graph"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="my-row">
+  <div class="my-col-md-4" (scroll)="updateScroll(1)" #scrollOne>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="graph1">
+        <canvas baseChart height = "18vh" width = "80vw"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [colors]="barChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4" (scroll)="updateScroll(2)" #scrollTwo>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="spGraph">
+        <canvas baseChart height = "18vh" width = "80vw"
+              [datasets]="spBarChartData"
+              [labels]="spBarChartLabels"
+              [options]="barChartOptions"
+              [colors]="spBarChartColors"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4" (scroll)="updateScroll(3)" #scrollThree>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="soGraph">
+        <canvas baseChart height = "18vh" width = "80vw"
+            [datasets]="soBarChartData"
+            [labels]="soBarChartLabels"
+            [options]="barChartOptions"
+            [colors]="soBarChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mg-0">
+  <div class="col-md-2">
+    <label>Period</label>
+    <select class="input-sm form-control" [(ngModel)] = "filterPeriod">
+      <option value="">Select</option>
+      <option>YTD</option>
+      <option>MTD</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label>Product Type</label>
+    <select class="input-sm form-control" [(ngModel)]="filterProductType">
+      <option value="">Select</option>
+      <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label>Circle Name </label>
+    <select class="input-sm form-control" [(ngModel)]="filterCircleName">
+      <option value="">Select</option>
+      <option *ngFor="let cn of allCircle?.split(',')" value="{{cn}}">{{cn}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label style="display: block;color:transparent">Apply filter</label>
+    <button class="btn btn-sm tvi-yellow text-white" (click)="generateGraph456()">Generate Graph</button>
+  </div>
+</div>
+
+<div class="my-row" style="margin: 0px;">
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SR Aging</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'srAgingGraph', 'SR Aging')" title="Expand SR Aging Graph"></span>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SP Aging</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'spAgingGraph', 'SP Aging')" title="Expand SR Aging Graph"></span>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4">
+    <div style="display: flex;">
+      <div style="width: 50%;">SO Aging</div>
+      <div style="width: 50%; text-align: right;">
+        <span class="fa fa-expand" (click)="bigGraph('bigGraphModal', 'soAgingGraph', 'SO Aging')" title="Expand SR Aging Graph"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="my-row">
+  <div class="my-col-md-4" (scroll)="updateScroll(4)" #scrollFour>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="srAgingGraph">
+        <canvas baseChart height = "18vh" width = "80vw"
+            [datasets]="srAgingData"
+            [labels]="srAgingLabels"
+            [options]="barChartOptions"
+            [colors]="srAgingColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4" (scroll)="updateScroll(5)" #scrollFive>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="spAgingGraph">
+        <canvas baseChart height = "18vh" width = "80vw"
+            [datasets]="spAgingData"
+            [labels]="spAgingLabels"
+            [options]="barChartOptions"
+            [colors]="spAgingColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="my-col-md-4" (scroll)="updateScroll(6)" #scrollSix>
+    <div class="graph">
+      
+      <div style="display: block" *ngIf="soAgingGraph">
+        <canvas baseChart height = "18vh" width = "80vw"
+            [datasets]="soAgingData"
+            [labels]="soAgingLabels"
+            [options]="barChartOptions"
+            [colors]="soAgingColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="bigGraphModal" role="dialog" >
+  <div class="modal-dialog  modal-lg" style="max-width:  1320px !important">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>{{modalGraphType}}</h1>
+        <button type="button" class="btn tvi-yellow text-white" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div style="display: block" *ngIf="modalGraph">
+              <canvas baseChart height = "18vh" width = "80vw"
+                  [datasets]="modalBarChartData"
+                  [labels]="modalBarChartLabels"
+                  [options]="barChartOptions"
+                  [colors]="modalBarChartColors"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="modal-footer">  
+      </div>
+    </div>
+  </div>
+</div>

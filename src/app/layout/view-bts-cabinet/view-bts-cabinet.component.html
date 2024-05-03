@@ -1,0 +1,59 @@
+<button (click)="show = !show" class="more-less-btn">
+  <span *ngIf="!show; else less">More</span>
+  <ng-template #less>
+    <span>Less</span>
+  </ng-template>
+</button>
+
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th>
+      <th>Network Type</th>
+      <th>BTS Type</th>
+      <th>Band</th>
+      <th>Manufacturer</th>
+      <th>Make of BTS</th>
+      <th>Length Mtrs</th>
+      <th>Width Mtrs</th>
+      <th>Height Mtrs</th>
+      <th>BTS Power Rating KW</th>
+      <th *ngIf="show">BTS Location</th>
+      <th *ngIf="show">BTS Voltage</th>
+      <th *ngIf="show">Main Unit incase of TT Split Version</th>
+      <th *ngIf="show">Space Occupied in Us incase of TT Split Version</th>
+      <th *ngIf="show">RRU Unit</th>
+      <th *ngIf="show">No of RRU Units incase of TT Split Version</th>
+      <th *ngIf="show">Combined wt of RRU Unit incase of TT Split Version</th>
+      <th *ngIf="show">AGL of RRU unit in M</th>
+      <th *ngIf="show">Weight of BTS including TMA TMB Kg</th>
+      <th *ngIf="show">Billable Weigtht</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bts of btsCabinetList">
+      <td>{{bts.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{bts.Action}}</td>
+      <td>{{bts.NetWork_Type}}</td>
+      <td>{{bts.BTS_Type}}</td>
+      <td>{{bts.Band}}</td>
+      <td>{{bts.Manufacturer}}</td>
+      <td>{{bts.Make_of_BTS}}</td>
+      <td>{{bts.Length_Mtrs}}</td>
+      <td>{{bts.Width_Mtrs}}</td>
+      <td>{{bts.Height_Mtrs}}</td>
+      <td>{{bts.BTS_Power_Rating_KW}}</td>
+      <td *ngIf="show">{{bts.BTS_Location}}</td>
+      <td *ngIf="show">{{bts.BTS_Voltage}}</td>
+      <td *ngIf="show">{{bts.Main_Unit_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.Space_Occupied_in_Us_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.RRU_Unit}}</td>
+      <td *ngIf="show">{{bts.No_of_RRU_Units_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.Combined_wt_of_RRU_Unit_incase_of_TT_Split_Version}}</td>
+      <td *ngIf="show">{{bts.AGL_of_RRU_unit_in_M}}</td>
+      <td *ngIf="show">{{bts.Weight_of_BTS_including_TMA_TMB_Kg}}</td>
+      <td *ngIf="show">{{bts.Billable_Weigtht}}</td>
+    </tr>
+  </tbody>
+</table>

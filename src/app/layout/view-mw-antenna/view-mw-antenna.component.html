@@ -1,0 +1,22 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th> 
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th> 
+      <th>MWAntenna i_WAN</th> 
+      <th>Size of MW</th> 
+      <th>Height in Mtrs</th> 
+      <th>Azimuth Degree</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mw of mwAntennaList;">
+      <td>{{mw.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{mw.Action}}</td>
+      <td>{{mw.MWAntenna_i_WAN}}</td>
+      <td>{{mw.Size_of_MW}}</td>
+      <td>{{mw.Height_in_Mtrs}}</td>
+      <td>{{mw.Azimuth_Degree}}</td>
+    </tr>
+  </tbody>
+</table>

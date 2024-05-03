@@ -1,0 +1,110 @@
+<div class="row mr-t mr-b" *ngFor="let otherNode of otherNodeList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{otherNode.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="otherNodeFeas{{otherNode.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditOtherNode','editOtherNode',otherNode.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Action}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeAction{{otherNode.typeNo}}" [value]="otherNode.Action" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Type - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Node_Type}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeA{{otherNode.typeNo}}" [value]="otherNode.Node_Type" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Location - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Node_Location}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeB{{otherNode.typeNo}}" [value]="otherNode.Node_Location" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Manufacturer - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Node_Manufacturer}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeC{{otherNode.typeNo}}" [value]="otherNode.Node_Manufacturer" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Model - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Node_Model}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeD{{otherNode.typeNo}}" [value]="otherNode.Node_Model" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Length_Mtrs}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeE{{otherNode.typeNo}}" [value]="otherNode.Length_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Breadth Mtrs - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Breadth_Mtrs}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeF{{otherNode.typeNo}}" [value]="otherNode.Breadth_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height Mtrs - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Height_Mtrs}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <!-- <input type="text" class="form-control" id="otherNodeG{{otherNode.typeNo}}" [value]="otherNode.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="otherNodeG{{otherNode.typeNo}}" [value]="otherNode.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight Kg - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Weight_Kg}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeH{{otherNode.typeNo}}" [value]="otherNode.Weight_Kg" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Voltage - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Node_Voltage}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeI{{otherNode.typeNo}}" [value]="otherNode.Node_Voltage" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Power Rating in Kw - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Power_Rating_in_Kw}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeJ{{otherNode.typeNo}}" [value]="otherNode.Power_Rating_in_Kw" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>FullRack - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.FullRack}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeK{{otherNode.typeNo}}" [value]="otherNode.FullRack" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Tx Rack Space Required In_Us - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Tx_Rack_Space_Required_In_Us}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeL{{otherNode.typeNo}}" [value]="otherNode.Tx_Rack_Space_Required_In_Us" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Remarks - {{otherNode.typeNo}}</label>
+    <div class="nonEditOtherNode{{otherNode.typeNo}}">{{otherNode.Remarks}}</div>
+    <div class="edit editOtherNode{{otherNode.typeNo}}">
+      <input type="text" class="form-control" id="otherNodeM{{otherNode.typeNo}}" [value]="otherNode.Remarks" [disabled]="true"/>
+    </div>
+  </div>
+</div>

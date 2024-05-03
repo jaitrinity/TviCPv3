@@ -1,0 +1,20 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Height</th>
+      <th>Dia</th>
+      <th>Azimuth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mw of microwaveList">
+      <td>{{mw.make}}</td>
+      <td>{{mw.model}}</td>
+      <td>{{mw.microwaveHeight}}</td>
+      <td>{{mw.dia}}</td>
+      <td>{{mw.microwaveAzimuth}}</td>
+    </tr>
+  </tbody>
+</table>

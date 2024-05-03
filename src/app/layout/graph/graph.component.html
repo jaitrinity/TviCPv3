@@ -1,0 +1,332 @@
+<div class="my-main">
+  <div class="my-menu">
+    <ul>
+      <li (click)="countGraph=true;agingGraph=!countGraph;somGraph=!countGraph" 
+      [ngClass]="{'active-li': countGraph}">
+        SR Status
+      </li>
+      <li (click)="agingGraph=true;somGraph=!agingGraph;countGraph=!agingGraph" 
+      [ngClass]="{'active-li': agingGraph}">
+        Aging Status
+      </li>
+      <li (click)="somGraph=true;agingGraph=!somGraph;countGraph=!somGraph" 
+      [ngClass]="{'active-li': somGraph}">
+        Internal SoM
+      </li>
+    </ul>
+  </div>
+  <div class="my-content">
+    <div class="container-fluid" *ngIf="countGraph">
+      <div class="row">
+        <div class="col-md-2">
+          <label>Period</label>
+          <select class="input-sm form-control" [(ngModel)] = "filterPeriod" (change)="generateGraph123()">
+            <option value="">Select</option>
+            <option>YTD</option>
+            <option>MTD</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Operator </label>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator" (change)="generateGraph123()" *ngIf="isHoUser == 'N' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of operator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator" (change)="generateGraph123()" *ngIf="isHoUser == 'Y' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of allOperator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Product Type</label>
+          <select class="input-sm form-control" [(ngModel)]="filterProductType" (change)="generateGraph123()">
+            <option value="">Select</option>
+            <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SR</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="graph1">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [colors]="barChartColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SP</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="spGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="spBarChartData"
+                [labels]="spBarChartLabels"
+                [options]="barChartOptions"
+                [colors]="spBarChartColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SO</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="soGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="soBarChartData"
+                [labels]="soBarChartLabels"
+                [options]="barChartOptions"
+                [colors]="soBarChartColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">RFI</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="rfiGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="rfiBarChartData"
+                [labels]="rfiBarChartLabels"
+                [options]="barChartOptions"
+                [colors]="rfiBarChartColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" *ngIf="agingGraph">
+      <div class="row">
+        <div class="col-md-2">
+          <label>Period</label>
+          <select class="input-sm form-control" [(ngModel)] = "filterPeriod1" (change)="generateGraph456()">
+            <option value="">Select</option>
+            <option>YTD</option>
+            <option>MTD</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Operator </label>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator1" (change)="generateGraph456()" *ngIf="isHoUser == 'N' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of operator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator1" (change)="generateGraph456()" *ngIf="isHoUser == 'Y' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of allOperator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Product Type</label>
+          <select class="input-sm form-control" [(ngModel)]="filterProductType1" (change)="generateGraph456()">
+            <option value="">Select</option>
+            <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Circle Name </label>
+          <!-- <select class="input-sm form-control" [(ngModel)]="filterCircleName1" (change)="generateGraph456()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of allCircle?.split(',')" value="{{cn}}">{{cn}}</option>
+          </select> -->
+
+          <select class="input-sm form-control" [(ngModel)]="filterCircleName1" (change)="generateGraph456()" *ngIf="isHoUser == 'N' ">
+            <option value="">Select</option>
+            <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+          </select>
+          <select class="input-sm form-control" [(ngModel)]="filterCircleName1" (change)="generateGraph456()" *ngIf="isHoUser == 'Y' ">
+            <option value="">Select</option>
+            <option *ngFor="let cn of allCircle?.split(',')" value="{{cn}}">{{cn}}</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SR Aging</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="srAgingGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="srAgingData"
+                [labels]="srAgingLabels"
+                [options]="barChartOptions"
+                [colors]="srAgingColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SP Aging</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="spAgingGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="spAgingData"
+                [labels]="spAgingLabels"
+                [options]="barChartOptions"
+                [colors]="spAgingColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">SO Aging</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="soAgingGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="soAgingData"
+                [labels]="soAgingLabels"
+                [options]="barChartOptions"
+                [colors]="soAgingColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+
+        <div class="col-md-12 graph-col">
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <span class="graph-name">RFI Aging</span>
+            </div>
+          </div>
+          <div style="display: block" *ngIf="rfiAgingGraph">
+            <canvas baseChart height = "18vh" width = "80vw"
+                [datasets]="rfiAgingData"
+                [labels]="rfiAgingLabels"
+                [options]="barChartOptions"
+                [colors]="rfiAgingColors"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" *ngIf="somGraph">
+      <div class="row">
+        <div class="col-md-2">
+          <label>Period</label>
+          <select class="input-sm form-control" [(ngModel)] = "filterPeriod2" (change)="generateSomGraph()">
+            <option value="">Select</option>
+            <option>YTD</option>
+            <option>MTD</option>
+          </select>
+        </div>
+        <!-- <div class="col-md-2">
+          <label>Operator </label>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator2" (change)="generateSomGraph()" *ngIf="isHoUser == 'N' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of operator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+          <select class="input-sm form-control" [(ngModel)]="filterOperator" (change)="generateSomGraph()" *ngIf="isHoUser == 'Y' ">
+            <option value="">Select</option>
+            <option *ngFor="let op of allOperator?.split(',')" value="{{op}}">{{op}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Product Type</label>
+          <select class="input-sm form-control" [(ngModel)]="filterProductType2" (change)="generateSomGraph()">
+            <option value="">Select</option>
+            <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row mr-0">
+            <div class="col-md-12 graph-col">
+              <div style="display: flex;">
+                <div style="width: 30%;">
+                  <span class="graph-name">
+                    SO
+                  </span>
+                </div>
+                <div style="padding: 10px;">
+                  <span *ngFor="let v of soSomValueArr">
+                    {{v.operator}} - {{v.value}}<span *ngIf="v.operator != 'VIL'">,&nbsp;</span> 
+                  </span>
+                </div>
+              </div>
+              <div style="display: block;" *ngIf="soSomGraph">
+                <canvas baseChart height = "35vh" width = "80vw" 
+                  [data]="soSomPieChartData" 
+                  [labels]="soSomPieChartLabels" 
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions" 
+                  [legend]="pieChartLegend"
+                  [colors]="soSomPieChartColors">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-md-6">
+          <div class="row mr-0">
+            <div class="col-md-12 graph-col">
+              <div style="display: flex;">
+                <div style="width: 30%;">
+                  <span class="graph-name">
+                    RFI
+                  </span>
+                </div>
+                <div style="padding: 10px;">
+                  <span *ngFor="let v of rfiSomValueArr">
+                    {{v.operator}} - {{v.value}}<span *ngIf="v.operator != 'VIL'">,&nbsp;</span>
+                  </span>
+                </div>
+              </div>
+              <div style="display: block;" *ngIf="rfiSomGraph">
+                <canvas baseChart height = "35vh" width = "80vw"
+                  [data]="rfiSomPieChartData" 
+                  [labels]="rfiSomPieChartLabels" 
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions" 
+                  [legend]="pieChartLegend"
+                  [colors]="rfiSomPieChartColors">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

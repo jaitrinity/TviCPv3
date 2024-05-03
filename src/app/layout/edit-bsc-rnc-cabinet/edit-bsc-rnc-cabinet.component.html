@@ -1,0 +1,75 @@
+<div class="row mr-t mr-b" *ngFor="let btsRnc of bscRncCabinetList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{btsRnc.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="bscRncFeas{{btsRnc.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditRnc','editRnc',btsRnc.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.Action}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncAction{{btsRnc.typeNo}}" [value]="btsRnc.Action" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>NetWork Type - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.NetWork_Type}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncA{{btsRnc.typeNo}}" [value]="btsRnc.NetWork_Type" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Type - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.BSC_RNC_Type}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncB{{btsRnc.typeNo}}" [value]="btsRnc.BSC_RNC_Type" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Manufacturer - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.BSC_RNC_Manufacturer}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncC{{btsRnc.typeNo}}" [value]="btsRnc.BSC_RNC_Manufacturer" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Make - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.BSC_RNC_Make}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncD{{btsRnc.typeNo}}" [value]="btsRnc.BSC_RNC_Make" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.Length_Mtrs}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncE{{btsRnc.typeNo}}" [value]="btsRnc.Length_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Breadth Mtrs - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.Breadth_Mtrs}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncF{{btsRnc.typeNo}}" [value]="btsRnc.Breadth_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height AGL - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.Height_AGL}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <!-- <input type="text" class="form-control" id="bscRncG{{btsRnc.typeNo}}" [value]="btsRnc.Height_AGL" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="bscRncG{{btsRnc.typeNo}}" [value]="btsRnc.Height_AGL" 
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BSC RNC Power_Rating - {{btsRnc.typeNo}}</label>
+    <div class="nonEditRnc{{btsRnc.typeNo}}">{{btsRnc.BSC_RNC_Power_Rating}}</div>
+    <div class="edit editRnc{{btsRnc.typeNo}}">
+      <input type="text" class="form-control" id="bscRncH{{btsRnc.typeNo}}" [value]="btsRnc.BSC_RNC_Power_Rating" [disabled]="true"/>
+    </div>
+  </div>
+</div>

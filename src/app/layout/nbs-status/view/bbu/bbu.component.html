@@ -1,0 +1,18 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Rated Power Consumption</th>
+      <th>Positioning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bbu of bbuList">
+      <td>{{bbu.bbuMake}}</td>
+      <td>{{bbu.bbuModel}}</td>
+      <td>{{bbu.bbuPowerConsumption}}</td>
+      <td>{{bbu.bbuPositioning}}</td>
+    </tr>
+  </tbody>
+</table>

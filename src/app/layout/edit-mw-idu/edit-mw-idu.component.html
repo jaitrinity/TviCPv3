@@ -1,0 +1,113 @@
+<div class="row mr-t mr-b" *ngFor="let mwIdu of mwIduList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{mwIdu.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="mwIduFeas{{mwIdu.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditMwIdu','editMwIdu',mwIdu.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Action}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduAction{{mwIdu.typeNo}}" [value]="mwIdu.Action" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Type - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Node_Type}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduA{{mwIdu.typeNo}}" [value]="mwIdu.Node_Type" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Location - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Node_Location}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <select class="form-control" id="mwIduB{{mwIdu.typeNo}}">
+        <option value="">Select</option>
+        <option [value]="iduNode" *ngFor="let iduNode of mwIduNodeLocation" [selected]="iduNode == mwIdu.Node_Location">{{iduNode}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Manufacturer - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Node_Manufacturer}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduC{{mwIdu.typeNo}}" [value]="mwIdu.Node_Manufacturer" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Model - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Node_Model}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduD{{mwIdu.typeNo}}" [value]="mwIdu.Node_Model" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Length_Mtrs}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduE{{mwIdu.typeNo}}" [value]="mwIdu.Length_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Breadth Mtrs - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Breadth_Mtrs}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduF{{mwIdu.typeNo}}" [value]="mwIdu.Breadth_Mtrs" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height Mtrs - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Height_Mtrs}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <!-- <input type="text" class="form-control" id="mwIduG{{mwIdu.typeNo}}" [value]="mwIdu.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="mwIduG{{mwIdu.typeNo}}" [value]="mwIdu.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight Kg - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Weight_Kg}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduH{{mwIdu.typeNo}}" [value]="mwIdu.Weight_Kg" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Voltage - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Node_Voltage}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduI{{mwIdu.typeNo}}" [value]="mwIdu.Node_Voltage" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Power Rating in Kw - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Power_Rating_in_Kw}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduJ{{mwIdu.typeNo}}" [value]="mwIdu.Power_Rating_in_Kw" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>FullRack - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.FullRack}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduK{{mwIdu.typeNo}}" [value]="mwIdu.FullRack" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Tx Rack Space Required In_Us - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Tx_Rack_Space_Required_In_Us}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduL{{mwIdu.typeNo}}" [value]="mwIdu.Tx_Rack_Space_Required_In_Us" [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Remarks - {{mwIdu.typeNo}}</label>
+    <div class="nonEditMwIdu{{mwIdu.typeNo}}">{{mwIdu.Remarks}}</div>
+    <div class="edit editMwIdu{{mwIdu.typeNo}}">
+      <input type="text" class="form-control" id="mwIduM{{mwIdu.typeNo}}" [value]="mwIdu.Remarks" [disabled]="true"/>
+    </div>
+  </div>
+</div>

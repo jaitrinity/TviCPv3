@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'dashboard-font';
+    src: url('../src/assets/fonts/aptos.ttf');
+}
+
+#pageNav{
+    color: #731673;
+}
+ul.item2{
+    position: relative !important;
+}
+.mg-0{
+    margin: 0px !important;
+}
+.pd-0{
+    padding: 0px !important;
+}
+.mr-t{
+    margin-top: 5px
+}
+
+.mr-b{
+    margin-bottom: 5px
+}
+#scroll-bar::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#scroll-bar::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+}
+
+.the-legend {
+    border-style: none;
+    border-width: 0;
+    margin-bottom: 0;
+    width: auto;
+}
+.the-fieldset {
+    background: white;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 5px 25px;
+    border-radius: 5px;
+}
+ng2-smart-table tbody > tr > td{
+    word-break: break-word;
+}
+ng2-smart-table .ng2-smart-action-delete-delete,
+ng2-smart-table .ng2-smart-action-edit-edit,
+ng2-smart-table .ng2-smart-action-custom-custom {
+    padding:3px;
+    color: #2E57A7 !important;
+    font-weight: 500;
+    border: 1px solid #800080;
+    border-radius: 3px;
+    font-size:12px;
+    margin-right: 5px
+}
+ng2-smart-table .ng2-smart-action-delete-delete:hover,
+ng2-smart-table .ng2-smart-action-edit-edit:hover,
+ng2-smart-table .ng2-smart-action-custom-custom:hover{
+    text-decoration: none !important;
+    background: #2E57A7;
+    color:white !important;
+}
+ng2-smart-table .ng2-smart-pagination-nav > ul > li > a {
+    color:#2E57A7 !important;
+}
+ng2-smart-table .page-item.active .page-link {
+    color: #fff !important;
+    background-color:#2E57A7 !important;
+    border-color: #2E57A7 !important;
+}
+img.icon{
+    width: 50px;
+    height: 50px
+} 
+.ng-dirty{
+    color: black !important;
+}
+#viewAirtelSrModal .col-md-2,
+#viewAirtelSrModal .col-md-3,
+#viewAirtelSrModal .col-md-4, 
+#viewAirtelSrModal .col-md-9, 
+#viewAirtelSrModal .col-md-10{
+    border: 1px solid #e2dede;
+}
+.edit{
+    display: none;
+}
+.view-table thead{
+    background-color: #003977;
+    color: white;
+}
+.view-table thead th, .view-table tbody td{
+    padding: 5px;
+    font-size: 12px;
+}
+.more-less-btn{
+    border-radius: 10px;
+    margin-bottom: 5px;
+    float: right;
+    background-color: #003977;
+    color: white;
+}
+
+

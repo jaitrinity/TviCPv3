@@ -1,0 +1,29 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th>
+      <th>NetWork Type</th>
+      <th>BSC RNC Manufacturer</th>
+      <th>BSC RNC Make</th>
+      <th>Length Mtrs</th>
+      <th>Breadth Mtrs</th>
+      <th>Height AGL</th>
+      <th>BSC RNC Power_Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let btsRnc of bscRncCabinetList;">
+      <td>{{btsRnc.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{btsRnc.Action}}</td>
+      <td>{{btsRnc.NetWork_Type}}</td>
+      <td>{{btsRnc.BSC_RNC_Type}}</td>
+      <td>{{btsRnc.BSC_RNC_Manufacturer}}</td>
+      <td>{{btsRnc.BSC_RNC_Make}}</td>
+      <td>{{btsRnc.Length_Mtrs}}</td>
+      <td>{{btsRnc.Breadth_Mtrs}}</td>
+      <td>{{btsRnc.Height_AGL}}</td>
+      <td>{{btsRnc.BSC_RNC_Power_Rating}}</td>
+    </tr>
+  </tbody>
+</table>

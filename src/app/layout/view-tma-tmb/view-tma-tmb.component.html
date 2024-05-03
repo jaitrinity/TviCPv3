@@ -1,0 +1,30 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th>Action</th>
+      <th>Source</th>
+      <th>No of TMA TMB</th>
+      <th>Weight of each TMA TMB</th>
+      <th>Combined wt of TMA TMB Kgs</th>
+      <th>Height at which needs to be mounted Mtrs</th>
+      <th>Customer Punched Or Planning</th>
+      <th>Source Request Ref No</th>
+      <th>Delete Request Ref No</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tmaTmb of tmaTmbList">
+      <td>{{tmaTmb.Feasibility}}</td>
+      <td>{{tmaTmb.Action}}</td>
+      <td>{{tmaTmb.Source}}</td>
+      <td>{{tmaTmb.No_of_TMA_TMB}}</td>
+      <td>{{tmaTmb.Weight_of_each_TMA_TMB}}</td>
+      <td>{{tmaTmb.Combined_wt_of_TMA_TMB_Kgs}}</td>
+      <td>{{tmaTmb.Height_at_which_needs_to_be_mounted_Mtrs}}</td>
+      <td>{{tmaTmb.Customer_Punched_Or_Planning}}</td>
+      <td>{{tmaTmb.Source_Request_Ref_No}}</td>
+      <td>{{tmaTmb.Delete_Request_Ref_No}}</td>
+    </tr>
+  </tbody>
+</table>

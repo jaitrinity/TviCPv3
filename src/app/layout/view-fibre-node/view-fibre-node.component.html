@@ -1,0 +1,54 @@
+<button (click)="show = !show" class="more-less-btn">
+  <span *ngIf="!show; else less">More</span>
+  <ng-template #less>
+    <span>Less</span>
+  </ng-template>
+</button>
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th>
+      <th>Node Type</th>
+      <th>Node Location</th>
+      <th>Node Manufacturer</th>
+      <th>Node Model</th>
+      <th>Length Mtrs</th>
+      <th>Breadth Mtrs</th>
+      <th>Height Mtrs</th>
+      <th>Weight Kg</th>
+      <th *ngIf="show">Node Voltage</th>
+      <th>Power Rating in Kw</th>
+      <th *ngIf="show">FullRack</th>
+      <th *ngIf="show">Tx Rack Space required in Us</th>
+      <th *ngIf="show">Is Right Of Way ROW Required Inside The TOCO Premises</th>
+      <th *ngIf="show">Type Of Fiber Laying</th>
+      <th *ngIf="show">Type Of FMS</th>
+      <th *ngIf="show">Remarks</th>
+      <th *ngIf="show">Full Rack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fibreNode of fibreNodeList;">
+      <td>{{fibreNode.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{fibreNode.Action}}</td>
+      <td>{{fibreNode.Node_Type}}</td>
+      <td>{{fibreNode.Node_Location}}</td>
+      <td>{{fibreNode.Node_Manufacturer}}</td>
+      <td>{{fibreNode.Node_Model}}</td>
+      <td>{{fibreNode.Length_Mtrs}}</td>
+      <td>{{fibreNode.Breadth_Mtrs}}</td>
+      <td>{{fibreNode.Height_Mtrs}}</td>
+      <td>{{fibreNode.Weight_Kg}}</td>
+      <td *ngIf="show">{{fibreNode.Node_Voltage}}</td>
+      <td>{{fibreNode.Power_Rating_in_Kw}}</td>
+      <td *ngIf="show">{{fibreNode.FullRack}}</td>
+      <td *ngIf="show">{{fibreNode.Tx_Rack_Space_required_in_Us}}</td>
+      <td *ngIf="show">{{fibreNode.Is_Right_Of_Way_ROW_Required_Inside_The_TOCO_Premises}}</td>
+      <td *ngIf="show">{{fibreNode.Type_Of_Fiber_Laying}}</td>
+      <td *ngIf="show">{{fibreNode.Type_Of_FMS}}</td>
+      <td *ngIf="show">{{fibreNode.Remarks}}</td>
+      <td *ngIf="show">{{fibreNode.Full_Rack}}</td>
+    </tr>
+  </tbody>
+</table>

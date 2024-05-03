@@ -1,0 +1,90 @@
+<div class="row mr-t mr-b" *ngFor="let radio of radioAntennaList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{radio.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="radioAntennaFeas{{radio.typeNo}}" 
+    (change)="changeFeasibility($event,'nonEditRadAnt','editRadAnt',radio.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Action}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntAction{{radio.typeNo}}" [value]="radio.Action"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>RadioAntenna i_WAN - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.RadioAntenna_i_WAN}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntIwan{{radio.typeNo}}" [value]="radio.RadioAntenna_i_WAN"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height AGL_m - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Height_AGL_m}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntHeightAgl{{radio.typeNo}}" [value]="radio.Height_AGL_m"
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Azimuth Degree - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Azimuth_Degree}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntAziDeg{{radio.typeNo}}" [value]="radio.Azimuth_Degree"
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length m - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Length_m}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntLenthM{{radio.typeNo}}" [value]="radio.Length_m"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Width m - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Width_m}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntWidthM{{radio.typeNo}}" [value]="radio.Width_m"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Depth m - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.Depth_m}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntDepthM{{radio.typeNo}}" [value]="radio.Depth_m"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>No of Ports - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.No_of_Ports}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntNoOfPorts{{radio.typeNo}}" [value]="radio.No_of_Ports"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>RadioAntenna Type - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.RadioAntenna_Type}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntType{{radio.typeNo}}" [value]="radio.RadioAntenna_Type"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>BandFrequencyMHz FrequencyCombination - {{radio.typeNo}}</label>
+    <div class="nonEditRadAnt{{radio.typeNo}}">{{radio.BandFrequencyMHz}}</div>
+    <div class="edit editRadAnt{{radio.typeNo}}">
+      <input type="text" class="form-control" id="radAntBandFreq{{radio.typeNo}}" [value]="radio.BandFrequencyMHz"
+      [disabled]="true"/>
+    </div>
+  </div>
+</div>

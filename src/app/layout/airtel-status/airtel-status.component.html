@@ -1,0 +1,2361 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<div class="container-fluid">      
+  <div class="row mr-t">
+    <div class="col-md-2">
+      <label>SR,SP or SO Number</label>
+      <input type="text" class="input-sm form-control" [(ngModel)]="filterSrNumber" (keyup.enter)="getAirtetDetails(1)"/>
+    </div>
+    <div class="col-md-2">
+      <label>Circle Name <span title="Reset Circle Name" (click) = "filterCircleName = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'N' ">
+        <option value="">Select</option>
+        <option *ngFor="let cn of circleName?.split(',')" value="{{cn}}">{{cn}}</option>
+      </select>
+      <select class="input-sm form-control" [(ngModel)]="filterCircleName" *ngIf="isHoUser == 'Y' ">
+        <option value="">Select</option>
+        <option *ngFor="let cn of allCircleList?.split(',')" value="{{cn}}">{{cn}}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label>TVI Site Id <span title="Reset TVI Site id" (click) = "filterTviSiteId = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <input type="text" class="input-sm form-control" [(ngModel)]="filterTviSiteId" (keyup.enter)="getAirtetDetails(1)"/>
+    </div>
+    <div class="col-md-2">
+      <label>Site Id <span title="Reset Site Id" (click) = "filterSiteId = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <input type="text" class="input-sm form-control" [(ngModel)]="filterSiteId" (keyup.enter)="getAirtetDetails(1)"/>
+    </div>
+    <div class="col-md-2">
+      <label>Product Type <span title="Reset Product Type" (click) = "filterProductType = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <select class="input-sm form-control" [(ngModel)]="filterProductType">
+        <option value="">Select</option>
+        <option value="{{pt.paramCode}}" *ngFor="let pt of productTypeList">{{pt.paramDesc}}</option>
+      </select>
+    </div>
+    <!-- <div class="col-md-2">
+      <label>SR Status <span title="Reset SR Status" (click) = "filterSrStatus = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <select class="input-sm form-control" [(ngModel)]="filterSrStatus">
+        <option value="">Select</option>
+        <option>SR</option>
+        <option>SP</option>
+        <option>SO</option>
+        <option>RFI</option>
+        <option>RFI Accepted</option>
+        <option>RFS</option>
+      </select>
+    </div>     -->
+  </div>
+  <div class="row mr-t">
+    <div class="col-md-2">
+      <label>From Date <span title="Reset start date" (click) = "filterStartDate = '';filterEndDate=''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+      <input type="date" class="input-sm form-control" min = "2020-07-01" [(ngModel)]="filterStartDate"/>
+    </div>
+
+    <div class="col-md-2">
+      <label>To Date <span title="Reset end date" (click) = "filterEndDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </label>
+      <input type="date" class="input-sm form-control" min = "{{filterStartDate}}" [(ngModel)]="filterEndDate" [disabled] = "filterStartDate == '' "/>
+    </div> 
+    
+    <!-- <div class="col-md-2">
+      <label>Operator <span title="Reset Operator" (click) = "filterOperator = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span></label>
+      <select class="input-sm form-control" [(ngModel)]="filterOperator" [disabled]="loginEmpRole == 'OPCO' ">
+        <option value="">Select</option>
+        <option value="{{op}}" *ngFor="let op of allOperatorList">{{op}}</option>
+      </select>
+    </div> -->
+    
+    <div class="col-md-2">
+      <label style="display: block;color:transparent">Apply filter</label>
+      <button class="btn btn-sm tvi-yellow text-white" (click)="getAirtetDetails(1)">Apply Filter</button> &nbsp;&nbsp;
+      <button class="btn btn-sm tvi-yellow text-white" (click)="exportData()">Export</button>
+    </div>
+    
+    <!-- <div class="col-md-8">
+    </div> -->
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row mr-t mr-b" style="max-height:360px;overflow: auto">
+    <div class="col-md-12">
+      <table class="table table-bordered header-table">
+        <!-- <thead> -->
+          <tr style="background-color: #2E57A7;color: white">
+            <th *ngIf="is_show_reject_all_btn">
+              <input type="checkbox" [(ngModel)]="selectAll" (click)="selectAllCheckbox()"/>
+            </th>
+            <th>SR Number</th><th>SP Number</th><th>SO Number</th> <th>Site Id</th> 
+            <th>TVI Site Id</th>
+            <th>Site Name</th> <th>Latitude</th> <th>Longitude</th>
+            <th>Product type</th> <th>Project Name</th> <th>Upgrade Type</th> 
+            <th>SR Date</th> <th>SP Date</th> <th>SO Date</th>
+            <th>RFI date</th> <th>RFI Accept date</th> 
+            <!-- <th>RFS date</th>  -->
+            <th>Circle</th>
+            <th>Pending With</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        <!-- </thead> -->
+        <!-- <tbody> -->
+          <tr *ngFor="let ad of airtelDetailsList" [ngStyle]= "{'color':getColor(ad.tabName, ad.status)}" style="font-weight: 500">
+            <td *ngIf="(loginEmpRole == 'HO_RF_PLANNING' &&  ad.status == 'NB02') || is_show_reject_all_btn">
+              <input type="checkbox" value="{{ad.srNumber}}-{{ad.circleName}}-{{ad.operator}}-{{ad.tabName}}" name="TVI_SITE" *ngIf="getHoRfCheckbox(ad.status)" />
+            </td>
+            <td>{{ad.srNumber}}</td><td>{{ad.spNumber}}</td><td>{{ad.soNumber}}</td><td>{{ad.airtelSiteId}}</td>
+            <td>{{ad.tviSiteId}}</td>
+            <td>{{ad.siteName}}</td> 
+            <td>
+              <span *ngIf="ad.spLatitude != '0.0'; else srLati ">
+                {{ad.spLatitude}}
+              </span>
+              <ng-template #srLati>
+                <span>{{ad.latitude1}}</span>
+              </ng-template>
+            </td> 
+            <td>
+              <span *ngIf="ad.spLongitude != '0.0'; else srLong ">
+                {{ad.spLongitude}}
+              </span>
+              <ng-template #srLong>
+                <span>{{ad.longitude1}}</span>
+              </ng-template>
+            </td>
+            <td>{{ad.orgTabName}}</td> <td>{{ad.projectName}}</td> <td>{{ad.upgradeType}}</td> 
+            <td>{{ad.srRaiseDate}}</td><td>{{ad.spRaiseDate}}</td><td>{{ad.soRaiseDate}}</td>
+            <td>{{ad.rfiDate}}</td><td>{{ad.rfiAcceptedDate}}</td> 
+            <!-- <td>{{ad.rfsDate}}</td> -->
+            <td>{{ad.circleName}}</td>
+            <td>{{ad.pendingTo}}</td> 
+            <td>{{ad.srStatus}}</td>
+            <td>
+              <a href="javascript:void(0)" class="viewAnchor" (click)="viewAirtelSrDetails(ad.srNumber)">View</a> &nbsp;
+            </td>
+          </tr>
+        <!-- </tbody> -->
+      </table>
+    </div>
+  </div>
+
+  <div class="row" style="margin: 10px 0px" >
+    <div class="col-md-2">
+      <button *ngIf="is_show_reject_all_btn" class="btn btn-sm tvi-yellow text-white" (click)="cancelCheckedList(1,'NB03')">Approve Selected SR</button>
+    </div>
+    <div class="col-md-2">
+      <button *ngIf="is_show_reject_all_btn" class="btn btn-sm tvi-yellow text-white" (click)="cancelCheckedList(1,'NB98')">Reject Selected SR</button>
+    </div>
+    <div class="col-md-8">
+      <div class="row" *ngIf="pagination != '' && pagination != '1' ">
+        <div class="col-md-4">
+          <select class="input-sm form-control" id = "page-select" (change)="changePagination($event)" *ngIf="pageArr.length >= 3">
+            <option [value] = "ii" *ngFor="let pp of pageArr;let ii = index;">{{pp}}</option>
+          </select>
+        </div>
+        
+        <div class="col-md-8 text-right allPages">
+          <p *ngFor="let p of pageArr;let i = index;" id="div{{i}}">
+            <span title="Begin" class="my-pagination" *ngIf="i != 0" (click)="gotoBeginEnd(i,0)"><i class="fa fa-angle-double-left"></i></span>
+            <span title="Previous" class="my-pagination" id="pre{{i}}" *ngIf = "i != 0" (click)="gotoPrev(i)"><i class="fa fa-angle-left"></i></span>
+            <span *ngFor="let page of p?.split(',')" class="my-pagination my-pagination_{{page}}" (click)="getAirtetDetails(page)">{{page}}</span>
+            <span title="Next" class="my-pagination" id="next{{i}}" *ngIf = "i < pageArr.length -1 " (click)="gotoNext(i)"><i class="fa fa-angle-right"></i></span>
+            <span title="End" class="my-pagination" *ngIf="i < pageArr.length - 1" (click)="gotoBeginEnd(i,pageArr.length - 1)"><i class="fa fa-angle-double-right"></i></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="noRecordFound">
+    <div class="col-md-4">
+      <h3><label> &#33; No record found</label></h3>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bulkStatusModal" role="dialog" *ngIf="loginEmpRole == 'HO_RF_PLANNING' ">
+  <div class="modal-dialog  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+        <div class="row mr-t mr-b">
+          <div class="col-md-12" *ngIf="bulkAction == 'NB03' && (filterProductType == '' || filterProductType == 'CreateNBS')">
+            <label>Sharing Potential</label>
+            <select class="form-control" [(ngModel)]="bulkSharingPotential">
+              <option value="">Select</option>
+              <option>P1</option>
+              <option>P2</option>
+              <option>P2 with condition</option>
+              <option>P3</option>
+            </select>
+          </div>
+
+          <div class="col-md-12">
+            <label>Remark</label>
+            <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "bulkRemark"></textarea>
+          </div>
+        </div>
+
+        <div class="row mr-t mr-b">
+          <div class="col-md-2" *ngIf="bulkAction == 'NB03' ">
+            <button class="btn tvi-yellow text-white" (click) = "cancelCheckedList('2')">Approve</button>
+          </div>
+          <div class="col-md-2" *ngIf="bulkAction == 'NB98' ">
+            <button class="btn tvi-yellow text-white" (click) = "cancelCheckedList('2')">Reject</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn tvi-yellow text-white" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="viewAirtelSrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+      <div class="modal-content">
+          <div class="modal-header" style="padding: 10px !important;">
+              <h4 class="modal-title tr-color">{{viewSrNumber}}</h4>
+          </div>
+          <div class="modal-body" style="height:435px;overflow: auto">
+            <fieldset class="the-fieldset">
+              <legend class="the-legend">SR Details</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Site Name</label>
+                  <div>{{airtelDataObj.siteName}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Opco Id</label>
+                  <div>{{airtelDataObj.airtelSiteId}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Latitude</label>
+                  <div>{{airtelDataObj.latitude1}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Longitude</label>
+                  <div>{{airtelDataObj.longitude1}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.sharingPotential != ''">
+                  <label>Sharing Potential</label>
+                  <div>{{srViewObj.sharingPotential}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR">
+                  <label>Activity Type</label>
+                  <div>{{srViewObj.activityType}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Project Name</label>
+                  <div>{{srViewObj.projectName}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR">
+                  <label>RL Type</label>
+                  <div>{{srViewObj.rlType}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="airtelDataObj.upgradeType != ''">
+                  <label>Upgrade Type</label>
+                  <div>{{airtelDataObj.upgradeType}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR || isNewTenency_SR">
+                  <label>Unique Request Id</label>
+                  <div>{{srViewObj.UniqueRequestId}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Remarks !=''">
+                  <label>Remarks</label>
+                  <div>{{srViewObj.Remarks}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Customer_Site_Id !=''">
+                  <label>Customer Site Id</label>
+                  <div>{{srViewObj.Customer_Site_Id}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Customer_Site_Name !=''">
+                  <label>Customer_Site_Name</label>
+                  <div>{{srViewObj.Customer_Site_Name}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.State !=''">
+                  <label>State</label>
+                  <div>{{srViewObj.State}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Cell_Type !=''">
+                  <label>Cell_Type</label>
+                  <div>{{srViewObj.Cell_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Site_Type !=''">
+                  <label>Site_Type</label>
+                  <div>{{srViewObj.Site_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.City !=''">
+                  <label>City</label>
+                  <div>{{srViewObj.City}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Search_Ring_Radious_Mtrs !=''">
+                  <label>Search_Ring_Radious_Mtrs</label>
+                  <div>{{srViewObj.Search_Ring_Radious_Mtrs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Infill_NewTown !=''">
+                  <label>Infill_NewTown</label>
+                  <div>{{srViewObj.Infill_NewTown}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.ShowCase_Non_Showcase !=''">
+                  <label>ShowCase_Non_Showcase</label>
+                  <div>{{srViewObj.ShowCase_Non_Showcase}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj._3_11_Towns != ''">
+                  <label>_3_11_Towns</label>
+                  <div>{{srViewObj._3_11_Towns}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Town != ''">
+                  <label>Town</label>
+                  <div>{{srViewObj.Town}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Request_for_Network_Type !=''">
+                  <label>Request_for_Network_Type</label>
+                  <div>{{srViewObj.Request_for_Network_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Authority_Name != ''">
+                  <label>Authority_Name</label>
+                  <div>{{srViewObj.Authority_Name}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Preferred_Product_Type != ''">
+                  <label>Preferred_Product_Type</label>
+                  <div>{{srViewObj.Preferred_Product_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Customer_Product_Type != ''">
+                  <label>Customer_Product_Type</label>
+                  <div>{{srViewObj.Customer_Product_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.No_of_TMA_TMB != ''">
+                  <label>No_of_TMA_TMB</label>
+                  <div>{{srViewObj.No_of_TMA_TMB}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Weight_of_each_TMA_TMB != ''">
+                  <label>Weight_of_each_TMA_TMB</label>
+                  <div>{{srViewObj.Weight_of_each_TMA_TMB}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Combined_wt_of_TMA_TMB_Kgs != ''">
+                  <label>Combined_wt_of_TMA_TMB_Kgs</label>
+                  <div>{{srViewObj.Combined_wt_of_TMA_TMB_Kgs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR && srViewObj.Height_at_which_needs_to_be_mounted_Mtrs != ''">
+                  <label>Height_at_which_needs_to_be_mounted_Mtrs</label>
+                  <div>{{srViewObj.Height_at_which_needs_to_be_mounted_Mtrs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Other_Equipment !=''">
+                  <label>Other_Equipment</label>
+                  <div>{{srViewObj.Other_Equipment}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Fiber_Required != ''">
+                  <label>Fiber_Required</label>
+                  <div>{{srViewObj.Fiber_Required}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.No_of_Fiber_Pairs != ''">
+                  <label>No_of_Fiber_Pairs</label>
+                  <div>{{srViewObj.No_of_Fiber_Pairs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Is_Fiber_Node_Provisioning_Required != ''">
+                  <label>Is_Fiber_Node_Provisioning_Required</label>
+                  <div>{{srViewObj.Is_Fiber_Node_Provisioning_Required}}</div>
+                </div>
+                <div class="col-md-3"  *ngIf="srViewObj.No_of_Pairs != ''">
+                  <label>No_of_Pairs</label>
+                  <div>{{srViewObj.No_of_Pairs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Distance_Length_of_Fiber_in_Meter != ''">
+                  <label>Distance_Length_of_Fiber_in_Meter</label>
+                  <div>{{srViewObj.Distance_Length_of_Fiber_in_Meter}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.SACFA_Number != ''">
+                  <label>SACFA_Number</label>
+                  <div>{{srViewObj.SACFA_Number}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Is_Diesel_Generator_DG_required != ''">
+                  <label>Is_Diesel_Generator_DG_required</label>
+                  <div>{{srViewObj.Is_Diesel_Generator_DG_required}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNewTenency_SR && srViewObj.Product_Name != ''">
+                  <label>Product_Name</label>
+                  <div>{{srViewObj.Product_Name}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Request_Ref_No != ''">
+                  <label>Request_Ref_No</label>
+                  <div>{{srViewObj.Request_Ref_No}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.BSC != ''">
+                  <label>BSC</label>
+                  <div>{{srViewObj.BSC}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.BTS_Cabinett != ''">
+                  <label>BTS_Cabinet</label>
+                  <div>{{srViewObj.BTS_Cabinett}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Extend_Tenure != ''">
+                  <label>Extend_Tenure</label>
+                  <div>{{srViewObj.Extend_Tenure}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Fiber_Node_Provisioning != ''">
+                  <label>Fiber_Node_Provisioning</label>
+                  <div>{{srViewObj.Fiber_Node_Provisioning}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Micro_to_Macro_conversion != ''">
+                  <label>Micro_to_Macro_conversion</label>
+                  <div>{{srViewObj.Micro_to_Macro_conversion}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.MW_Antennaa != ''">
+                  <label>MW_Antenna</label>
+                  <div>{{srViewObj.MW_Antennaa}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Other_Nodes != ''">
+                  <label>Other_Nodes</label>
+                  <div>{{srViewObj.Other_Nodes}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Radio_Antennaa != ''">
+                  <label>Radio_Antenna</label>
+                  <div>{{srViewObj.Radio_Antennaa}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Strategic_Conversion != ''">
+                  <label>Strategic_Conversion</label>
+                  <div>{{srViewObj.Strategic_Conversion}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Tower_Mounted_Booster != ''">
+                  <label>Tower_Mounted_Booster</label>
+                  <div>{{srViewObj.Tower_Mounted_Booster}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.MW_IDUU != ''">
+                  <label>MW_IDU</label>
+                  <div>{{srViewObj.MW_IDUU}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Pole != ''">
+                  <label>Pole</label>
+                  <div>{{srViewObj.Pole}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.HubTag_Untag != ''">
+                  <label>HubTag_Untag</label>
+                  <div>{{srViewObj.HubTag_Untag}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR && srViewObj.Other_Equipment2 != ''">
+                  <label>Other_Equipment</label>
+                  <div>{{srViewObj.Other_Equipment2}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNewTenency_SR && srViewObj.Cluster != ''">
+                  <label>Cluster</label>
+                  <div>{{srViewObj.Cluster}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNewTenency_SR && srViewObj.MSA_Type != ''">
+                  <label>MSA_Type</label>
+                  <div>{{srViewObj.MSA_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNewTenency_SR && srViewObj.Name_of_District_SSA != ''">
+                  <label>Name_of_District_SSA</label>
+                  <div>{{srViewObj.Name_of_District_SSA}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Reject_Remarks !=''">
+                  <label>Reject_Remarks</label>
+                  <div>{{srViewObj.Reject_Remarks}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Reject_Remarks_Others !=''">
+                  <label>Reject_Remarks_Others</label>
+                  <div>{{srViewObj.Reject_Remarks_Others}}</div>
+                </div>
+
+                <div class="col-md-3" *ngIf="srViewObj.suggestedSiteAddress !=''">
+                  <label>Site Address</label>
+                  <div>{{srViewObj.suggestedSiteAddress}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedDistrict !=''">
+                  <label>District</label>
+                  <div>{{srViewObj.suggestedDistrict}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedState !=''">
+                  <label>State</label>
+                  <div>{{srViewObj.suggestedState}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedPincode !=''">
+                  <label>Pincode</label>
+                  <div>{{srViewObj.suggestedPincode}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedTownVillage !=''">
+                  <label>Town</label>
+                  <div>{{srViewObj.suggestedTownVillage}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedCity !=''">
+                  <label>City</label>
+                  <div>{{srViewObj.suggestedCity}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedLatitude !=''">
+                  <label>Acquired Latitude</label>
+                  <div>{{srViewObj.suggestedLatitude}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedLongitude !=''">
+                  <label>Acquired Longitude</label>
+                  <div>{{srViewObj.suggestedLongitude}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedDeviation !=''">
+                  <label>Deviation (in Mtr)</label>
+                  <div>{{srViewObj.suggestedDeviation}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedTowerType !=''">
+                  <label>Tower Type</label>
+                  <div>{{srViewObj.suggestedTowerType}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedBuildingHeight !=''">
+                  <label>Building Height</label>
+                  <div>{{srViewObj.suggestedBuildingHeight}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedTowerHeight !=''">
+                  <label>Tower Height</label>
+                  <div>{{srViewObj.suggestedTowerHeight}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedClutter !=''">
+                  <label>Clutter</label>
+                  <div>{{srViewObj.suggestedClutter}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedLandOwnerRent !=''">
+                  <label>Land Owner Rent</label>
+                  <div>{{srViewObj.suggestedLandOwnerRent}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedElectrificationCharges !=''">
+                  <label>Electrification Charges</label>
+                  <div>{{srViewObj.suggestedElectrificationCharges}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.suggestedMcCharges !=''">
+                  <label>MC Charges</label>
+                  <div>{{srViewObj.suggestedMcCharges}}</div>
+                </div>
+                
+              </div>
+            </fieldset>
+            <!-- BTS Cabinet -->
+            <fieldset  class="the-fieldset" *ngIf="btsCabinetList.length !=0">
+              <legend class="the-legend"> BTS Cabinet
+                  <input type="checkbox" [checked]="viewBTS" (change)="viewBTS = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewBTS">
+                <app-view-bts-cabinet [btsCabinetList]="btsCabinetList" [tabName]="tabName"></app-view-bts-cabinet>
+              </ng-container>
+            </fieldset>
+            <!-- RRU -->
+            <fieldset  class="the-fieldset" *ngIf="rruCabinetList.length !=0">
+              <legend class="the-legend"> RRU
+                  <input type="checkbox" [checked]="viewRRU" (change)="viewRRU = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewRRU">
+                <app-view-rru [rruCabinetList]="rruCabinetList" [tabName]="tabName"></app-view-rru>
+              </ng-container>
+            </fieldset>
+            <!-- Radio Antenna -->
+            <fieldset  class="the-fieldset" *ngIf="radioAntennaList.length !=0">
+              <legend class="the-legend">Radio Antenna
+                <input type="checkbox" [checked]="viewRadioAntenna" (change)="viewRadioAntenna = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewRadioAntenna">
+                <app-view-radio-antenna [radioAntennaList]="radioAntennaList" [tabName]="tabName"></app-view-radio-antenna>
+              </ng-container>
+            </fieldset>
+            <!-- MW Antenna -->
+            <fieldset  class="the-fieldset" *ngIf="mwAntennaList.length !=0">
+              <legend class="the-legend">MW Antenna
+                <input type="checkbox" [checked]="viewMwAntenna" (change)="viewMwAntenna = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewMwAntenna">
+                <app-view-mw-antenna [mwAntennaList]="mwAntennaList" [tabName]="tabName"></app-view-mw-antenna>
+              </ng-container>
+            </fieldset>
+            <!-- Bsc Rnc Cabinet -->
+            <fieldset  class="the-fieldset" *ngIf="bscRncCabinetList.length !=0">
+              <legend class="the-legend">BSC RNC Cabibet
+                <input type="checkbox" [checked]="viewBscRncCabinet" (change)="viewBscRncCabinet = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewBscRncCabinet">
+                <app-view-bsc-rnc-cabinet [bscRncCabinetList]="bscRncCabinetList" [tabName]="tabName"></app-view-bsc-rnc-cabinet>
+              </ng-container>
+            </fieldset>
+            <!-- Other Node -->
+            <fieldset  class="the-fieldset" *ngIf="otherNodeList.length !=0">
+              <legend class="the-legend">Other Node
+                <input type="checkbox" [checked]="viewOtherNode" (change)="viewOtherNode = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewOtherNode">
+                <app-view-other-node [otherNodeList]="otherNodeList" [tabName]="tabName"></app-view-other-node>
+              </ng-container>
+            </fieldset>
+            <!-- MW IDU -->
+            <fieldset  class="the-fieldset" *ngIf="mwIduList.length !=0">
+              <legend class="the-legend">MW IDU
+                <input type="checkbox" [checked]="viewMwIdu" (change)="viewMwIdu = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewMwIdu">
+                <app-view-mw-idu [mwIduList]="mwIduList" [tabName]="tabName"></app-view-mw-idu>
+              </ng-container>
+            </fieldset>
+            <!-- MCB -->
+            <fieldset  class="the-fieldset" *ngIf="mcbList.length != 0">
+              <legend class="the-legend">MCB
+                <input type="checkbox" [checked]="viewMCB" (change)="viewMCB = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewMCB">
+                <app-view-mcb [mcbList]="mcbList"></app-view-mcb>
+              </ng-container>
+            </fieldset>
+            <!-- Fibre Node -->
+            <fieldset  class="the-fieldset" *ngIf="fibreNodeList.length !=0">
+              <legend class="the-legend">Fibre Node
+                <input type="checkbox" [checked]="viewFibreNode" (change)="viewFibreNode = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewFibreNode">
+                <app-view-fibre-node [fibreNodeList]="fibreNodeList" [tabName]="tabName"></app-view-fibre-node>
+              </ng-container>
+            </fieldset>
+            <!-- TMA TMB -->
+            <fieldset  class="the-fieldset" *ngIf="tmaTmbList.length !=0">
+              <legend class="the-legend">TMA TMB
+                <input type="checkbox" [checked]="viewTmaTmb" (change)="viewTmaTmb = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewTmaTmb">
+                <app-view-tma-tmb [tmaTmbList]="tmaTmbList"></app-view-tma-tmb>
+              </ng-container>
+            </fieldset>
+
+            <fieldset class="the-fieldset" *ngIf="srViewObj.Withdrawal_Type != ''">
+              <legend class="the-legend">Withdrawal</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Withdrawal_Type</label>
+                  <div>{{srViewObj.Withdrawal_Type}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Withdrawal_Reason != ''">
+                  <label>Withdrawal_Reason</label>
+                  <div>{{srViewObj.Withdrawal_Reason}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.withdraw_remark != ''">
+                  <label>Withdraw_Remark</label>
+                  <div>{{srViewObj.withdraw_remark}}</div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="the-fieldset" *ngIf="srViewObj.Accept_Reject != ''">
+              <legend class="the-legend">SP Accept Reject</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Accept_Reject</label>
+                  <div>{{srViewObj.Accept_Reject}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Rejection_Category != ''">
+                  <label>Rejection_Category</label>
+                  <div>{{srViewObj.Rejection_Category}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Rejection_Reason != ''">
+                  <label>Rejection_Reason</label>
+                  <div>{{srViewObj.Rejection_Reason}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Reject_SP_Remark != ''">
+                  <label>Reject_SP_Remark</label>
+                  <div>{{srViewObj.Reject_SP_Remark}}</div>
+                </div> 
+              </div>
+            </fieldset>
+
+            <fieldset class="the-fieldset" *ngIf="srViewObj.RFI_Accept_Reject != ''">
+              <legend class="the-legend">RFAI Accept Reject</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>RFI_Accept_Reject</label>
+                  <div>{{srViewObj.RFI_Accept_Reject}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.RFI_Reject_Remarks != ''">
+                  <label>RFI_Reject_Remarks</label>
+                  <div>{{srViewObj.RFI_Reject_Remarks}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.RFI_Reject_Remarks_Others != ''">
+                  <label>RFI_Reject_Remarks_Others</label>
+                  <div>{{srViewObj.RFI_Reject_Remarks_Others}}</div>
+                </div>
+              </div>
+            </fieldset>
+            
+            <fieldset  class="the-fieldset">
+              <legend class="the-legend">Additional Info</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3" *ngIf="srViewObj.Is_it_Strategic != ''">
+                  <label>Is_it_Strategic</label>
+                  <div>{{srViewObj.Is_it_Strategic}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Shelter_Size != ''">
+                  <label>Shelter_Size</label>
+                  <div>{{srViewObj.Shelter_Size}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Length_Mtrs != ''">
+                  <label>Length_Mtrs</label>
+                  <div>{{srViewObj.Length_Mtrs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Breadth_Mtrs != ''">
+                  <label>Breadth_Mtrs</label>
+                  <div>{{srViewObj.Breadth_Mtrs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Height_AGL_Mtrs != ''">
+                  <label>Height_AGL_Mtrs</label>
+                  <div>{{srViewObj.Height_AGL_Mtrs}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.DG_Redundancy != ''">
+                  <label>DG_Redundancy</label>
+                  <div>{{srViewObj.DG_Redundancy}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Extra_Battery_Bank_Requirement != ''">
+                  <label>Extra_Battery_Bank_Requirement</label>
+                  <div>{{srViewObj.Extra_Battery_Bank_Requirement}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Extra_Battery_BackUp != ''">
+                  <label>Extra_Battery_BackUp</label>
+                  <div>{{srViewObj.Extra_Battery_BackUp}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Anyother_Specific_Requirements != ''">
+                  <label>Anyother_Specific_Requirements</label>
+                  <div>{{srViewObj.Anyother_Specific_Requirements}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Additional_Info_If_any != ''">
+                  <label>Additional_Info_If_any</label>
+                  <div>{{srViewObj.Additional_Info_If_any}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Other_Additional_Info1 != ''">
+                  <label>Other_Additional_Info1</label>
+                  <div>{{srViewObj.Other_Additional_Info1}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Other_Additional_Info2 != ''">
+                  <label>Other_Additional_Info2</label>
+                  <div>{{srViewObj.Other_Additional_Info2}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Additional_Info_TargetDate_DD_MM_YYYY != ''">
+                  <label>Target_Date</label>
+                  <div>{{srViewObj.Additional_Info_TargetDate_DD_MM_YYYY}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Is_it_Relocaiton_SR != ''">
+                  <label>Is_it_Relocaiton_SR</label>
+                  <div>{{srViewObj.Is_it_Relocaiton_SR}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Source_Req_Ref_No != ''">
+                  <label>Source_Req_Ref_No</label>
+                  <div>{{srViewObj.Source_Req_Ref_No}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Source_Indus_SiteId != ''">
+                  <label>Source_TOCO_SiteId</label>
+                  <div>{{srViewObj.Source_Indus_SiteId}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Relocaiton_Reason != ''">
+                  <label>Relocaiton_Reason</label>
+                  <div>{{srViewObj.Relocaiton_Reason}}</div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset  class="the-fieldset" *ngIf="viewSpNumber !='NA'">
+              <legend class="the-legend">SP Details</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3" *ngIf="isNBS_SR || isHPSC_SR">
+                  <label>Latitude</label>
+                  <div>{{srViewObj.spLatitude}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR || isHPSC_SR">
+                  <label>Longitude</label>
+                  <div>{{srViewObj.spLongitude}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>TOCO_Site_Id</label>
+                  <div>{{srViewObj.TOCO_Site_Id}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR || isHPSC_SR">
+                  <label>Clutter</label>
+                  <div>{{srViewObj.clutter}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Date_of_Proposal</label>
+                  <div>{{srViewObj.Date_of_Proposal}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Power_Rating (In KW)</label>
+                  <div>{{srViewObj.Power_Rating}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Electrification_Distance (In Meter)</label>
+                  <div>{{srViewObj.Site_Electrification_Distance}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_EB_Availibility (In Hours)</label>
+                  <div>{{srViewObj.Tentative_EB_Availibility}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Charge</label>
+                  <div>{{srViewObj.Additional_Charge}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNBS_SR || isHPSC_SR">
+                  <label>Address</label>
+                  <div>{{srViewObj.Address1}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Head_Load_Charge</label>
+                  <div>{{srViewObj.Head_Load_Charge}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Cost</label>
+                  <div>{{srViewObj.Electrification_Cost}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Line_Distance (In Meter)</label>
+                  <div>{{srViewObj.Electrification_Line_Distance}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Electricity_Connection_HT_LT</label>
+                  <div>{{srViewObj.Electricity_Connection_HT_LT}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Infra_Details</label>
+                  <div>{{srViewObj.Infra_Details}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Classification</label>
+                  <div>{{srViewObj.Site_Classification}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Expected_Rent_to_Landlord</label>
+                  <div>{{srViewObj.Expected_Rent_to_Landlord}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Non_Refundable_Deposit</label>
+                  <div>{{srViewObj.Non_Refundable_Deposit}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Estimated_Deployment_Time__in_days_</label>
+                  <div>{{srViewObj.Estimated_Deployment_Time__in_days_}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Capex</label>
+                  <div>{{srViewObj.Additional_Capex}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Standard_Rates</label>
+                  <div>{{srViewObj.Standard_Rates}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Fiber_Charges</label>
+                  <div>{{srViewObj.Fiber_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Rental_Threshold</label>
+                  <div>{{srViewObj.Rental_Threshold}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Excess_Rent_beyond_Threshold</label>
+                  <div>{{srViewObj.Excess_Rent_beyond_Threshold}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_Rental_Premium</label>
+                  <div>{{srViewObj.Tentative_Rental_Premium}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Rent</label>
+                  <div>{{srViewObj.Additional_Rent}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>IPFee</label>
+                  <div>{{srViewObj.IPFee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Field_Operation_Charges</label>
+                  <div>{{srViewObj.Field_Operation_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Security_Guard_Charges</label>
+                  <div>{{srViewObj.Security_Guard_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobilization_Charges</label>
+                  <div>{{srViewObj.Mobilization_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Erection_Charges</label>
+                  <div>{{srViewObj.Erection_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Land_Lord_Charges_or_Rent_Charges</label>
+                  <div>{{srViewObj.Land_Lord_Charges_or_Rent_Charges}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Wind_Speed (In KMPH)</label>
+                  <div>{{srViewObj.Wind_Speed}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower_Height (In Meter)</label>
+                  <div>{{srViewObj.TowerHeight}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>AGL (In Meter)</label>
+                  <div>{{srViewObj.Agl}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Distance_from_P1_Lat_Long_in_meter</label>
+                  <div>{{srViewObj.Distance_from_P1_Lat_Long_in_meter}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isNewTenency_SR || isSiteUpgrade_SR">
+                  <label>Rejection_Remarks</label>
+                  <div>{{srViewObj.Rejection_Remarks}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="isSiteUpgrade_SR">
+                  <label>Difficult</label>
+                  <div>{{srViewObj.Difficult}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Working with Bharti Group</label>
+                  <div>{{srViewObj.Association_AreyouWorkingInAnyBhartiGroup}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Bharti Unit Name</label>
+                  <div>{{srViewObj.Association_IfyesmentiontheBhartiUnitName}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Name</label>
+                  <div>{{srViewObj.Association_NameOftheEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Employee ID</label>
+                  <div>{{srViewObj.Association_EmployeeId}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Working with Bharti Group</label>
+                  <div>{{srViewObj.Relative_AnyRelativesareWorkingWithBhartiGroup}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Bharti Unit Name</label>
+                  <div>{{srViewObj.Relative_IfyesmentiontheBhartiUnitName}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Name</label>
+                  <div>{{srViewObj.Relative_NameOftheEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Employee ID</label>
+                  <div>{{srViewObj.Relative_EmployeeId}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relationship with Employee</label>
+                  <div>{{srViewObj.Relative_LandlordRelationshipwithEmployee}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobile Number Of Relative Registered With Airtel</label>
+                  <div>{{srViewObj.Relative_MobileNumberOfrelativeWithAirtel}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration</label>
+                  <div>{{srViewObj.Declaration}}</div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset  class="the-fieldset" *ngIf="viewSoNumber !='NA'">
+              <legend class="the-legend">SO Details</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Accept_Reject</label>
+                  <div>{{srViewObj.SO_Accept_Reject}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Financial_Site_Id != ''">
+                  <label>Financial_Site_Id</label>
+                  <div>{{srViewObj.Financial_Site_Id}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Expected_monthly_Rent_Approved != ''">
+                  <label>Expected_monthly_Rent_Approved</label>
+                  <div>{{srViewObj.Expected_monthly_Rent_Approved}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.CAPEX_Amount_Approved != ''">
+                  <label>CAPEX_Amount_Approved</label>
+                  <div>{{srViewObj.CAPEX_Amount_Approved}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.OPEX_Amount_Approved != ''">
+                  <label>OPEX_Amount_Approved</label>
+                  <div>{{srViewObj.OPEX_Amount_Approved}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Tentative_Billing_Amount_Approved != ''">
+                  <label>Tentative_Billing_Amount_Approved</label>
+                  <div>{{srViewObj.Tentative_Billing_Amount_Approved}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Target_Date != ''">
+                  <label>Target_Date</label>
+                  <div>{{srViewObj.Target_Date}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Date != ''">
+                  <label>Date</label>
+                  <div>{{srViewObj.Date}}</div>
+                </div>
+                <div class="col-md-3" *ngIf="srViewObj.Tenure_In_Years != ''">
+                  <label>Tenure_In_Years</label>
+                  <div>{{srViewObj.Tenure_In_Years}}</div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset  class="the-fieldset" *ngIf="viewRfiDate !=''">
+              <legend class="the-legend">RFI Details</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Tower_Completion</label>
+                  <div>{{srViewObj.Tower_Completion}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Shelter_Equipment_RoomReady</label>
+                  <div>{{srViewObj.Shelter_Equipment_RoomReady}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>AirConditioner_Commissioned</label>
+                  <div>{{srViewObj.AirConditioner_Commissioned}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>DG_Commissioned</label>
+                  <div>{{srViewObj.DG_Commissioned}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Acceptance_Testing_Of_Site_Infrastructure Completed_Status</label>
+                  <div>{{srViewObj.Acceptance_Testing_Of_Site_Infrastructure_Completed_Status}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>EB_Status</label>
+                  <div>{{srViewObj.EB_Status}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Created_By</label>
+                  <div>{{srViewObj.Created_By}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>OFC_Duct_Laying_Done</label>
+                  <div>{{srViewObj.OFC_Duct_Laying_Done}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Access_To_Site_Available_Status</label>
+                  <div>{{srViewObj.Access_To_Site_Available_Status}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Engineer_Name</label>
+                  <div>{{srViewObj.Engineer_Name}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Engineer_Phone_Number</label>
+                  <div>{{srViewObj.Engineer_Phone_Number}}</div>
+                </div>
+                <div class="col-md-3">
+                  <label>Notice_Form_Generation_Date</label>
+                  <div>{{srViewObj.Notice_Form_Generation_Date}}</div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset  class="the-fieldset" *ngIf="isActionPending && 
+            ((isNBS_SR && (currentStatus == 'NB15' || currentStatus == 'RNB15')) || 
+            (isSiteUpgrade_SR && currentStatus == 'NB04') || 
+            (isNewTenency_SR && currentStatus == 'NB06') || 
+            (isHPSC_SR && (currentStatus == 'NB15' || currentStatus == 'RNB15')))">
+              <legend class="the-legend">More</legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Tower_Completion <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai1" [(ngModel)]="Tower_Completion">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Shelter_Equipment_RoomReady <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai2" [(ngModel)]="Shelter_Equipment_RoomReady">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>AirConditioner_Commissioned <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai3" [(ngModel)]="AirConditioner_Commissioned">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>DG_Commissioned <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai4" [(ngModel)]="DG_Commissioned">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Acceptance_Testing_Of_Site_Infrastructure Completed_Status <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai5" [(ngModel)]="Acceptance_Testing_Of_Site_Infrastructure_Completed_Status">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>EB_Status <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai6" [(ngModel)]="EB_Status">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Created_By <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" id="rfai7" [(ngModel)]="Created_By"/>
+                </div>
+                <div class="col-md-3">
+                  <label>OFC_Duct_Laying_Done <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai8" [(ngModel)]="OFC_Duct_Laying_Done">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Access_To_Site_Available_Status <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfai9" [(ngModel)]="Access_To_Site_Available_Status">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Engineer_Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" id="rfai10" [(ngModel)]="Engineer_Name"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Engineer_Phone_Number <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" id="rfai11" [(ngModel)]="Engineer_Phone_Number" OnlyNumber="true" LengthValidater="10"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Notice_Form_Generation_Date <span class="text-danger">*</span></label>
+                  <input type="date" [min]="previousDate" id="rfai12" [max]="currentDate" class="form-control forMakeBlank" [(ngModel)]="Notice_Form_Generation_Date"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>RFI Date <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control forMakeBlank" id="rfai13" [(ngModel)]="rfiDate" [disabled]="true"/>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <fieldset  class="the-fieldset" *ngIf="(isNBS_SR && currentStatus == 'NB18') ||  
+            (isNewTenency_SR && currentStatus == 'NB09') || 
+            (isSiteUpgrade_SR && currentStatus == 'NB07') || 
+            (isHPSC_SR && currentStatus == 'NB18')">
+              <legend class="the-legend">RFS Date</legend>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>RFS Date</label>
+                  <input type="date" [max]="currentDate" class="form-control forMakeBlank" [(ngModel)]="rfsDate"/>
+                </div>
+              </div>
+            </fieldset>
+            <!-- HO_RF Fields -->
+            <fieldset  class="the-fieldset" *ngIf="isActionPending && 
+            (
+              (isNBS_SR && (currentStatus == 'NB05' || currentStatus == 'NB104')) || 
+              (isHPSC_SR && currentStatus == 'NB08')
+            )">
+              <legend class="the-legend">Active Information</legend>
+              <!-- BTS Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="btsCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BTS Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bts-cabinet [btsCabinetList]="btsCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [btsMainUnit]="btsMainUnit" [tabName]="tabName"></app-edit-bts-cabinet>
+              
+              <!-- RRU -->
+              <div class="row mr-t mr-b" *ngIf="rruCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>RRU Cabinet</label>
+                </div>
+              </div>
+              <app-edit-rru [rruCabinetList]="rruCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [rruUnit]="rruUnit" [tabName]="tabName"></app-edit-rru>
+              
+              <!-- Radio Antenna -->
+              <div class="row mr-t mr-b" *ngIf="radioAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>Radio Antenna</label>
+                </div>
+              </div>
+              <app-edit-radio-antenna [radioAntennaList]="radioAntennaList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-radio-antenna>
+              
+              <!-- MW Antenna -->
+              <div class="row mr-t mr-b" *ngIf="mwAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>MW Antenna</label>
+                </div>
+              </div>
+              <app-edit-mw-antenna [mwAntennaList]="mwAntennaList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-mw-antenna>
+              
+              <!-- BSC RNC Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="bscRncCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BSC RNC Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bsc-rnc-cabinet [bscRncCabinetList]="bscRncCabinetList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-bsc-rnc-cabinet>
+              
+              <!-- Other Node -->
+              <div class="row mr-t mr-b" *ngIf="otherNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Node</label>
+                </div>
+              </div>
+              <app-edit-other-node [otherNodeList]="otherNodeList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-other-node>
+              
+              <!-- MW IDU -->
+              <div class="row mr-t mr-b" *ngIf="mwIduList.length !=0">
+                <div class="col-md-3">
+                  <label>MW IDU</label>
+                </div>
+              </div>
+              <app-edit-mw-idu [mwIduList]="mwIduList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mwIduNodeLocation]="mwIduNodeLocation" 
+              [tabName]="tabName"></app-edit-mw-idu>
+              
+              <!-- MCB -->
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>MCB</label>
+                </div>
+              </div>
+              <app-edit-mcb [viewSrNumber]="viewSrNumber" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mcbData]="mcbData" [totalMcb]="totalMcb"></app-edit-mcb>
+              
+              <!-- Fibre Node -->
+              <div class="row mr-t mr-b" *ngIf="fibreNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Fibre Node</label>
+                </div>
+              </div>
+              <app-edit-fibre-node [fibreNodeList]="fibreNodeList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
+              [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
+              
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Latitude <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "spLatitude" id="_spLatitude" [disabled]="isHPSC_SR"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Longitude <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "spLongitude" id="_spLongitude" [disabled]="isHPSC_SR"/>
+                </div>
+                <div class="col-md-3">
+                  <label>TOCO_Site_Id <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "TOCO_Site_Id" id="tocoSiteId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Clutter <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" [(ngModel)]="clutter" id="_clutter" [disabled]="isHPSC_SR">
+                    <option value="">Select</option>
+                    <option value="{{cl.paramCode}}" *ngFor="let cl of clutterList">{{cl.paramDesc}}</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Date_of_Proposal <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control forMakeBlank" [(ngModel)] = "Date_of_Proposal" [disabled]="true" 
+                  id="_nbs1"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Electrification_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Site_Electrification_Distance"
+                  id="_nbs2"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_EB_Availibility (In Hours) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_EB_Availibility"
+                  id="_nbs3"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Address1" id="_nbs4" [disabled]="isHPSC_SR"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Head_Load_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Head_Load_Charge" 
+                  id="_nbs5"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Cost <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Cost" [disabled]="isHPSC_SR" 
+                  id="_nbs6"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Line_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Line_Distance" 
+                  id="_nbs7"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electricity_Connection_HT_LT <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" [(ngModel)] = "Electricity_Connection_HT_LT" id="_nbs8">
+                    <option value="">Select</option>
+                    <option value="HT">HT</option>
+                    <option value="LT">LT</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Wind_Speed (In KMPH) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Wind_Speed" 
+                  id="_nbs9"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower_Height (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "TowerHeight" [disabled]="isHPSC_SR"
+                  id="_nbs10"/>
+                </div>
+                <div class="col-md-3">
+                  <label>AGL (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Agl" 
+                  id="_nbs11"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Distance_from_P1_Lat_Long_in_meter <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Distance_from_P1_Lat_Long_in_meter"
+                  id="_nbs12"/>
+                </div>
+              </div>
+            </fieldset>
+            <!-- S&M Fields -->
+            <fieldset class="the-fieldset" *ngIf="isActionPending && 
+            (
+              (isNBS_SR && currentStatus == 'NB08') || 
+              (isHPSC_SR && currentStatus == 'NB08')
+            ) ">
+              <legend class="the-legend"></legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Power_Rating (In KW)</label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Power_Rating" [disabled]="true"
+                  id="_nbs13"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Charge"
+                  id="_nbs14"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Infra_Details <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Infra_Details" id="_nbs15"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Classification <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Site_Classification" id="_nbs16"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Expected_Rent_to_Landlord <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Expected_Rent_to_Landlord" 
+                  id="_nbs17"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Non_Refundable_Deposit <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Non_Refundable_Deposit" 
+                  id="_nbs18"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Estimated_Deployment_Time__in_days_ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Estimated_Deployment_Time__in_days_" 
+                  id="_nbs19"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Capex <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Capex" 
+                  id="_nbs20"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Standard_Rates <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Standard_Rates" 
+                  id="_nbs21"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Fiber_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Fiber_Charges" 
+                  id="_nbs22"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Rental_Threshold <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Rental_Threshold" 
+                  id="_nbs23"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Excess_Rent_beyond_Threshold <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Excess_Rent_beyond_Threshold" 
+                  id="_nbs24"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_Rental_Premium <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_Rental_Premium" 
+                  id="_nbs25"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Rent <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Rent" 
+                  id="_nbs26"/>
+                </div>
+                <div class="col-md-3">
+                  <label>IPFee <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "IPFee" 
+                  id="_nbs27"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Field_Operation_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Field_Operation_Charges" 
+                  id="_nbs28"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Security_Guard_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Security_Guard_Charges" 
+                  id="_nbs29"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobilization_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Mobilization_Charges" 
+                  id="_nbs30"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Erection_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Erection_Charges" 
+                  id="_nbs31"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Battery_backup_Hrs <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Battery_backup_Hrs" 
+                  id="_nbs32"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Land_Lord_Charges_or_Rent_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Land_Lord_Charges_or_Rent_Charges" [disabled]="isHPSC_SR"
+                  id="_nbs33"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Recommended_Product_Type by_Acquisition <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_rptba" [(ngModel)]="Recommended_Product_Type_by_Acquisition">
+                    <option value="">Select</option>
+                    <option value="STANDARD_PRODUCT">STANDARD_PRODUCT</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <!-- New field -->
+                <div class="col-md-3">
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Working with Bharti Group 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset  class="the-fieldset" *ngIf="isActionPending && isSiteUpgrade_SR && 
+            (currentStatus == 'NB01' || currentStatus == 'NB104')">
+              <legend class="the-legend">Active Information</legend>
+              <!-- BTS Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="btsCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BTS Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bts-cabinet [btsCabinetList]="btsCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [btsMainUnit]="btsMainUnit" [tabName]="tabName"></app-edit-bts-cabinet>
+              
+              <!-- RRU -->
+              <div class="row mr-t mr-b" *ngIf="rruCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>RRU Cabinet</label>
+                </div>
+              </div>
+              <app-edit-rru [rruCabinetList]="rruCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [rruUnit]="rruUnit" [tabName]="tabName"></app-edit-rru>
+              
+              <!-- Radio Antenna -->
+              <div class="row mr-t mr-b" *ngIf="radioAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>Radio Antenna</label>
+                </div>
+              </div>
+              <app-edit-radio-antenna [radioAntennaList]="radioAntennaList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-radio-antenna>
+              
+              <!-- MW Antenna -->
+              <div class="row mr-t mr-b" *ngIf="mwAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>MW Antenna</label>
+                </div>
+              </div>
+              <app-edit-mw-antenna [mwAntennaList]="mwAntennaList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-mw-antenna>
+              
+              <!-- BSC RNC Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="bscRncCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BSC RNC Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bsc-rnc-cabinet [bscRncCabinetList]="bscRncCabinetList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-bsc-rnc-cabinet>
+              
+              <!-- Other Node -->
+              <div class="row mr-t mr-b" *ngIf="otherNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Node</label>
+                </div>
+              </div>
+              <app-edit-other-node [otherNodeList]="otherNodeList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-other-node>
+              
+              <!-- MW IDU -->
+              <div class="row mr-t mr-b" *ngIf="mwIduList.length !=0">
+                <div class="col-md-3">
+                  <label>MW IDU</label>
+                </div>
+              </div>
+              <app-edit-mw-idu [mwIduList]="mwIduList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mwIduNodeLocation]="mwIduNodeLocation" 
+              [tabName]="tabName"></app-edit-mw-idu>
+              
+              <!-- MCB -->
+              <div class="row mr-t mr-b" *ngIf="mcbList.length !=0">
+                <div class="col-md-3">
+                  <label>MCB</label>
+                </div>
+              </div>
+              <app-edit-mcb [viewSrNumber]="viewSrNumber" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mcbData]="mcbData" [totalMcb]="totalMcb"></app-edit-mcb>
+              
+              <!-- Fibre Node -->
+              <div class="row mr-t mr-b" *ngIf="fibreNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Fibre Node</label>
+                </div>
+              </div>
+              <app-edit-fibre-node [fibreNodeList]="fibreNodeList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
+              [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
+
+              <!-- TMA TMB -->
+              <div class="row mr-t mr-b" *ngIf="fibreNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>TMA TMB</label>
+                </div>
+              </div>
+              <app-edit-tma-tmb [tmaTmbList]="tmaTmbList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr"></app-edit-tma-tmb>
+              
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Date_of_Proposal <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control forMakeBlank" [(ngModel)] = "Date_of_Proposal" [disabled]="true" 
+                  id="_su1"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Power_Rating (In KW)</label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Power_Rating" [disabled]="true"
+                  id="_su2"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Electrification_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Site_Electrification_Distance"
+                  id="_su3"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_EB_Availibility (In Hours) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_EB_Availibility"
+                  id="_su4"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Charge"
+                  id="_su5"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Head_Load_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Head_Load_Charge"
+                  id="_su6"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Cost <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Cost"
+                  id="_su7"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Line_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Line_Distance" 
+                  id="_su8"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electricity_Connection_HT_LT <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" [(ngModel)] = "Electricity_Connection_HT_LT" id="_su9">
+                    <option value="">Select</option>
+                    <option value="HT">HT</option>
+                    <option value="LT">LT</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Infra_Details </label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Infra_Details" id="_su10"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Classification </label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Site_Classification" id="_su11"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Expected_Rent_to_Landlord </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Expected_Rent_to_Landlord"
+                  id="_su12"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Non_Refundable_Deposit </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Non_Refundable_Deposit"
+                  id="_su13"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Estimated_Deployment_Time__in_days_ </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Estimated_Deployment_Time__in_days_" 
+                  id="_su14"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Capex </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Capex" 
+                  id="_su15"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Standard_Rates </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Standard_Rates" 
+                  id="_su16"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Fiber_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Fiber_Charges" 
+                  id="_su17"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Rental_Threshold </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Rental_Threshold" 
+                  id="_su18"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Excess_Rent_beyond_Threshold </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Excess_Rent_beyond_Threshold" 
+                  id="_su19"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_Rental_Premium </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_Rental_Premium" 
+                  id="_su20"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Rent </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Rent" 
+                  id="_su21"/>
+                </div>
+                <div class="col-md-3">
+                  <label>IPFee </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "IPFee"
+                  id="_su22"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Field_Operation_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Field_Operation_Charges" 
+                  id="_su23"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Security_Guard_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Security_Guard_Charges"
+                  id="_su24"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobilization_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Mobilization_Charges"
+                  id="_su25"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Erection_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Erection_Charges" 
+                  id="_su26"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Battery_backup_Hrs </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Battery_backup_Hrs" 
+                  id="_su27"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Land_Lord_Charges_or_Rent_Charges </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Land_Lord_Charges_or_Rent_Charges"
+                  id="_su28"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Wind_Speed (In KMPH) </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Wind_Speed"
+                  id="_su29"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower_Height (In Meter) </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "TowerHeight"
+                  id="_su30"/>
+                </div>
+                <div class="col-md-3">
+                  <label>AGL (In Meter) </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Agl" 
+                  id="_su31"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Distance_from_P1_Lat_Long_in_meter </label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Distance_from_P1_Lat_Long_in_meter" 
+                  id="_su32"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Rejection_Remarks </label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Rejection_Remarks" id="_su33"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Difficult <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Difficult" id="_su34"/>
+                </div>
+                <!-- New field -->
+                <!-- <div class="col-md-3">
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Working with Bharti Group 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div> -->
+              </div>
+            </fieldset>
+            <!-- Deployment Fields -->
+            <fieldset  class="the-fieldset" *ngIf="isActionPending && isNewTenency_SR && 
+            (currentStatus == 'NB02' || currentStatus == 'NB104')">
+              <legend class="the-legend">Active Information</legend>
+              <!-- BTS Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="btsCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BTS Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bts-cabinet [btsCabinetList]="btsCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [btsMainUnit]="btsMainUnit" [tabName]="tabName"></app-edit-bts-cabinet>
+              
+              <!-- RRU -->
+              <div class="row mr-t mr-b" *ngIf="rruCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>RRU Cabinet</label>
+                </div>
+              </div>
+              <app-edit-rru [rruCabinetList]="rruCabinetList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [rruUnit]="rruUnit" [tabName]="tabName"></app-edit-rru>
+              
+              <!-- Radio Antenna -->
+              <div class="row mr-t mr-b" *ngIf="radioAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>Radio Antenna</label>
+                </div>
+              </div>
+              <app-edit-radio-antenna [radioAntennaList]="radioAntennaList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-radio-antenna>
+              
+              <!-- MW Antenna -->
+              <div class="row mr-t mr-b" *ngIf="mwAntennaList.length !=0">
+                <div class="col-md-3">
+                  <label>MW Antenna</label>
+                </div>
+              </div>
+              <app-edit-mw-antenna [mwAntennaList]="mwAntennaList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-mw-antenna>
+              
+              <!-- BSC RNC Cabinet -->
+              <div class="row mr-t mr-b" *ngIf="bscRncCabinetList.length !=0">
+                <div class="col-md-3">
+                  <label>BSC RNC Cabinet</label>
+                </div>
+              </div>
+              <app-edit-bsc-rnc-cabinet [bscRncCabinetList]="bscRncCabinetList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-bsc-rnc-cabinet>
+              
+              <!-- Other Node -->
+              <div class="row mr-t mr-b" *ngIf="otherNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Node</label>
+                </div>
+              </div>
+              <app-edit-other-node [otherNodeList]="otherNodeList" [changeFeasibility]="changeFeasibility"
+              [feasibilityArr]="feasibilityArr" [tabName]="tabName"></app-edit-other-node>
+              
+              <!-- MW IDU -->
+              <div class="row mr-t mr-b" *ngIf="mwIduList.length !=0">
+                <div class="col-md-3">
+                  <label>MW IDU</label>
+                </div>
+              </div>
+              <app-edit-mw-idu [mwIduList]="mwIduList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mwIduNodeLocation]="mwIduNodeLocation" 
+              [tabName]="tabName"></app-edit-mw-idu>
+              
+              <!-- MCB -->
+              <div class="row mr-t mr-b" *ngIf="mcbList.length !=0">
+                <div class="col-md-3">
+                  <label>MCB</label>
+                </div>
+              </div>
+              <app-edit-mcb [viewSrNumber]="viewSrNumber" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr]="feasibilityArr" [mcbData]="mcbData" [totalMcb]="totalMcb"></app-edit-mcb>
+              
+              <!-- Fibre Node -->
+              <div class="row mr-t mr-b" *ngIf="fibreNodeList.length !=0">
+                <div class="col-md-3">
+                  <label>Fibre Node</label>
+                </div>
+              </div>
+              <app-edit-fibre-node [fibreNodeList]="fibreNodeList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
+              [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
+              
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Date_of_Proposal <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control forMakeBlank" [(ngModel)] = "Date_of_Proposal" [disabled]="true" 
+                  id="_nt1"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Electrification_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Site_Electrification_Distance" 
+                  id="_nt2"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_EB_Availibility (In Hours) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_EB_Availibility" 
+                  id="_nt3"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Head_Load_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Head_Load_Charge"
+                  id="_nt4"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Cost <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Cost"
+                  id="_nt5"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification_Line_Distance (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Electrification_Line_Distance" 
+                  id="_nt6"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electricity_Connection_HT_LT <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" [(ngModel)] = "Electricity_Connection_HT_LT" id="_nt7">
+                    <option value="">Select</option>
+                    <option value="HT">HT</option>
+                    <option value="LT">LT</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Wind_Speed (In KMPH) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Wind_Speed" 
+                  id="_nt8"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower_Height (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "TowerHeight" 
+                  id="_nt9"/>
+                </div>
+                <div class="col-md-3">
+                  <label>AGL (In Meter) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Agl" 
+                  id="_nt10"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Distance_from_P1_Lat_Long_in_meter <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Distance_from_P1_Lat_Long_in_meter" 
+                  id="_nt11"/>
+                </div>
+              </div>
+            </fieldset>
+            <!-- S&M Fields -->
+            <fieldset class="the-fieldset" *ngIf="isActionPending && isNewTenency_SR && currentStatus == 'NB03' ">
+              <legend class="the-legend"></legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Power_Rating (In KW) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Power_Rating" [disabled]="true"
+                  id="_nt12"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Charge <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Charge" 
+                  id="_nt13"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Infra_Details <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Infra_Details" id="_nt14"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Site_Classification <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Site_Classification" id="_nt15"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Expected_Rent_to_Landlord <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Expected_Rent_to_Landlord" 
+                  id="_nt16"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Non_Refundable_Deposit <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Non_Refundable_Deposit" 
+                  id="_nt17"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Estimated_Deployment_Time__in_days_ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Estimated_Deployment_Time__in_days_" 
+                  id="_nt18"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Capex <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Capex" 
+                  id="_nt19"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Standard_Rates <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Standard_Rates" 
+                  id="_nt20"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Fiber_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Fiber_Charges" 
+                  id="_nt21"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Rental_Threshold <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Rental_Threshold" 
+                  id="_nt22"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Excess_Rent_beyond_Threshold <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Excess_Rent_beyond_Threshold" 
+                  id="_nt23"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tentative_Rental_Premium <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Tentative_Rental_Premium" 
+                  id="_nt24"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Additional_Rent <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Additional_Rent" 
+                  id="_nt25"/>
+                </div>
+                <div class="col-md-3">
+                  <label>IPFee <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "IPFee" 
+                  id="_nt26"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Field_Operation_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Field_Operation_Charges" 
+                  id="_nt27"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Security_Guard_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Security_Guard_Charges" 
+                  id="_nt28"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobilization_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Mobilization_Charges" 
+                  id="_nt29"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Erection_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Erection_Charges" 
+                  id="_nt30"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Battery_backup_Hrs <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Battery_backup_Hrs" 
+                  id="_nt31"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Land_Lord_Charges_or_Rent_Charges <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" OnlyNumberWithDecimal="true" [(ngModel)] = "Land_Lord_Charges_or_Rent_Charges" 
+                  id="_nt32"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Rejection_Remarks <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" [(ngModel)] = "Rejection_Remarks" 
+                  id="_nt33"/>
+                </div>
+                <!-- New field -->
+                <div class="col-md-3">
+                  <label>Landlord Working with Bharti Group <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_ass1" [(ngModel)]="Association_AreyouWorkingInAnyBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Bharti Unit Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank" id="_ass2" [(ngModel)]="Association_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Name <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass3" [(ngModel)]="Association_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord Employee ID <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'Yes'" class="text-danger">*</span></label>
+                  <input class="form-control forMakeBlank"  id="_ass4" [(ngModel)]="Association_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Working with Bharti Group 
+                    <span *ngIf="Association_AreyouWorkingInAnyBhartiGroup == 'No'" class="text-danger">*</span>
+                  </label>
+                  <select class="form-control forMakeBlank"  id="_rel1" [(ngModel)]="Relative_AnyRelativesareWorkingWithBhartiGroup">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Bharti Unit Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel2" [(ngModel)]="Relative_IfyesmentiontheBhartiUnitName"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Name
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel3" [(ngModel)]="Relative_NameOftheEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relative Employee ID
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel4" [(ngModel)]="Relative_EmployeeId"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Landlord's Relationship with Employee
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel5" [(ngModel)]="Relative_LandlordRelationshipwithEmployee"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Mobile Number Of Relative Registered With Airtel
+                    <span *ngIf="Relative_AnyRelativesareWorkingWithBhartiGroup == 'Yes'" class="text-danger">*</span>
+                  </label>
+                  <input class="form-control forMakeBlank" id="_rel6" OnlyNumber="true" [(ngModel)]="Relative_MobileNumberOfrelativeWithAirtel"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Declaration <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="_dec" [(ngModel)]="Declaration">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+            <!-- HPSC Acquisition field -->
+            <fieldset class="the-fieldset" *ngIf="isHPSC_SR && (currentStatus == 'NB03' || currentStatus == 'NB05')">
+              <legend class="the-legend"></legend>
+              <div class="row mr-t mr-b">
+                <div class="col-md-3">
+                  <label>Site Address</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedSiteAddress" id="_sugg1" class="form-control forMakeBlank" />
+                </div>
+              
+                <div class="col-md-3">
+                  <label>District</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedDistrict" id="_sugg2" class="form-control forMakeBlank" />
+                </div>
+              
+                <div class="col-md-3">
+                  <label>State</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedState" id="_sugg3" class="form-control forMakeBlank" />
+                </div>
+              
+                <div class="col-md-3">
+                  <label>Pincode</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedPincode" id="_sugg4" OnlyNumber="true" maxlength=6 class="form-control forMakeBlank" />
+                </div>
+              
+                <div class="col-md-3">
+                  <label>Town</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedTownVillage" id="_sugg5" class="form-control forMakeBlank"/>
+                </div>
+                <div class="col-md-3">
+                  <label>City</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedCity" id="_sugg6" class="form-control forMakeBlank"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Acquired Lat</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedLatitude" id="_sugg7" class="form-control forMakeBlank" OnlyNumberWithDecimal="true"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Acquired Long</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedLongitude" id="_sugg8" class="form-control forMakeBlank" OnlyNumberWithDecimal="true"/>
+                </div>
+              
+                <div class="col-md-3">
+                  <label>Deviation (in Mtr)</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedDeviation" id="_sugg9" class="form-control forMakeBlank" OnlyNumberWithDecimal="true"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower Type</label> <span class="text-danger">*</span>
+                  <select [(ngModel)]="suggestedTowerType" id="_sugg10" class="form-control forMakeBlank" >
+                    <option value="">Select</option>
+                    <option>RTT</option>
+                    <option>RTP</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Building Height</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedBuildingHeight" id="_sugg11" class="form-control forMakeBlank" OnlyNumberWithDecimal="true"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Tower Height</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedTowerHeight" id="_sugg12" class="form-control forMakeBlank" OnlyNumberWithDecimal="true"/>
+                </div>
+              
+                <div class="col-md-3">
+                  <label>Clutter Type</label> <span class="text-danger">*</span>
+                  <select [(ngModel)]="suggestedClutter" id="_sugg13" class="form-control forMakeBlank">
+                    <option value="">Select</option>
+                    <option value="{{cl.paramCode}}" *ngFor="let cl of clutterList">{{cl.paramDesc}}</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Land Owner Rent</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedLandOwnerRent" id="_sugg14" class="form-control forMakeBlank"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Electrification Charges</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedElectrificationCharges" id="_sugg15" OnlyNumber="true" class="form-control forMakeBlank"/>
+                </div>
+                <div class="col-md-3">
+                  <label>MC Charges</label> <span class="text-danger">*</span>
+                  <input type="text" [(ngModel)]="suggestedMcCharges" id="_sugg16" OnlyNumber="true" class="form-control forMakeBlank"/>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="the-fieldset">
+              <legend class="the-legend">
+                <span *ngIf="!workflowHistory" (click)="workflowHistory = !workflowHistory" class="workflowHistory">+</span>  
+                <span *ngIf="workflowHistory" (click)="workflowHistory = !workflowHistory" class="workflowHistory">-</span> 
+                Workflow History 
+              </legend>
+              <div class="row" style="margin: 0px;max-height:200px;overflow:auto" *ngIf="workflowHistory">
+                <table class="table table-bordered workflow-table">
+                  <tr>
+                    <th>Emp Name</th> 
+                    <th>Remark</th>
+                    <th>Action Date</th>
+                  </tr>
+                  <tr *ngFor = "let auditData of auditList">
+                    <td>{{auditData.empName}}</td>
+                    <td>{{auditData.remark}}</td>
+                    <td>{{auditData.auditDate}}</td>
+                  </tr>
+                </table>
+              </div>       
+            </fieldset>
+            <fieldset class="the-fieldset" *ngIf="attachedList.length != 0">
+              <legend class="the-legend">Attachment</legend>
+              <div class="row">
+                <div class="col-md-2 text-center" *ngFor="let att of attachedList">
+                  <h1>
+                      <a [href]="att.imageStr" target="_blank">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </a>
+                  </h1>
+                  <label>{{att.attName}}</label>
+                </div>
+              </div>
+            </fieldset>
+            <div class="row" style="margin: 0px;" *ngIf="attachmentList.length !=0">
+              <div class="col-md-3" style="padding: 0px;margin: 0px;" *ngFor="let aa of attachmentList">
+                <div class="row" style="margin: 0px;" >
+                  <div class="col-md-12" *ngFor="let bb of aa.attList">
+                    <label>{{bb.attName}} <span class="text-danger" *ngIf="bb.mandatory == 1">*</span> </label>
+                    <div *ngIf="bb.attName == 'Seaf Portal URL'; else attFile">
+                      <input type="text" [placeholder]="bb.attName" class="form-control" id="att_{{bb.id}}"/>
+                    </div>
+                    <ng-template #attFile>
+                      <input type="hidden" id="att_{{bb.id}}"/>
+                      <input type="file" id="file_{{bb.id}}" (change)="changeListener($event,bb.id)" class="form-control" />
+                    </ng-template>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mr-t mr-b" *ngIf="isNBS_SR && loginEmpRole == 'HO_RF_PLANNING' && currentStatus == 'NB02'">
+              <div class="col-md-12">
+                <div class="col-md-12">
+                  <label>Sharing Potential</label>
+                  <select class="form-control" [(ngModel)]="sharingPotential" id="_sharingPotential">
+                    <option value="">Select</option>
+                    <option>P1</option>
+                    <option>P2</option>
+                    <option>P2 with condition</option>
+                    <option>P3</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row mr-t mr-b" *ngIf="buttonList.length !=0">
+              <div class="col-md-12">
+                <label>Remark <span class="text-danger">*</span></label>
+                <textarea class="form-control forMakeBlank" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
+              </div>
+            </div>
+            <div class="row mr-t mr-b" *ngIf="buttonList.length !=0">
+              <div class="col-md-2" *ngFor="let bl of buttonList">
+                <button class="btn tvi-yellow text-white" (click)="changeAirtelSrStatus(bl.afterStatus)">{{bl.button}}</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn tvi-yellow text-white" data-dismiss="modal">Cancel</button>
+          </div>
+      </div>
+  </div>
+</div>

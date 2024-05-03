@@ -1,0 +1,20 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <!-- <th>Frequency Band</th> -->
+      <th>Rated Power Consumption</th>
+      <th>Weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rru of rruList">
+      <td>{{rru.rruDeleteMake}}</td>
+      <td>{{rru.rruDeleteModel}}</td>
+      <!-- <td>{{rru.rruFreqBand}}</td> -->
+      <td>{{rru.rruDeletePower}}</td>
+      <td>{{rru.rruDeleteWeight}}</td>
+    </tr>
+  </tbody>
+</table>

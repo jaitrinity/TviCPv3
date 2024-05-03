@@ -1,0 +1,88 @@
+.input-sm{
+    height: 30px !important;
+    border-radius: 10px;
+  }
+
+.fa-expand{
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.my-row{
+  width: 100%;
+  /* height: 100%; */
+  /* background: red; */
+  display: flex;
+  margin-bottom: 20px;
+}
+.my-col-md-4{
+  width: 33.3%;
+  height: 100%;
+  /* border: 1px solid; */
+  overflow: auto;
+  padding: 10px;
+}
+.my-col-md-4 .graph{
+  background: white;
+  width: 250%;
+}
+/* .tab-container {
+  display: inherit;
+} */
+
+.my-main{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: white;
+  font-family: dashboard-font;
+}
+.my-menu{
+  width: 15%;
+  height: 100%;
+  background: #2E57A7;
+}
+.my-menu ul{
+  margin: 10px 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+.my-menu ul li{
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+  border-radius: 5px;
+}
+/* .my-menu ul li:hover{
+  background: white;
+} */
+.my-content{
+  width: 85%;
+  height: 100%;
+  background-color: whitesmoke;
+  /* overflow: auto; */
+  /* background-color: blue; */
+}
+.active-li{
+  background: #ffb600;
+  color: white;
+}
+.graph-col{
+  background: #e8edf5;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  height: 48vh;
+}
+.graph-name{
+  font-size: 20px;
+  margin: 10px 0px;
+  /* border-bottom: 2px solid; */
+  padding-right: 14px;
+}

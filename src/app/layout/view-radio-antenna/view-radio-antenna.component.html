@@ -1,0 +1,32 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th>
+      <th>RadioAntenna i WAN</th>
+      <th>Height AGL m</th>
+      <th>Azimuth Degree</th>
+      <th>Length m</th>
+      <th>Width m</th>
+      <th>Depth m</th>
+      <th>No of Ports</th>
+      <th>RadioAntenna Type</th>
+      <th>BandFrequencyMHz FrequencyCombination</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let radio of radioAntennaList">
+      <td>{{radio.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{radio.Action}}</td>
+      <td>{{radio.RadioAntenna_i_WAN}}</td>
+      <td>{{radio.Height_AGL_m}}</td>
+      <td>{{radio.Azimuth_Degree}}</td>
+      <td>{{radio.Length_m}}</td>
+      <td>{{radio.Width_m}}</td>
+      <td>{{radio.Depth_m}}</td>
+      <td>{{radio.No_of_Ports}}</td>
+      <td>{{radio.RadioAntenna_Type}}</td>
+      <td>{{radio.BandFrequencyMHz}}</td>
+    </tr>
+  </tbody>
+</table>

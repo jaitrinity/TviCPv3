@@ -1,0 +1,491 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+       
+      <div class="col-md-2">
+        <label>TVI Site Id</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="tviSiteIdList" [(ngModel)]="selectedTviSiteIdList" 
+        (onSelect)="onSelectOrDeSelectTviSiteId($event)" (onDeSelect)="onSelectOrDeSelectTviSiteId($event)"
+        [disabled]="circleName == '' "> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-2">
+        <label>Site Name</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)]="siteName" [disabled]="true"/>
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+        <label>Airtel Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+        <label>Airtel Locator Id</label>
+        <input type="text" OnlyAlphanumericWithDecimalAndHyphen = "true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'VIL' ">
+        <label>VIL Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric = "true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+        <label>RJIO Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric = "true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+        <label>RJIO SAP Id</label>
+        <input type="text" OnlyAlphanumericWithDecimalAndHyphen = "true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'BSNL' ">
+        <label>BSNL Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric = "true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2">
+        <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="aglRequired" [disabled]="true"/>
+      </div>
+    
+      <div class="col-md-2">
+        <label>Latitude</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude1" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Longitude</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude1" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Technology</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+        [data]="technologyList" [(ngModel)]="selectedTechnologyList" [disabled]="selectedTviSiteIdList.length == 0"> 
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+        <label>Site Address</label> <span class="text-danger">*</span>
+        <textarea class="form-control" [(ngModel)] = "siteAddress" style="resize:none" [disabled]="true"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>District</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)] = "district" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>State</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)] = "state" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Site Type</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)] = "siteType" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Cluster</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)] = "clutter" [disabled]="true"/>
+      </div>     
+    </div>
+  </fieldset>
+
+  <fieldset  class="the-fieldset">
+    <legend class="the-legend">Active Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Total Rated Power (in Watt)</label> <span class="text-danger">*</span>
+        <input type="text" [disabled]="true" class="form-control forMakeBlank" [(ngModel)]="totalRatedPower" />
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of RF antenna</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfRFAntenna">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfRFAntennaList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfRFAntenna != '' && noOfRFAntenna != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('rfAntennaModal')">Click to fill RF Antenna Details</a>
+      </div>
+    </div>
+
+    <div id="rfAntennaModal" class="modal fade" role="dialog"  >
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">RF antenna</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let rf of createRange(noOfRFAntenna); let eleIndex = index">
+              <div class="col-md-2">
+                <label>Height of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="rfSize{{rf}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Weight of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="rfWeight{{rf}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Azimuth of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="rfAzimuth{{rf}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Make of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control forMakeBlank" id="rfMake{{rf}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Model of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfModel{{rf}}" (change)="getRfAntennaBand($event,rf,'rfBand')">
+                      <option value="">Select</option>
+                      <option value="{{rfm.paramCode}}" *ngFor="let rfm of RfAntModelList">{{rfm.paramDesc}}</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Gain of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="rfGain{{rf}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Band of RF Antenna {{rf}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rfBand{{rf}}">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('rfAntennaModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b" >
+      <div class="col-md-2">
+        <label>No of Microwave</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfMicrowave">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfMicrowaveList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfMicrowave != '' && noOfMicrowave != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('microwaveModal')">Click to fill Microwave Details</a>
+      </div>
+    </div>
+
+    <div id="microwaveModal" class="modal fade" role="dialog" >
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Microwave</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+            <div class="row mr-t mr-b" *ngFor="let mw of createRange(noOfMicrowave); let eleIndex = index">
+              <div class="col-md-2">
+                <label>Make {{mw}}</label> <span class="text-danger">*</span>
+                <select class="form-control forMakeBlank" id="microwaveMake{{mw}}" (change)="getMwModel($event,mw,'microwaveModel')">
+                    <option value="">Select</option>
+                    <option value="{{mwMake.paramCode}}" *ngFor="let mwMake of mwMakeList">{{mwMake.paramDesc}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Model {{mw}}</label> <span class="text-danger">*</span>
+                  <select class="form-control forMakeBlank" id="microwaveModel{{mw}}">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                <label>Height of Microwave {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="microwaveHeight{{mw}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Dia {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="microwaveDia{{mw}}"/>
+              </div>
+              <div class="col-md-2">
+                  <label>Azimuth {{mw}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="microwaveAzimuth{{mw}}"/>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('microwaveModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>BTS Type</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="btsType">
+          <option value="">Select</option>
+          <option *ngFor="let bt of btsTypeList" value={{bt.id}}>{{bt.id}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of BBU</label>  
+        <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfBBU">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfBBUList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfBBU != '' && noOfBBU != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('bbuModal')">Click to fill BBU Details</a>
+      </div>
+    </div>
+
+    <div id="bbuModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">BBU</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+              <input type="hidden" id="bbuTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let bbu of createRange(noOfBBU); let eleIndex = index">
+              <div class="col-md-3">
+                <label>Make {{bbu}} <span class="text-danger">*</span></label>
+                <select class="form-control forMakeBlank" id="bbuMake{{bbu}}" (change)="getBbuModel($event,bbu,'bbuModel','bbuPowerConsumption')">
+                    <option value="">Select</option>
+                    <option value="{{bMake.paramCode}}" *ngFor="let bMake of bbuMakeList">{{bMake.paramDesc}}</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                  <label>Model {{bbu}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="bbuModel{{bbu}}" (change)="getBbuRatedPower($event,bbu,'bbuMake','bbuPowerConsumption')">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-3">
+                  <label>Rated Power Consumption(In Watt) {{bbu}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="bbuPowerConsumption{{bbu}}">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-3">
+                  <label>BBU Positioning {{bbu}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="bbuPositioning{{bbu}}">
+                      <option value="">Select</option>
+                      <option value="{{bp.paramCode}}" *ngFor="let bp of bbuPositioningList">{{bp.paramCode}}</option>
+                  </select>
+              </div>
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('bbuModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of RRU</label> 
+        <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfRRU">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfRRUList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfRRU != '' && noOfRRU != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('rruModal')">Click to fill RRU Details</a>
+      </div>
+    </div>
+
+    <div id="rruModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">RRU</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+            <input type="hidden" id="rruTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let rru of createRange(noOfRRU); let eleIndex = index">
+              <div class="col-md-2">
+                <label>Make of RRU {{rru}} <span class="text-danger">*</span></label>
+                <select class="form-control forMakeBlank" id="rruMake{{rru}}" (change)="getRruModel($event,rru,'rruModel','rruFreqBand','rruPowerConsumption')">
+                    <option value="">Select</option>
+                    <option value="{{rMake.paramCode}}" *ngFor="let rMake of rruMakeList">{{rMake.paramDesc}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Model of RRU {{rru}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rruModel{{rru}}" (change)="getRruFreqBand($event,rru,'rruMake','rruFreqBand','rruPowerConsumption')">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Frequency band RRU {{rru}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rruFreqBand{{rru}}" (change)="getRruRatedPower($event,rru,'rruMake','rruModel','rruPowerConsumption')">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-4">
+                  <label>Rated Power Consumption of RRU(In Watt) {{rru}} <span class="text-danger">*</span></label>
+                  <select class="form-control forMakeBlank" id="rruPowerConsumption{{rru}}">
+                      <option value="">Select</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <label>Weight of RRU {{rru}} <span class="text-danger">*</span></label>
+                  <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="rruWeight{{rru}}"/>
+              </div>
+              
+             
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('rruModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of BTS</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfBTS">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfBTSList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfBTS != '' && noOfBTS != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('btsModal')">Click to fill BTS Details</a>
+      </div>
+    </div>
+
+    <div id="btsModal" class="modal fade" role="dialog" >
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">BTS</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+            <input type="hidden" id="btsTotalRatedPower"/>
+            <div class="row mr-t mr-b" *ngFor="let bts of createRange(noOfBTS); let eleIndex = index">
+              <div class="col-md-2">
+                <label> BTS Make {{bts}}</label> <span class="text-danger">*</span>
+                <select class="form-control forMakeBlank" id="btsMakel{{bts}}">
+                  <option value="">Select</option>
+                  <option value="{{bts.paramCode}}" *ngFor="let bts of btsMakeList">{{bts.paramDesc}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Model {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" class="form-control forMakeBlank" id="btsModel{{bts}}"/>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Floorspace {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="btsFloorspace{{bts}}"/>
+              </div>
+              <div class="col-md-2">
+                <label>BTS Power {{bts}}</label> <span class="text-danger">*</span>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="btsPower{{bts}}"/>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('btsModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>MCB Number</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfMCB">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfMCBList">{{a.id}}</option>
+        </select>
+      </div>
+      <div class="col-md-7" *ngIf="noOfMCB != '' && noOfMCB != '0' ">
+        <a href="javascript:void(0)" (click)="showCurrentModal('mcbModal')">Click to fill MCB Details</a>
+      </div>
+    </div>
+
+    <div id="mcbModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg" style="max-width:  1320px !important">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">MCB</h4>
+          </div>
+          <div class="modal-body" style="height: 380px;overflow: auto;">
+            <div class="row mr-t mr-b" >
+              <div class="col-md-2" *ngFor="let mcb of createRange(noOfMCB); let eleIndex = index">
+                <label>MCB Rating {{mcb}}</label> <span class="text-danger">*</span>
+                <select class="form-control forMakeBlank" id="mcbRating{{mcb}}">
+                  <option value="">Select</option>
+                  <option value="6Amp">6Amp</option>
+                  <option value="16Amp">16Amp</option>
+                  <option value="32Amp">32Amp</option>
+                  <option value="50Amp">50Amp</option>
+                  <option value="63Amp">63Amp</option>
+                  <option value="64Amp">64Amp</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary tvi-yellow" (click)="closeCurrentModal('mcbModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Additional Load (Node/Misc.) (in Watt)</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" [(ngModel)] = "additionalLoad"/>
+      </div>
+      <div class="col-md-7" *ngIf="additionalLoad != '' ">
+        <a href="javascript:void(0)" (click)="addInTotalRatedPower()">Click to add in Total Rated Power</a>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset  class="the-fieldset" style="margin-bottom: 30px">
+    <legend class="the-legend">Remark</legend>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-12">
+        <label>Remark</label> <span class="text-danger">*</span>
+        <textarea class="form-control" rows=4 style="resize: none" [(ngModel)] = "remark"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-2">
+        <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</div>

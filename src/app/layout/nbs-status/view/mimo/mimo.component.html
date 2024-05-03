@@ -1,0 +1,16 @@
+<table class="table table-bordered view-table">
+	<thead>
+		<tr>
+			<th>Weight</th>
+			<th>Power</th>
+			<th>U Space</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let mimo of mimoList">
+			<td>{{mimo.mimoAntennaWeight}}</td>
+			<td>{{mimo.mimoPower}}</td>
+			<td>{{mimo.mimoUspace}}</td>
+		</tr>
+	</tbody>
+</table>

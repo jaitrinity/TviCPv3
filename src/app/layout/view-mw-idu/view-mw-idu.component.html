@@ -1,0 +1,47 @@
+<button (click)="show = !show" class="more-less-btn">
+  <span *ngIf="!show; else less">More</span>
+  <ng-template #less>
+    <span>Less</span>
+  </ng-template>
+</button>
+
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th *ngIf="tabName == 'Site_Upgrade'">Action</th>
+      <th>Node Type</th>
+      <th>Node Location</th>
+      <th>Node Manufacturer</th>
+      <th>Node Model</th>
+      <th>Length Mtrs</th>
+      <th>Breadth Mtrs</th>
+      <th>Height Mtrs</th>
+      <th>Weight Kg</th>
+      <th *ngIf="show">Node Voltage</th>
+      <th>Power Rating in Kw</th>
+      <th *ngIf="show">FullRack</th>
+      <th *ngIf="show">Tx Rack Space Required In_Us</th>
+      <th *ngIf="show">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mwIdu of mwIduList;">
+      <td>{{mwIdu.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{mwIdu.Action}}</td>
+      <td>{{mwIdu.Node_Type}}</td>
+      <td>{{mwIdu.Node_Location}}</td>
+      <td>{{mwIdu.Node_Manufacturer}}</td>
+      <td>{{mwIdu.Node_Model}}</td>
+      <td>{{mwIdu.Length_Mtrs}}</td>
+      <td>{{mwIdu.Breadth_Mtrs}}</td>
+      <td>{{mwIdu.Height_Mtrs}}</td>
+      <td>{{mwIdu.Weight_Kg}}</td>
+      <td *ngIf="show">{{mwIdu.Node_Voltage}}</td>
+      <td>{{mwIdu.Power_Rating_in_Kw}}</td>
+      <td *ngIf="show">{{mwIdu.FullRack}}</td>
+      <td *ngIf="show">{{mwIdu.Tx_Rack_Space_Required_In_Us}}</td>
+      <td *ngIf="show">{{mwIdu.Remarks}}</td>
+    </tr>
+  </tbody>
+</table>

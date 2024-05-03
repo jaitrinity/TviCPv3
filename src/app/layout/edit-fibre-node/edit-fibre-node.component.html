@@ -1,0 +1,164 @@
+<div class="row mr-t mr-b" *ngFor="let fibreNode of fibreNodeList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{fibreNode.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="fibreFeas{{fibreNode.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditFibreNode','editFibreNode',fibreNode.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Action}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeAction{{fibreNode.typeNo}}" [value]="fibreNode.Action"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Type - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Node_Type}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeA{{fibreNode.typeNo}}" [value]="fibreNode.Node_Type"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Location - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Node_Location}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <select class="form-control" id="fibreNodeB{{fibreNode.typeNo}}">
+        <option value="">Select</option>
+        <option [value]="nl" *ngFor="let nl of fibreNode_nodeLocationList" [selected]="nl == fibreNode.Node_Location">{{nl}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Manufacturer - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Node_Manufacturer}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeC{{fibreNode.typeNo}}" [value]="fibreNode.Node_Manufacturer"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Model - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Node_Model}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeD{{fibreNode.typeNo}}" [value]="fibreNode.Node_Model"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Length Mtrs - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Length_Mtrs}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeE{{fibreNode.typeNo}}" [value]="fibreNode.Length_Mtrs"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Breadth Mtrs - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Breadth_Mtrs}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeF{{fibreNode.typeNo}}" [value]="fibreNode.Breadth_Mtrs"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height Mtrs - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Height_Mtrs}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <!-- <input type="text" class="form-control" id="fibreNodeG{{fibreNode.typeNo}}" [value]="fibreNode.Height_Mtrs" [disabled]="true"/> -->
+      <input type="text" class="form-control" id="fibreNodeG{{fibreNode.typeNo}}" [value]="fibreNode.Height_Mtrs" 
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Weight Kg - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Weight_Kg}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeH{{fibreNode.typeNo}}" [value]="fibreNode.Weight_Kg"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Node Voltage - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Node_Voltage}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeI{{fibreNode.typeNo}}" [value]="fibreNode.Node_Voltage"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Power Rating in Kw - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Power_Rating_in_Kw}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeJ{{fibreNode.typeNo}}" [value]="fibreNode.Power_Rating_in_Kw" 
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>FullRack - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.FullRack}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeK{{fibreNode.typeNo}}" [value]="fibreNode.FullRack"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Tx Rack Space required in Us - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Tx_Rack_Space_required_in_Us}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeL{{fibreNode.typeNo}}" [value]="fibreNode.Tx_Rack_Space_required_in_Us"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Is Right Of Way ROW Required Inside The TOCO Premises - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Is_Right_Of_Way_ROW_Required_Inside_The_TOCO_Premises}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <select class="form-control" id="fibreNodeM{{fibreNode.typeNo}}">
+        <option value="">Select</option>
+        <option value="Yes" [selected]="'Yes' == fibreNode.Is_Right_Of_Way_ROW_Required_Inside_The_TOCO_Premises">Yes</option>
+        <option value="No" [selected]="'No' == fibreNode.Is_Right_Of_Way_ROW_Required_Inside_The_TOCO_Premises">No</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Type Of Fiber Laying - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Type_Of_Fiber_Laying}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <select class="form-control" id="fibreNodeN{{fibreNode.typeNo}}">
+        <option value="">Select</option>
+        <option [value]="fl" *ngFor="let fl of typeOfFiberLaying" [selected]="fl == fibreNode.Type_Of_Fiber_Laying">{{fl}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Type Of FMS - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Type_Of_FMS}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <select class="form-control" id="fibreNodeO{{fibreNode.typeNo}}">
+        <option value="">Select</option>
+        <option [value]="fms" *ngFor="let fms of typeOfFms" [selected]="fms == fibreNode.Type_Of_FMS">{{fms}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Remarks - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Remarks}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeP{{fibreNode.typeNo}}" [value]="fibreNode.Remarks"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Full Rack - {{fibreNode.typeNo}}</label>
+    <div class="nonEditFibreNode{{fibreNode.typeNo}}">{{fibreNode.Full_Rack}}</div>
+    <div class="edit editFibreNode{{fibreNode.typeNo}}">
+      <input type="text" class="form-control" id="fibreNodeQ{{fibreNode.typeNo}}" [value]="fibreNode.Full_Rack"
+      [disabled]="true"/>
+    </div>
+  </div>
+</div>

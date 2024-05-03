@@ -1,0 +1,30 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th>
+      <th>Total No of MCB Required</th>
+      <th>06A</th>
+      <th>10A</th>
+      <th>16A</th>
+      <th>24A</th>
+      <th>32A</th>
+      <th>40A</th>
+      <th>63A</th>
+      <th>80A</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let mcb of mcbList">
+      <td>{{mcb.Feasibility}}</td>
+      <td>{{mcb.Total_No_of_MCB_Required}}</td>
+      <td>{{mcb._06A}}</td>
+      <td>{{mcb._10A}}</td>
+      <td>{{mcb._16A}}</td>
+      <td>{{mcb._24A}}</td>
+      <td>{{mcb._32A}}</td>
+      <td>{{mcb._40A}}</td>
+      <td>{{mcb._63A}}</td>
+      <td>{{mcb._80A}}</td>
+    </tr>
+  </tbody>
+</table>

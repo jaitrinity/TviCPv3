@@ -1,0 +1,128 @@
+<ngx-spinner
+bdOpacity = 0.9
+      bdColor = "#333"
+      size = "medium"
+      color = "#fff"
+      type = "ball-circus"></ngx-spinner>
+
+<!-- <button (click)="refreshPage()">Refresh</button> -->
+
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+          </select>
+      </div>
+      <div class="col-md-2">
+        <label>TVI Site Id</label>
+        <input type="text" class="form-control" [(ngModel)] = "tviSiteId" [disabled]="true"/>
+      </div>
+      <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+        <label>Airtel Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2">
+        <label>Site Name</label>
+        <input type="text" class="form-control" [(ngModel)]="siteName" />
+      </div>
+      <!-- <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+        <label>Site Name</label>
+        <input type="text" class="form-control" [(ngModel)]="siteName" />
+      </div> -->
+      <div class="col-md-2" *ngIf="operator == 'Airtel' ">
+        <label>Airtel Locator Id</label>
+        <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+      </div>
+
+      <div class="col-md-2" *ngIf="operator == 'VIL' ">
+        <label>VIL Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+
+      <!-- <div class="col-md-2" *ngIf="operator == 'VIL' ">
+        <label>Site Name</label>
+        <input type="text" class="form-control" [(ngModel)]="siteName" />
+      </div> -->
+
+      <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+        <label>RJIO Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=30 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+
+      <!-- <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+        <label>Site Name</label>
+        <input type="text" class="form-control" [(ngModel)]="siteName" />
+      </div> -->
+
+      <div class="col-md-2" *ngIf="operator == 'RJIO' ">
+        <label>RJIO SAP Id</label>
+        <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" />
+      </div>
+
+      <div class="col-md-2" *ngIf="operator == 'BSNL' ">
+        <label>BSNL Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=16 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+
+      <!-- <div class="col-md-2" *ngIf="operator == 'BSNL' ">
+        <label>Site Name</label>
+        <input type="text" class="form-control" [(ngModel)]="siteName" />
+      </div> -->
+   
+      <div class="col-md-2">
+        <label>Technology</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="multiSelectropdownSettings" 
+        [data]="technologyList" [(ngModel)]="selectedTechnologyList" 
+        (onSelect)="onSelectTechnology($event)" (onSelectAll)="onSelectAllTechnology($event)" 
+        (onDeSelect)="onDeSelectTechnology($event)" (onDeSelectAll)="onDeSelectAllTechnology($event)" > 
+        </ng-multiselect-dropdown>
+      </div>
+
+      <div class="col-md-2">
+        <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal="true" class="form-control" [(ngModel)]="aglRequired" />
+      </div>
+      
+    </div>
+
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Latitude 1</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal="true" class="form-control" [(ngModel)] = "latitude1"/>
+      </div>
+      <div class="col-md-2">
+        <label>Longitude 1</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal="true" class="form-control" [(ngModel)] = "longitude1"/>
+      </div>
+      <div class="col-md-2">
+        <label>Latitude 2</label>
+        <input type="text" OnlyNumberWithDecimal="true" class="form-control" [(ngModel)] = "latitude2"/>
+      </div>
+      <div class="col-md-2">
+        <label>Longitude 2</label>
+        <input type="text" OnlyNumberWithDecimal="true" class="form-control" [(ngModel)] = "longitude2"/>
+      </div>
+    </div>
+  </fieldset>
+  
+  <fieldset  class="the-fieldset" style="margin-bottom: 30px">
+    <legend class="the-legend">Remark</legend>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-12">
+        <label>Remark</label> <span class="text-danger">*</span>
+        <textarea class="form-control" rows=4 style="resize: none" [(ngModel)] = "remark"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-2">
+        <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</div>

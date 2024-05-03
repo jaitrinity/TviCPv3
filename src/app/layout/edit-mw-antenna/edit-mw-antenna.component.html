@@ -1,0 +1,50 @@
+<div class="row mr-t mr-b" *ngFor="let mw of mwAntennaList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{mw.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="mwAntennaFeas{{mw.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditMW','editMW',mw.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade'">
+    <label>Action - {{mw.typeNo}}</label>
+    <div class="nonEditMW{{mw.typeNo}}">{{mw.Action}}</div>
+    <div class="edit editMW{{mw.typeNo}}">
+      <input type="text" class="form-control" id="mwAction{{mw.typeNo}}" [value]="mw.Action"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>MWAntenna i_WAN - {{mw.typeNo}}</label>
+    <div class="nonEditMW{{mw.typeNo}}">{{mw.MWAntenna_i_WAN}}</div>
+    <div class="edit editMW{{mw.typeNo}}">
+      <input type="text" class="form-control" id="mwI{{mw.typeNo}}" [value]="mw.MWAntenna_i_WAN"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Size of MW - {{mw.typeNo}}</label>
+    <div class="nonEditMW{{mw.typeNo}}">{{mw.Size_of_MW}}</div>
+    <div class="edit editMW{{mw.typeNo}}">
+      <input type="text" class="form-control" id="mwS{{mw.typeNo}}" [value]="mw.Size_of_MW"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Height in Mtrs - {{mw.typeNo}}</label>
+    <div class="nonEditMW{{mw.typeNo}}">{{mw.Height_in_Mtrs}}</div>
+    <div class="edit editMW{{mw.typeNo}}">
+      <input type="text" class="form-control" id="mwH{{mw.typeNo}}" [value]="mw.Height_in_Mtrs"
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Azimuth Degree - {{mw.typeNo}}</label>
+    <div class="nonEditMW{{mw.typeNo}}">{{mw.Azimuth_Degree}}</div>
+    <div class="edit editMW{{mw.typeNo}}">
+      <input type="text" class="form-control" id="mwA{{mw.typeNo}}" [value]="mw.Azimuth_Degree"
+      OnlyNumberWithDecimal="true"/>
+    </div>
+  </div>
+</div>

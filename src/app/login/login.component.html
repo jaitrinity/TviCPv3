@@ -1,0 +1,123 @@
+<ngx-spinner
+bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus"></ngx-spinner>
+
+<div class="row">
+  <div class="col-md-6 text-white" style="padding:0px">
+    <div style="padding:40px">
+      <h1>Tower Vision</h1>
+      <span>Passive Infrastructure for wireless Telecommuncation</span>
+    </div>
+
+    <div style="padding:40px">
+      Tower Vision India specailizes in the provision of passive infrastructure to the wireless 
+      telecommuncation industry on a shared, multi-tenancy basis. Tower Vision combines high expertise
+      in roll out, operation and maintenance of telecom infrastructures.
+    </div>
+
+    <div style="margin-top : 70px">
+        <img src="assets/img/tvi_banner.png" width="100%"/>
+    </div>
+    
+  </div>
+  <div class="col-md-6" style="padding:0px;background: white;height: 625px;">
+      <div style="padding: 40px" >
+          <a href="javascript:void(0)"><img src="assets/img/tvi_logo.png" alt="My Ad Cubes" style="height: 48px;"></a>
+      </div>
+      <form class="form-signin" (ngSubmit) = "checkAuthenticate()" #authenticateForm="ngForm" novalidate>
+        <label style="color: #2E57A7">Employee Id</label>
+        <input type="text" [(ngModel)] = "loginModel.username" name="username" class="form-control" placeholder="Employee Id" required autofocus style="margin-bottom: 20px;border-radius: 10px" />
+        <label style="color: #2E57A7">Password</label>
+        <input type="password" [(ngModel)] = "loginModel.password" name="password" class="form-control"  placeholder="Password" required style="margin-bottom: 20px;border-radius: 10px" />
+        <label (click)="openForgetPasswordModel()" style="color: #2E57A7;float:right;cursor: pointer;text-decoration: underline;margin-bottom: 20px;">
+          Forget Password ?
+        </label>
+        <button class="btn btn-lg btn-sm btn-block tvi-yellow" [disabled]="!authenticateForm.valid" type="submit" style="color: white;">Login</button>
+      </form>
+  </div>
+</div>
+
+<div id="forgetPasswordModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px !important;">
+        <h4 class="modal-title" class="tom-text-color">Reset Password</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="isOTP_Validate">
+          <div class="col-md-12 text-success"><b>OTP Verified, please enter new password and confirm it.</b></div>
+        </div>
+        <div class="row" *ngIf="!isOTP_Validate">
+          <div class="col-md-7">
+            <label class="tom-text-color">Mobile Number</label>
+            <input type="text" [(ngModel)]="mobileNumber" OnlyNumber="true" LengthValidater="10" class="form-control" placeholder="enter mobile"/>
+          </div>
+          <div class="col-md-5">
+            <label style="color: transparent;display: block">Send OTP</label>
+            <button class="btn tvi-yellow text-white btn-block text-bold" [disabled] = "mobileNumber == '' || mobileNumber.length<9 " (click)="sendOTP()">Send OTP</button>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!isOTP_Validate">
+          <div class="col-md-7">
+            <label class="tom-text-color">OTP</label>
+            <input type="text" [(ngModel)]="otpNumber" OnlyNumber="true" LengthValidater="6" class="form-control" [disabled] = "validOTPNumber == '' "  placeholder="enter 6 digit OTP"/>
+          </div>
+          <div class="col-md-5">
+            <label style="color: transparent;display: block">Verify OTP</label>
+            <button class="btn tvi-yellow text-white btn-block text-bold" [disabled] = "otpNumber == '' || otpNumber.length<6  " (click)="VerifyOTP()">Verify OTP</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <label class="tom-text-color">New Password</label>
+            <input type="password" [(ngModel)]="newPassword" [disabled] = "!isOTP_Validate" class="form-control" placeholder="enter new password"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <label class="tom-text-color">Confirm Password</label>
+            <input type="password" [(ngModel)]="confirmPassword" [disabled] = "!isOTP_Validate" class="form-control" placeholder="confirm password"/>
+          </div>
+          <div class="col-md-5">
+            <label style="color: transparent;display: block">Change password</label>
+            <button class="btn tvi-yellow text-white btn-block text-bold" [disabled] = "confirmPassword == '' " (click)="changePassword()">Change password</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn tvi-yellow btn-sm text-white text-bold" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="multiRoleModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="padding: 10px !important;">
+        <h4 class="modal-title" class="tom-text-color">Role Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h6>You have more than one role, plz confirm from which role you want to login: </h6>
+            <div *ngFor="let rl of roleList">
+              <label>
+                <input type="radio" name="role" value="{{rl}}" (change)="onItemChange(rl)"/> {{rl}}
+              </label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label style="color: transparent;display: block">Confirm Role</label>
+            <button class="btn tvi-yellow text-white btn-block text-bold" (click)="confirmRole()">Login</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn tvi-yellow btn-sm text-white text-bold" (click)="closeMultiModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
