@@ -1046,8 +1046,8 @@
             </fieldset>
             <fieldset  class="the-fieldset" *ngIf="isActionPending && 
             ((isNBS_SR && (currentStatus == 'NB15' || currentStatus == 'RNB15')) || 
-            (isSiteUpgrade_SR && currentStatus == 'NB04') || 
-            (isNewTenency_SR && currentStatus == 'NB06') || 
+            (isSiteUpgrade_SR && (currentStatus == 'NB04' || currentStatus == 'RNB04')) || 
+            (isNewTenency_SR && (currentStatus == 'NB06' || currentStatus == 'RNB06')) || 
             (isHPSC_SR && (currentStatus == 'NB15' || currentStatus == 'RNB15')))">
               <legend class="the-legend">More</legend>
               <div class="row mr-t mr-b">
