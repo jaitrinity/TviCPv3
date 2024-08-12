@@ -1519,6 +1519,7 @@ export class NbsStatusComponent implements OnInit {
     this.isDdrLink = false;
     this.surveyReportAttachedStr = "";
     this.isSurveyReportLink = false;
+    this.tviSiteId = "";
     this.currentTab = "";
     this.loadOfUDisabled = true;
     this.additionalLoad = "";
@@ -1667,6 +1668,10 @@ export class NbsStatusComponent implements OnInit {
   validateNbsData(status) : any{
     if(this.loginEmpRole == 'HO_RF_PLANNING' &&  status == "NB03" && this.sharingPotential == ""){
       alert("please select sharing potential value");
+      return false;
+    }
+    else if(this.loginEmpRole == 'HO_RF_PLANNING' && status == "NB08" && this.tviSiteId == ""){
+      alert("please enter valid TVI site id");
       return false;
     }
     else if(this.loginEmpRole == 'HO_RF_PLANNING' && status == "NB08" && this.suggestedLatitude == ""){
@@ -1859,10 +1864,10 @@ export class NbsStatusComponent implements OnInit {
       return false;
     }
 
-    else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB15" && this.tviSiteId == ""){
-      alert("please enter valid TVI site id");
-      return false;
-    }
+    // else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB15" && this.tviSiteId == ""){
+    //   alert("please enter valid TVI site id");
+    //   return false;
+    // }
     else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB16" && this.rfiAttachedStr == ""){
       alert("please attach RFI document");
       return false;
@@ -2003,7 +2008,10 @@ export class NbsStatusComponent implements OnInit {
       alert("Please enter MC Charges");
       return false;
     }
-    
+    else if(this.loginEmpRole == 'S&M' && status == "NB09" && this.tviSiteId == ""){
+      alert("please enter valid TVI site id");
+      return false;
+    }
     else if(this.loginEmpRole == 'OPCO' && status == "NB10" && !this.validateODSCDetails()){
       return false;
     }
@@ -2040,10 +2048,10 @@ export class NbsStatusComponent implements OnInit {
       alert("please attach NCSO");
       return false;
     }
-    else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB16" && this.tviSiteId == ""){
-      alert("please enter valid TVI site id");
-      return false;
-    }
+    // else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB16" && this.tviSiteId == ""){
+    //   alert("please enter valid TVI site id");
+    //   return false;
+    // }
     else if(this.loginEmpRole == 'DEPLOYMENT' && status == "NB16" && this.rfiAttachedStr == ""){
       alert("please attach RFI document");
       return false;

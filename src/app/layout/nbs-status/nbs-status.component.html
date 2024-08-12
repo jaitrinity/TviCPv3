@@ -3957,6 +3957,10 @@
         <fieldset *ngIf="is_CreateNBS_Tab && loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB05' " class="the-fieldset">
           <legend class="the-legend">Suggest Location</legend>
           <div class="row mr-t mr-b">
+            <div class="col-md-3">
+              <label>TVI Site Id</label> <span class="text-danger">*</span>
+              <input type="text" [(ngModel)]="tviSiteId" class="form-control forMakeBlank"/>
+            </div>
             <div class="col-md-3" *ngIf="viewOperator == 'Airtel' ">
               <label>Airtel Locator Id</label>
               <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control forMakeBlank" [(ngModel)]="airtelLocatorId" />
@@ -4119,20 +4123,20 @@
         </fieldset>
 
 
-        <fieldset *ngIf="(is_CreateNBS_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB015') " class="the-fieldset">
+        <!-- <fieldset *ngIf="(is_CreateNBS_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB015') " class="the-fieldset">
           <legend class="the-legend">TVI Site Id</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2">TVI Site Id</div>
             <div class="col-md-3"><input type="text" [(ngModel)]="tviSiteId" class="form-control forMakeBlank"/></div>
           </div>
-        </fieldset>
+        </fieldset> -->
 
         <fieldset *ngIf="(is_CreateNBS_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15' ||
         nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04') " class="the-fieldset">
           <legend class="the-legend">RFI Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label></div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control forMakeBlank"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control"/></div>
           </div>
         </fieldset>
 
@@ -4141,10 +4145,10 @@
           <legend class="the-legend">RFI Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label></div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control forMakeBlank"/></div>
-            <div class="col-md-2"></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control"/></div>
+            <!-- <div class="col-md-2"></div>
             <div class="col-md-2">TVI Site Id</div>
-            <div class="col-md-3"><input type="text" [(ngModel)]="tviSiteId" class="form-control forMakeBlank"/></div>
+            <div class="col-md-3"><input type="text" [(ngModel)]="tviSiteId" class="form-control forMakeBlank"/></div> -->
           </div>
         </fieldset>
 
@@ -4154,7 +4158,7 @@
           <div class="row mr-t mr-b">
             <div class="col-md-3">
               <label>Date</label>
-              <input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control forMakeBlank"/>
+              <input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control"/>
             </div>
           </div>
         </fieldset>
@@ -4165,7 +4169,7 @@
           <div class="row mr-t mr-b">
             <div class="col-md-3">
               <label>Date</label>
-              <input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control forMakeBlank"/>
+              <input type="date" [(ngModel)]="rfiDate" [disabled]='true'  class="form-control"/>
             </div>
           </div>
         </fieldset>
@@ -4174,10 +4178,20 @@
           <legend class="the-legend">RFI Accepted Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFI Accepted Date" (click) = "rfiAcceptedDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control forMakeBlank" id="rfiAcceptedDate"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control" id="rfiAcceptedDate"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="the-fieldset" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && nbsDataObj.status == 'NB08'">
+          <legend class="the-legend"></legend>
+          <div class="row mr-t mr-b">
+            <div class="col-md-3">
+              <label>TVI Site Id</label> <span class="text-danger">*</span>
+              <input type="text" [(ngModel)]="tviSiteId" class="form-control forMakeBlank"/>
+            </div>
           </div>
         </fieldset>
 
@@ -4217,7 +4231,7 @@
           <legend class="the-legend">RFI Accepted Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFI Accepted Date" (click) = "rfiAcceptedDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control forMakeBlank" id="rfiAcceptedDate"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control" id="rfiAcceptedDate"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>
@@ -4228,7 +4242,7 @@
           <legend class="the-legend">RFI Accepted Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFI Accepted Date" (click) = "rfiAcceptedDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control forMakeBlank" id="rfiAcceptedDate"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfiAcceptedDate" min="{{viewRfiDate1}}" class="form-control" id="rfiAcceptedDate"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>
@@ -4239,7 +4253,7 @@
           <legend class="the-legend">RFS Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFS Date" (click) = "rfsDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control forMakeBlank"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>
@@ -4250,7 +4264,7 @@
           <legend class="the-legend">RFS Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFS Date" (click) = "rfsDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control forMakeBlank"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>
@@ -4261,7 +4275,7 @@
           <legend class="the-legend">RFS Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFS Date" (click) = "rfsDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
-            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control forMakeBlank"/></div>
+            <div class="col-md-3"><input type="date" [(ngModel)]="rfsDate" min="{{viewRfiAcceptedDate1}}" class="form-control"/></div>
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-3"></div>

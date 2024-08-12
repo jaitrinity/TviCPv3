@@ -22,7 +22,7 @@ export class Constant{
     public static MINUTES_UNTIL_AUTO_LOGOUT = 10; // in mins
     public static CHECK_INTERVAL = 15000; // in ms
     public static STORE_KEY =  'lastAction';
-    public static VERSION = 39;
+    public static VERSION = 1;
 
     public static returnServerErrorMessage(serviceName:string):string{
         return "Server error while invoking "+serviceName+ " service";

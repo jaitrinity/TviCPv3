@@ -235,7 +235,7 @@ export class AirtelStatusComponent implements OnInit {
       
       if(i == this.allNoOfList.length-1){
         if(this.version != this.portalRunningVersion){
-          alert("Some update on portal, please reload page by click on browser reload button.")
+          alert("Some update on portal, please reload page by using key (CTRL + F5).")
           localStorage.clear();
           this.route.navigate(['/login']);
         }

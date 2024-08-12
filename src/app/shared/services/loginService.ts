@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http , RequestOptions , Response , Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
-import { AuthenticateModel } from 'src/app/login/model/authenticateModel';
+import { AuthenticateModel } from 'src/app/login/model/AuthenticateModel';
 import { Constant } from '../constant/Constant';
 
 @Injectable()
