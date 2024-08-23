@@ -146,6 +146,7 @@ export class NbsStatusComponent implements OnInit {
   is_HEX_OLT_Tab : boolean = false;
   is_Smart_Split_Tab : boolean = false;
   is_TCU_Tab : boolean = false;
+  is_AirFiber_Tab : boolean = false;
   allCircleList = "";
   tviSiteId = "";
   version : number = 0;
@@ -1188,6 +1189,7 @@ export class NbsStatusComponent implements OnInit {
   viewBbuList = [];
   viewRruList = [];
   viewOdscList = [];
+  actionButtonList = [];
   viewGsmAntennaList = [];
   viewMicrowaveList = [];
   viewRfAntennaList = [];
@@ -1267,6 +1269,9 @@ export class NbsStatusComponent implements OnInit {
     else if(tabType == "TCU"){
       this.is_TCU_Tab = true;
     }
+    else if(tabType == "Air_Fiber"){
+      this.is_AirFiber_Tab = true;
+    }
     this.nbsDataObj = this.nbsDataList.filter(x => x.srNumber == srNumber)[0];
 
     this.viewSrNumber = srNumber;
@@ -1279,7 +1284,7 @@ export class NbsStatusComponent implements OnInit {
     this.totalRatedPower = this.commonFunction.getBlankIfNULL(this.nbsDataObj.totalRatedPower);
     this.loadOfU = this.commonFunction.getBlankIfNULL(this.nbsDataObj.loadOfU);
     this.currentStatus = this.nbsDataObj.status;
-    this.airtelLocatorId = this.nbsDataObj.airtelLocatorId;
+    this.airtelLocatorId = this.commonFunction.getBlankIfNULL(this.nbsDataObj.airtelLocatorId);
     this.airtelSiteId = this.nbsDataObj.airtelSiteId;
     this.viewBackhaul = this.nbsDataObj.airtelBackhaul;
     this.noOfPole = this.commonFunction.getBlankIfNULL(this.nbsDataObj.noOfPole);
@@ -1372,15 +1377,19 @@ export class NbsStatusComponent implements OnInit {
     }
     this.rfsDateEditable = this.viewRfsDate1;
 
+    this.actionButtonList = [];
     let jsonData = {
       srNumber : this.viewSrNumber,
-      loginEmpRole : this.loginEmpRole
+      tabName: this.currentTab,
+      loginEmpRole : this.loginEmpRole,
+      currentStatus: this.currentStatus
     }
     this.spinner.show();
     this.nbsStatusService.viewSrDetails(jsonData)
     .subscribe((response)=>{
       if(response.responseCode == Constant.SUCCESSFUL_RESPONSE){
         this.viewDataObj = response.wrappedList[0];
+        this.actionButtonList = this.viewDataObj.actionButtonList;
         this.viewOdscList = this.viewDataObj.viewOdscList;
         this.viewGsmAntennaList = this.viewDataObj.viewGsmAntennaList;
         this.viewMicrowaveList = this.viewDataObj.viewMicrowaveList;
@@ -2395,7 +2404,7 @@ export class NbsStatusComponent implements OnInit {
     else if((this.is_New_Tenency_Tab || this.is_TCL_Redwin_Tab) && !this.validateNewTenencyData(status)){
       return ;
     }
-    else if((this.is_Site_Upgrade_Tab || this.is_IWan_UBR_Tab || this.is_MCU_Tab || this.is_HEX_OLT_Tab || this.is_TCU_Tab) 
+    else if((this.is_Site_Upgrade_Tab || this.is_IWan_UBR_Tab || this.is_MCU_Tab || this.is_HEX_OLT_Tab || this.is_TCU_Tab || this.is_AirFiber_Tab) 
     && !this.validateSiteUpgradeData(status)){
       return ;
     }

@@ -1,0 +1,28 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Dimensions</th>
+      <th>Weight of Equipment  (Kg)</th>
+      <th>Band</th>
+      <th>Technology (5G only Or 4G/5G)</th>
+      <th>Maximum Load (Watt)</th>
+      <th>MCB</th>
+      <th>Equipment Placement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let af of airFiberList">
+      <td>{{af.make}}</td>
+      <td>{{af.model}}</td>
+      <td>{{af.dimensions}}</td>
+      <td>{{af.weight}}</td>
+      <td>{{af.band}}</td>
+      <td>{{af.technology}}</td>
+      <td>{{af.load}}</td>
+      <td>{{af.mcb}}</td>
+      <td>{{af.equipPlacement}}</td>
+    </tr>
+  </tbody>
+</table>

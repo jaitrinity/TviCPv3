@@ -1,0 +1,168 @@
+<ngx-spinner bdOpacity = 0.9 bdColor = "#333" size = "medium" color = "#fff" type = "ball-circus">
+</ngx-spinner>
+
+<div class="container-fluid">
+  <h6 class="text-danger" style="padding: 5px 0px 0px">! All * fields are mandatory.</h6>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend">Basic Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>Circle</label> <span class="text-danger">*</span>
+        <select class="form-control" [(ngModel)] = "circleName" (change)="getTVISiteIdCircleName()">
+            <option value="">Select</option>
+            <option *ngFor="let cn of commaSeparateCircleName?.split(',')" value="{{cn}}">{{cn}}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>TVI Site Id</label> <span class="text-danger">*</span>
+        <ng-multiselect-dropdown [placeholder]="'Select'" [settings]="singleSelectropdownSettings" 
+        [data]="tviSiteIdList" [(ngModel)]="selectedTviSiteIdList" 
+        (onSelect)="onSelectOrDeSelectTviSiteId($event)" (onDeSelect)="onSelectOrDeSelectTviSiteId($event)"
+        [disabled]="circleName == '' "> 
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="col-md-2">
+        <label>Site Name</label> <span class="text-danger">*</span>
+        <input type="text" class="form-control" [(ngModel)]="siteName" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>RJIO Site Id</label> <span class="text-danger">*</span>
+        <input type="text" OnlyAlphanumeric="true" maxlength=30 class="form-control" [(ngModel)]="airtelSiteId" />
+      </div>
+      <div class="col-md-2">
+        <label>AGL Required (in Meter)</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)]="aglRequired" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+        <label>Latitude</label> <span class="text-danger">*</span>
+        <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "latitude1" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+          <label>Longitude</label> <span class="text-danger">*</span>
+          <input type="text" OnlyNumberWithDecimal = "true" class="form-control" [(ngModel)] = "longitude1" [disabled]="true"/>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+          <label>Site Address</label> <span class="text-danger">*</span>
+          <textarea class="form-control" [(ngModel)] = "siteAddress" style="resize:none" [disabled]="true"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+          <label>District</label> <span class="text-danger">*</span>
+          <input type="text" class="form-control" [(ngModel)] = "district" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+          <label>State</label> <span class="text-danger">*</span>
+          <input type="text" class="form-control" [(ngModel)] = "state" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+          <label>Site Type</label> <span class="text-danger">*</span>
+          <input type="text" class="form-control" [(ngModel)] = "siteType" [disabled]="true"/>
+      </div>
+      <div class="col-md-2">
+          <label>Cluster</label> <span class="text-danger">*</span>
+          <input type="text" class="form-control" [(ngModel)] = "clutter" [disabled]="true"/>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset  class="the-fieldset">
+    <legend class="the-legend">Active Information</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Total Rated Power (in Watt)</label> <span class="text-danger">*</span>
+        <input type="text" [disabled]="true" class="form-control forMakeBlank" [(ngModel)]="totalRatedPower" />
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-2">
+        <label>No of Air Fiber</label> <span class="text-danger">*</span>
+      </div>
+      <div class="col-md-2">
+        <select class="form-control forMakeBlank" [(ngModel)]="noOfAirFiber">
+          <option value="">Select</option>
+          <option *ngFor="let a of noOfAirFiberList">{{a}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12" *ngIf="(noOfAirFiber != '' && noOfAirFiber != 0)">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>SR</th>
+              <th>Make</th>
+              <th>Model</th>
+              <th>Dimensions</th>
+              <th>Weight of Equipment  (Kg)</th>
+              <th>Band</th>
+              <th>Technology (5G only Or 4G/5G)</th>
+              <th>Maximum Load (Watt)</th>
+              <th>MCB</th>
+              <th>Equipment Placement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let af of createRange(noOfAirFiber); let eleIndex = index">
+              <td>{{af}}</td>
+              <th> 
+                <input type="text" class="form-control forMakeBlank" id="aa{{af}}"/> 
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="bb{{af}}"/> 
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="cc{{af}}"/> 
+              </th>
+              <th>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="dd{{af}}"/>
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="ee{{af}}"/>
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="ff{{af}}"/>
+              </th>
+              <th>
+                <input type="text" OnlyNumberWithDecimal = "true" class="form-control forMakeBlank" id="gg{{af}}"/>
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="hh{{af}}"/>
+              </th>
+              <th>
+                <input type="text" class="form-control forMakeBlank" id="ii{{af}}"/>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="row mr-t mr-b" *ngFor="let af of createRange(noOfAirFiber); let eleIndex = index">
+      <div class="col-md-2">
+        <label>Make {{af}} <span class="text-danger">*</span></label>
+        <input type="text" class="form-control forMakeBlank" id="afMake{{af}}"/>
+      </div>
+      <div class="col-md-2">
+        <label>Model {{af}} <span class="text-danger">*</span></label>
+        <input type="text" class="form-control forMakeBlank" id="afMake{{af}}"/>
+      </div>
+    </div> -->
+  </fieldset>
+
+  <fieldset  class="the-fieldset" style="margin-bottom: 30px">
+    <legend class="the-legend">Remark</legend>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-12">
+        <label>Remark</label> <span class="text-danger">*</span>
+        <textarea class="form-control" rows=4 style="resize: none" [(ngModel)] = "remark"></textarea>
+      </div>
+    </div>
+    <div class="row mr-t mr-b" >
+      <div class="col-md-2">
+        <button class="btn btn-primary tvi-yellow" (click)="saveNBSDetails()">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</div>

@@ -1,0 +1,30 @@
+<table class="table table-bordered view-table">
+  <thead>
+    <tr>
+      <th>Feasibility</th> 
+      <th *ngIf="tabName == 'Site_Upgrade' || tabName == 'New_Tenency'">Action</th> 
+      <th>Source Request RefNo</th> 
+      <th>Other Equipment Category</th> 
+      <th>Other Equipment Type</th> 
+      <th>Equipment to be relocated</th> 
+      <th>Target Indus Site Id</th>
+      <th>Target Request RefNo</th>
+      <th>Customer Punched Or Planning</th>
+      <th>Deletion OR Relocation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let otEq of otherEquipmentList;">
+      <td>{{otEq.Feasibility}}</td>
+      <td *ngIf="tabName == 'Site_Upgrade'">{{otEq.Action}}</td>
+      <td>{{otEq.Source_Request_RefNo}}</td>
+      <td>{{otEq.Other_Equipment_Category}}</td>
+      <td>{{otEq.Other_Equipment_Type}}</td>
+      <td>{{otEq.Equipment_to_be_relocated}}</td>
+      <td>{{otEq.Target_Indus_Site_Id}}</td>
+      <td>{{otEq.Target_Request_RefNo}}</td>
+      <td>{{otEq.CustomerPunchedOrPlanning}}</td>
+      <td>{{otEq.Deletion_OR_Relocation}}</td>
+    </tr>
+  </tbody>
+</table>

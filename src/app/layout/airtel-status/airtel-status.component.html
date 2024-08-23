@@ -343,10 +343,10 @@
                   <label>Height_at_which_needs_to_be_mounted_Mtrs</label>
                   <div>{{srViewObj.Height_at_which_needs_to_be_mounted_Mtrs}}</div>
                 </div>
-                <div class="col-md-3" *ngIf="srViewObj.Other_Equipment !=''">
+                <!-- <div class="col-md-3" *ngIf="srViewObj.Other_Equipment !=''">
                   <label>Other_Equipment</label>
                   <div>{{srViewObj.Other_Equipment}}</div>
-                </div>
+                </div> -->
                 <div class="col-md-3" *ngIf="(isNBS_SR || isNewTenency_SR) && srViewObj.Fiber_Required != ''">
                   <label>Fiber_Required</label>
                   <div>{{srViewObj.Fiber_Required}}</div>
@@ -606,6 +606,15 @@
               </legend>
               <ng-container *ngIf="viewFibreNode">
                 <app-view-fibre-node [fibreNodeList]="fibreNodeList" [tabName]="tabName"></app-view-fibre-node>
+              </ng-container>
+            </fieldset>
+            <!-- Other Equipment -->
+            <fieldset  class="the-fieldset" *ngIf="otherEquipmentList.length !=0">
+              <legend class="the-legend">Other Equipment
+                <input type="checkbox" [checked]="viewOtherEquipment" (change)="viewOtherEquipment = $event.target.checked"/>
+              </legend>
+              <ng-container *ngIf="viewOtherEquipment">
+                <app-view-other-equipment [otherEquipmentList]="otherEquipmentList" [tabName]="tabName"></app-view-other-equipment>
               </ng-container>
             </fieldset>
             <!-- TMA TMB -->
@@ -1250,6 +1259,15 @@
               <app-edit-fibre-node [fibreNodeList]="fibreNodeList" [changeFeasibility]="changeFeasibility" 
               [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
               [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
+
+              <!-- Other Equipment -->
+              <div class="row mr-t mr-b" *ngIf="otherEquipmentList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Equipment</label>
+                </div>
+              </div>
+              <app-edit-other-equipment [otherEquipmentList]="otherEquipmentList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [tabName]="tabName"></app-edit-other-equipment>
               
               <div class="row mr-t mr-b">
                 <div class="col-md-3">
@@ -1611,6 +1629,15 @@
               [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
               [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
 
+              <!-- Other Equipment -->
+              <div class="row mr-t mr-b" *ngIf="otherEquipmentList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Equipment</label>
+                </div>
+              </div>
+              <app-edit-other-equipment [otherEquipmentList]="otherEquipmentList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [tabName]="tabName"></app-edit-other-equipment>
+
               <!-- TMA TMB -->
               <div class="row mr-t mr-b" *ngIf="fibreNodeList.length !=0">
                 <div class="col-md-3">
@@ -1947,6 +1974,15 @@
               <app-edit-fibre-node [fibreNodeList]="fibreNodeList" [changeFeasibility]="changeFeasibility" 
               [feasibilityArr] ="feasibilityArr" [fibreNode_nodeLocationList]="fibreNode_nodeLocationList" 
               [typeOfFiberLaying]="typeOfFiberLaying" [typeOfFms]="typeOfFms" [tabName]="tabName"></app-edit-fibre-node>
+
+              <!-- Other Equipment -->
+              <div class="row mr-t mr-b" *ngIf="otherEquipmentList.length !=0">
+                <div class="col-md-3">
+                  <label>Other Equipment</label>
+                </div>
+              </div>
+              <app-edit-other-equipment [otherEquipmentList]="otherEquipmentList" [changeFeasibility]="changeFeasibility" 
+              [feasibilityArr] ="feasibilityArr" [tabName]="tabName"></app-edit-other-equipment>
               
               <div class="row mr-t mr-b">
                 <div class="col-md-3">

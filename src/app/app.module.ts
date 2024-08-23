@@ -90,6 +90,11 @@ import { McbComponent } from './layout/nbs-status/view/mcb/mcb.component';
 import { OdscComponent } from './layout/nbs-status/view/odsc/odsc.component';
 import { MimoComponent } from './layout/nbs-status/view/mimo/mimo.component';
 import { Ip55Component } from './layout/nbs-status/view/ip55/ip55.component';
+import { AirFiberComponent } from './layout/air-fiber/air-fiber.component';
+import { AirFiberrComponent } from './layout/nbs-status/view/air-fiberr/air-fiberr.component';
+import { ViewOtherEquipmentComponent } from './layout/view-other-equipment/view-other-equipment.component';
+import { EditOtherEquipmentComponent } from './layout/edit-other-equipment/edit-other-equipment.component';
+import { OnlyMobile } from './shared/Validations/OnlyMobile';
 
 @NgModule({
   declarations: [
@@ -102,6 +107,7 @@ import { Ip55Component } from './layout/nbs-status/view/ip55/ip55.component';
     OpcoStatusComponent,
     EmployeeStatusComponent,
     OnlyNumber,
+    OnlyMobile,
     OnlyAlphanumeric,
     OnlyNumberWithDecimal,
     OnlyAlphanumericWithDecimalAndHyphen,
@@ -163,7 +169,11 @@ import { Ip55Component } from './layout/nbs-status/view/ip55/ip55.component';
     McbComponent,
     OdscComponent,
     MimoComponent,
-    Ip55Component
+    Ip55Component,
+    AirFiberComponent,
+    AirFiberrComponent,
+    ViewOtherEquipmentComponent,
+    EditOtherEquipmentComponent
   ],
   imports: [
     BrowserAnimationsModule,

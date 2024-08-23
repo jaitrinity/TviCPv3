@@ -453,7 +453,7 @@
       
           </div>
 
-          <div class="row mr-t mr-b" *ngIf="is_New_Tenency_Tab || is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_TCL_Redwin_Tab || is_HEX_OLT_Tab">
+          <div class="row mr-t mr-b" *ngIf="is_New_Tenency_Tab || is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_TCL_Redwin_Tab || is_HEX_OLT_Tab || is_AirFiber_Tab">
             <div class="col-md-3">
               <label>Total Rated Power (in Watt)</label>
               <div>{{nbsDataObj.totalRatedPower}}</div>
@@ -573,25 +573,6 @@
               <app-bbu [bbuList]="viewDataObj.bbuList"></app-bbu>
             </div>
           </div>
-
-          <!-- <div class="row mr-t mr-b" *ngFor="let bbu of viewDataObj.bbuList; let bbuIndex=index ">
-            <div class="col-md-3">
-              <label>Make {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuMake}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Model {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPowerConsumption}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>BBU Positioning {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPositioning}}</div>
-            </div>
-          </div> -->
           
           <div class="row mr-t mr-b">
             <div class="col-md-2">
@@ -606,29 +587,6 @@
               <app-rru [rruList]="viewDataObj.rruList"></app-rru>
             </div>
           </div>
-          
-          <!-- <div class="row mr-t mr-b" *ngFor="let rl of viewDataObj.rruList; let rruIndex=index ">
-            <div class="col-md-2">
-              <label>Make of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruMake}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Model of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Frequency Band {{rruIndex+1}}</label>
-              <div>{{rl.rruFreqBand}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruPowerConsumption}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Weight of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruWeight}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b">
             <div class="col-md-3">
@@ -1802,7 +1760,7 @@
         </fieldset>
 
         <fieldset  class="the-fieldset" *ngIf="is_New_Tenency_Tab || is_Site_Upgrade_Tab || is_IWan_UBR_Tab || 
-        is_MCU_Tab || is_FibreTermination_Tab || is_TCL_Redwin_Tab || is_HEX_OLT_Tab || 
+        is_MCU_Tab || is_FibreTermination_Tab || is_TCL_Redwin_Tab || is_HEX_OLT_Tab || is_AirFiber_Tab ||
         nbsDataObj.status == 'NB10' || 
         nbsDataObj.status == 'NB11' || nbsDataObj.status == 'NB12'  || nbsDataObj.status == 'NBB12' || nbsDataObj.status == 'NB13' || nbsDataObj.status == 'NB14' || 
         nbsDataObj.status == 'NB15' || nbsDataObj.status == 'NB16' || nbsDataObj.status == 'NB17' || nbsDataObj.status == 'NB18' || 
@@ -1818,46 +1776,11 @@
             <div class="col-md-3">{{nbsDataObj.noOfRFAntenna}}</div>
           </div>
 
-          <div  class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfRFAntenna != null && nbsDataObj.noOfRFAntenna !=0)">
+          <div  class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfRFAntenna != null && nbsDataObj.noOfRFAntenna !=0) && !is_AirFiber_Tab">
             <div class="col-md-12">
               <app-rf-antenna [rfAntennaList]="viewDataObj.rfAntennaList"></app-rf-antenna>
             </div>
           </div>
-          
-          <!-- <div  class="row mr-t mr-b" *ngFor="let rf of viewDataObj.rfAntennaList; let rfAntIndex=index ">
-            <div class="col-md-2">
-              <label>Height of RF Antenna {{rfAntIndex+1}}</label> 
-              <div>{{rf.rfSize}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Weight of RF Antenna {{rfAntIndex+1}}</label> 
-              <div>{{rf.rfWeight}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Azimuth of RF Antenna {{rfAntIndex+1}}</label>  
-              <div>{{rf.rfAzimuth}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Make of RF Antenna {{rfAntIndex+1}}</label>
-              <div>{{rf.rfMake}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Model of RF Antenna {{rfAntIndex+1}}</label>  
-              <div>{{rf.rfModel}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Gain of RF Antenna {{rfAntIndex+1}}</label>  
-              <div>{{rf.rfGain}}</div>
-            </div>
-            
-            <div class="col-md-2">
-              <label>Band of RF Antenna {{rfAntIndex+1}}</label>  
-              <div>{{rf.rfBand}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfRFAntenna_Delete != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
@@ -1872,42 +1795,6 @@
             </div>
           </div>
 
-          <!-- <div  class="row mr-t mr-b" *ngFor="let rfDel of viewDataObj.rfAntennaDeleteList; let rfAntDelIndex=index ">
-            <div class="col-md-2">
-              <label>Height of RF Antenna {{rfAntDelIndex+1}}</label> 
-              <div>{{rfDel.rfSize}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Weight of RF Antenna {{rfAntDelIndex+1}}</label> 
-              <div>{{rfDel.rfWeight}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Azimuth of RF Antenna {{rfAntDelIndex+1}}</label>  
-              <div>{{rfDel.rfAzimuth}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Make of RF Antenna {{rfAntDelIndex+1}}</label>
-              <div>{{rfDel.rfMake}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Model of RF Antenna {{rfAntDelIndex+1}}</label>  
-              <div>{{rfDel.rfModel}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Gain of RF Antenna {{rfAntDelIndex+1}}</label>  
-              <div>{{rfDel.rfGain}}</div>
-            </div>
-            
-            <div class="col-md-2">
-              <label>Band of RF Antenna {{rfAntDelIndex+1}}</label>  
-              <div>{{rfDel.rfBand}}</div>
-            </div>
-          </div> -->
-
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfRFAntenna_Add != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
               <label>No of RF Antenna Add</label> 
@@ -1921,42 +1808,6 @@
             </div>
           </div>
 
-          <!-- <div  class="row mr-t mr-b" *ngFor="let rfAdd of viewDataObj.rfAntennaAddList; let rfAntAddIndex=index ">
-            <div class="col-md-2">
-              <label>Height of RF Antenna {{rfAntAddIndex+1}}</label> 
-              <div>{{rfAdd.rfSize}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Weight of RF Antenna {{rfAntAddIndex+1}}</label> 
-              <div>{{rfAdd.rfWeight}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Azimuth of RF Antenna {{rfAntAddIndex+1}}</label>  
-              <div>{{rfAdd.rfAzimuth}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Make of RF Antenna {{rfAntAddIndex+1}}</label>
-              <div>{{rfAdd.rfMake}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>Model of RF Antenna {{rfAntAddIndex+1}}</label>  
-              <div>{{rfAdd.rfModel}}</div>
-            </div>
-            
-            <div class="col-md-2">
-              <label>Gain of RF Antenna {{rfAntAddIndex+1}}</label>  
-              <div>{{rfAdd.rfGain}}</div>
-            </div>
-            
-            <div class="col-md-2">
-              <label>Band of RF Antenna {{rfAntAddIndex+1}}</label>  
-              <div>{{rfAdd.rfBand}}</div>
-            </div>
-          </div> -->
-
           <div class="row mr-t mr-b" *ngIf="nbsDataObj.noOfODSC != null && (is_ODSC_Anchor_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab)">
             <div class="col-md-2"><label>No of ODSC</label></div>
             <div class="col-md-3">{{nbsDataObj.noOfODSC}}</div>
@@ -1967,17 +1818,6 @@
               <app-odsc [odscList]="viewDataObj.odscList"></app-odsc>
             </div>
           </div>
-          <!-- <div class="row mr-t mr-b" *ngFor="let odsc of viewDataObj.odscList; let odscIndex=index">
-            <div class="col-md-2">
-              <label>Make {{odscIndex+1}}</label>
-              <div>{{odsc.odscMake}}</div>
-            </div>
-      
-            <div class="col-md-2">
-              <label>Model {{odscIndex+1}}</label>
-              <div>{{odsc.odscModel}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfMicrowave != null) && (is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_New_Tenency_Tab || is_Site_Upgrade_Tab)">
             <div class="col-md-2">
@@ -1992,29 +1832,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let ml of viewDataObj.microwaveList; let micIndex=index">
-            <div class="col-md-2">
-              <label>Make {{micIndex+1}}</label>
-              <div>{{ml.make}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Model {{micIndex+1}}</label>
-              <div>{{ml.model}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Height {{micIndex+1}}</label>
-              <div>{{ml.microwaveHeight}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Dia {{micIndex+1}}</label>
-              <div>{{ml.dia}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Azimuth {{micIndex+1}}</label>
-              <div>{{ml.microwaveAzimuth}}</div>
-            </div>
-          </div> -->
-
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfMicrowave_Delete != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
               <label>No of Microwave Delete</label>
@@ -2028,29 +1845,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let ml of viewDataObj.microwaveDeleteList; let micIndex=index">
-            <div class="col-md-2">
-              <label>Make {{micIndex+1}}</label>
-              <div>{{ml.make}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Model {{micIndex+1}}</label>
-              <div>{{ml.model}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Height {{micIndex+1}}</label>
-              <div>{{ml.microwaveHeight}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Dia {{micIndex+1}}</label>
-              <div>{{ml.dia}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Azimuth {{micIndex+1}}</label>
-              <div>{{ml.microwaveAzimuth}}</div>
-            </div>
-          </div> -->
-
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfMicrowave_Add != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
               <label>No of Microwave Add</label>
@@ -2063,29 +1857,6 @@
               <app-microwave [microwaveList]="viewDataObj.microwaveAddList"></app-microwave>
             </div>
           </div>
-
-          <!-- <div class="row mr-t mr-b" *ngFor="let ml of viewDataObj.microwaveAddList; let micIndex=index">
-            <div class="col-md-2">
-              <label>Make {{micIndex+1}}</label>
-              <div>{{ml.make}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Model {{micIndex+1}}</label>
-              <div>{{ml.model}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Height {{micIndex+1}}</label>
-              <div>{{ml.microwaveHeight}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Dia {{micIndex+1}}</label>
-              <div>{{ml.dia}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Azimuth {{micIndex+1}}</label>
-              <div>{{ml.microwaveAzimuth}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.btsType != '') && (is_CreateNBS_Tab || is_New_Tenency_Tab || is_Site_Upgrade_Tab)">
             <div class="col-md-2">
@@ -2108,24 +1879,7 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let bbu of viewDataObj.bbuList; let bbuIndex=index ">
-            <div class="col-md-3">
-              <label>Make {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuMake}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Model {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPowerConsumption}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>BBU Positioning {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPositioning}}</div>
-            </div>
-          </div> -->
+          
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfRRU != null) && (is_CreateNBS_Tab || is_New_Tenency_Tab || is_Site_Upgrade_Tab)">
             <div class="col-md-2">
@@ -2141,28 +1895,7 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let rl of viewDataObj.rruList; let rruIndex=index ">
-            <div class="col-md-2">
-              <label>Make of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruMake}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Model of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Frequency Band {{rruIndex+1}}</label>
-              <div>{{rl.rruFreqBand}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruPowerConsumption}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>Weight of RRU {{rruIndex+1}}</label>
-              <div>{{rl.rruWeight}}</div>
-            </div>
-          </div> -->
+          
           
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfBTS != null) && (is_CreateNBS_Tab || is_New_Tenency_Tab || is_Site_Upgrade_Tab)">
@@ -2178,25 +1911,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let bl of viewDataObj.btsList; let btsIndex=index ">
-            <div class="col-md-2">
-              <label> BTS Make {{btsIndex+1}}</label>
-              <div>{{bl.btsMake}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>BTS Model {{btsIndex+1}}</label>
-              <div>{{bl.btsModel}}</div>
-            </div>
-            <div class="col-md-2">
-              <label>BTS Floorspace {{btsIndex+1}}</label>
-              <div>{{bl.btsFloorspace}}</div>
-            </div>
-          
-            <div class="col-md-2">
-              <label>BTS Power {{btsIndex+1}}</label>
-              <div>{{bl.btsPower}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfMcb != null) && (is_Smart_Split_Tab)">
             <div class="col-md-2">
@@ -2224,12 +1938,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" >
-            <div class="col-md-2" *ngFor="let mcb of viewDataObj.mcbList; let mcbIndex=index ">
-              <label>MCB Rating {{mcbIndex+1}}</label>
-              <div>{{mcb.mcbRating}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="nbsDataObj.noOfMassiveMIMOAntenna != null && is_Site_Upgrade_Tab">
             <div class="col-md-2">
@@ -2244,21 +1952,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let mimo of viewDataObj.massiveMIMOAntennaList; let mimoIndex=index ">
-            <div class="col-md-2">
-              <label> Weight Of Antenna {{mimoIndex+1}}</label>
-              <div>{{mimo.mimoAntennaWeight}}</div>
-            </div>
-            <div class="col-md-2">
-              <label> Power {{mimoIndex+1}}</label>
-              <div>{{mimo.mimoPower}}</div>
-            </div>
-            <div class="col-md-2">
-              <label> U Space {{mimoIndex+1}}</label>
-              <div>{{mimo.mimoUspace}}</div>
-            </div>
-          </div> -->
-
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfBBU_Delete != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
               <label>No of BBU Delete</label>
@@ -2271,25 +1964,6 @@
               <app-bbu [bbuList]="viewDataObj.bbuDeleteList"></app-bbu>
             </div>
           </div>
-
-          <!-- <div class="row mr-t mr-b" *ngFor="let bbu of viewDataObj.bbuDeleteList; let bbuIndex=index ">
-            <div class="col-md-3">
-              <label>Make {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuMake}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Model {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPowerConsumption}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>BBU Positioning {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPositioning}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfBBU_Add != null) && (is_Site_Upgrade_Tab)">
             <div class="col-md-2">
@@ -2304,24 +1978,7 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let bbu of viewDataObj.bbuAddList; let bbuIndex=index ">
-            <div class="col-md-3">
-              <label>Make {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuMake}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Model {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuModel}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>Rated Power Consumption {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPowerConsumption}}</div>
-            </div>
-            <div class="col-md-3">
-              <label>BBU Positioning {{bbuIndex+1}}</label>
-              <div>{{bbu.bbuPositioning}}</div>
-            </div>
-          </div> -->
+          
           
           <div class="row mr-t mr-b" *ngIf="nbsDataObj.noOfIP55 != null && is_Site_Upgrade_Tab">
             <div class="col-md-2">
@@ -2336,12 +1993,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" >
-            <div class="col-md-2" *ngFor="let ip55 of viewDataObj.ip55List; let ip55Index=index ">
-              <label>Power {{ip55Index+1}}</label>
-              <div>{{ip55.ip55Power}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="nbsDataObj.noOfRRU_Delete != null && is_Site_Upgrade_Tab">
             <div class="col-md-2">
@@ -2356,27 +2007,6 @@
             </div>
           </div>
 
-          <!-- <div class="row mr-t mr-b" *ngFor="let rruDel of viewDataObj.rruDeleteList; let rruDelIndex=index ">
-            <div class="col-md-2">
-              <label>RRU Make {{rruDelIndex+1}}</label>
-              <div>{{rruDel.rruDeleteMake}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>RRU Model {{rruDelIndex+1}}</label>
-              <div>{{rruDel.rruDeleteModel}}</div>
-            </div>
-
-            <div class="col-md-3">
-              <label>RRU Power Rating(In Watt) {{rruDelIndex+1}}</label>
-              <div>{{rruDel.rruDeletePower}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>RRU Weight {{rruDelIndex+1}}</label>
-              <div>{{rruDel.rruDeleteWeight}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="nbsDataObj.noOfRRU_Add != null && is_Site_Upgrade_Tab">
             <div class="col-md-2">
@@ -2390,28 +2020,6 @@
               <app-rru-add [rruList]="viewDataObj.rruAddList"></app-rru-add>
             </div>
           </div>
-
-          <!-- <div class="row mr-t mr-b" *ngFor="let rruAdd of viewDataObj.rruAddList; let rruAddIndex=index ">
-            <div class="col-md-2">
-              <label>RRU Make {{rruAddIndex+1}}</label>
-              <div>{{rruAdd.rruAddMake}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>RRU Model {{rruAddIndex+1}}</label>
-              <div>{{rruAdd.rruAddModel}}</div>
-            </div>
-
-            <div class="col-md-3">
-              <label>RRU Power Rating(In Watt) {{rruAddIndex+1}}</label>
-              <div>{{rruAdd.rruAddPower}}</div>
-            </div>
-
-            <div class="col-md-2">
-              <label>RRU Weight {{rruAddIndex+1}}</label>
-              <div>{{rruAdd.rruAddWeight}}</div>
-            </div>
-          </div> -->
 
           <div class="row mr-t mr-b" *ngIf="(nbsDataObj.noOfUBR_Antenna != null) && (is_IWan_UBR_Tab)">
             <div class="col-md-2">
@@ -2555,6 +2163,18 @@
             <div class="col-md-2" *ngIf="is_CreateNBS_Tab">
               <label>Fiber termination</label>
               <div>{{nbsDataObj.fiberTermination}}</div>
+            </div>
+          </div>
+
+          <div class="row mr-t mr-b" *ngIf="(is_AirFiber_Tab && nbsDataObj.noOfRFAntenna != null)">
+            <div class="col-md-2">
+              <label>No of Air Fiber</label> 
+            </div>
+            <div class="col-md-3">{{nbsDataObj.noOfRFAntenna}}</div>
+          </div>
+          <div  class="row mr-t mr-b" *ngIf="is_AirFiber_Tab && (nbsDataObj.noOfRFAntenna != null && nbsDataObj.noOfRFAntenna !=0)">
+            <div class="col-md-12">
+              <app-air-fiberr [airFiberList]="viewDataObj.airFiberList"></app-air-fiberr>
             </div>
           </div>
         </fieldset>
@@ -3966,7 +3586,7 @@
               <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control forMakeBlank" [(ngModel)]="airtelLocatorId" />
             </div>
             <div class="col-md-3" *ngIf="viewOperator == 'RJIO' ">
-              <label>RJIO SAP Id</label>
+              <label>RJIO SAP Id 1</label>
               <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control forMakeBlank" [(ngModel)]="airtelLocatorId" />
             </div>
             <div class="col-md-3">
@@ -4163,7 +3783,7 @@
           </div>
         </fieldset>
 
-        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' ||
+        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_AirFiber_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' ||
         nbsDataObj.status == 'RNB04') " class="the-fieldset">
           <legend class="the-legend">RFI Date</legend>
           <div class="row mr-t mr-b">
@@ -4196,7 +3816,7 @@
         </fieldset>
 
         <div class="row mr-t mr-b" *ngIf="((is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && nbsDataObj.status == 'NB17') || 
-        ((is_New_Tenency_Tab || is_TCL_Redwin_Tab) && nbsDataObj.status == 'NB08') || ((is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && nbsDataObj.status == 'NB06')">
+        ((is_New_Tenency_Tab || is_TCL_Redwin_Tab) && nbsDataObj.status == 'NB08') || ((is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && nbsDataObj.status == 'NB06')">
           <div class="col-md-2" *ngIf="viewOperator == 'Airtel' ">
               <label *ngIf="!is_TCL_Redwin_Tab">Airtel Site Id</label> 
               <label *ngIf="is_TCL_Redwin_Tab">TCL Site Id</label> <span class="text-danger">*</span>
@@ -4217,7 +3837,7 @@
               <input type="text" OnlyAlphanumeric="true" maxlength=30 class="form-control" [(ngModel)]="airtelSiteId" id="airtelSiteId" />
           </div>
           <div class="col-md-2" *ngIf="viewOperator == 'RJIO' && !is_TCL_Redwin_Tab ">
-              <label>RJIO SAP Id</label> <span class="text-danger">*</span>
+              <label>RJIO SAP Id 2</label> <span class="text-danger">*</span>
               <input type="text" OnlyAlphanumericWithDecimalAndHyphen="true" maxlength=20 class="form-control" [(ngModel)]="airtelLocatorId" id="airtelLocatorId" />
           </div>
           <div class="col-md-2" *ngIf="viewOperator == 'BSNL' ">
@@ -4238,7 +3858,7 @@
           </div>
         </fieldset>
 
-        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB06') " class="the-fieldset">
+        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB06') " class="the-fieldset">
           <legend class="the-legend">RFI Accepted Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFI Accepted Date" (click) = "rfiAcceptedDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
@@ -4271,7 +3891,7 @@
           </div>
         </fieldset>
 
-        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB07') " class="the-fieldset">
+        <fieldset *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB07') " class="the-fieldset">
           <legend class="the-legend">RFS Date</legend>
           <div class="row mr-t mr-b">
             <div class="col-md-2"><label>Date</label> &nbsp; <span title="Reset RFS Date" (click) = "rfsDate = ''"><i class="fa fa-refresh" aria-hidden="true"></i></span> </div>
@@ -4303,473 +3923,288 @@
             </table>
           </div>       
         </fieldset>
-
-          <div class="row mr-t mr-b" *ngIf="is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab">
-            <!-- NB15,NB19 = NBS And NB02,NB06,NB07 = Sharing And NB99 = Close SR -->
-            <div class="col-md-12" *ngIf="loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB09' || 
-            nbsDataObj.status == 'NB17' || 
-            nbsDataObj.status == 'NB18' ||
-            nbsDataObj.status == 'NB99' ) ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="(loginEmpRole == 'HO_S&M' && (nbsDataObj.status == 'NB06'))">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf=" (loginEmpRole == 'HO_SnM_AT' && (nbsDataObj.status == 'NB21')) ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <!-- NB01,NB14,NB16,NB18 = NBS And NB01,NB03,NB05 = Sharing And NB98 = Close SR -->
-            <div class="col-md-12" *ngIf="loginEmpRole == 'S&M' && (nbsDataObj.status == 'NB01' || 
-            nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB10' ||
-            nbsDataObj.status == 'NB16' || nbsDataObj.status == 'RNB16' ||
-            nbsDataObj.status == 'NB98' || nbsDataObj.status == 'NB19') ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_RF_PLANNING' && 
-            (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB05' || nbsDataObj.status == 'NB07')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'Acquisition' && (nbsDataObj.status == 'NB03' ||
-            nbsDataObj.status == 'NB11' ) ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <!-- NB17 = NBS And NB04 = Sharing -->
-            <div class="col-md-12" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB015')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'RBH' && nbsDataObj.status == 'NB04' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'LEGAL' && nbsDataObj.status == 'NBB12' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_LEGAL' && nbsDataObj.status == 'NB12' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_PROJECT_EB' && nbsDataObj.status == 'NB13' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_PROJECT_CIVIL' && nbsDataObj.status == 'NB14' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_PROJECT_HEAD' && nbsDataObj.status == 'NB11' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_COO' && nbsDataObj.status == 'NB12' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_Technical' && nbsDataObj.status == 'NB20' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB22' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-
-          </div>
-
-          <div class="row mr-t mr-b" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab)">
-            <div class="col-md-12" *ngIf="loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB04' || 
-            nbsDataObj.status == 'NB08' || 
-            nbsDataObj.status == 'NB09' ||
-            nbsDataObj.status == 'NB99' ) ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="(loginEmpRole == 'HO_S&M' && (nbsDataObj.status == 'NB97'))">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="(loginEmpRole == 'HO_SnM_AT' && (nbsDataObj.status == 'NB12')) ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'S&M' && (nbsDataObj.status == 'NB01' || 
-            nbsDataObj.status == 'NB03' || nbsDataObj.status == 'NB05' ||
-            nbsDataObj.status == 'NB07' || nbsDataObj.status == 'RNB07' ||
-            nbsDataObj.status == 'NB98' || nbsDataObj.status == 'NB10')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_PROJECT_HEAD' && nbsDataObj.status == 'NB96' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_Technical' && nbsDataObj.status == 'NB11' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB13' ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-          </div>
-
-          <div class="row mr-t mr-b" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab)">
-            <div class="col-md-12" *ngIf="loginEmpRole == 'OPCO' && (nbsDataObj.status == 'NB02' || 
-            nbsDataObj.status == 'NB06' || 
-            nbsDataObj.status == 'NB07' || 
-            nbsDataObj.status == 'NB99') ">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-  
-            <div class="col-md-12" *ngIf="loginEmpRole == 'S&M' && (nbsDataObj.status == 'NB01' || 
-            nbsDataObj.status == 'NB03' || nbsDataObj.status == 'NB05' || 
-            nbsDataObj.status == 'RNB05' || nbsDataObj.status == 'NB98' || 
-            nbsDataObj.status == 'NB08')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-  
-            <div class="col-md-12" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_Technical' && (nbsDataObj.status == 'NB09')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_SnM_AT' && (nbsDataObj.status == 'NB10')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-            <div class="col-md-12" *ngIf="loginEmpRole == 'HO_RA' && (nbsDataObj.status == 'NB11')">
-              <label>Remark</label>
-              <textarea class="form-control" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
-            </div>
-          </div>
         
-          <!-- accept=".jpg,.jpeg,.png,.pdf" -->
-          <div class="row mr-t mr-b no-border" >
-            <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
-              <label>Attach SEAF</label> &nbsp;
-              <!-- <label> <input type="checkbox" [checked]="isSeafLink" (change)="isSeafLink = !isSeafLink;seafAttachedStr=''"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="seaf" (change)="changeListener($event,1)" class="form-control" *ngIf="!isSeafLink"/>
-              <input type="text" [(ngModel)] = "seafAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isSeafLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
-              <label>Attach DDR</label> &nbsp;
-              <!-- <label> <input type="checkbox" [checked]="isDdrLink" (change)="isDdrLink = !isDdrLink;ddrAttachedStr=''"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="ddr" (change)="changeListener($event,10)" class="form-control" *ngIf="!isDdrLink"/>
-              <input type="text" [(ngModel)] = "ddrAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isDdrLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB11' ">
-              <label>Attach DDR</label> &nbsp;
-              <label> <input type="checkbox" [checked]="isDdrLink" (change)="isDdrLink = !isDdrLink;ddrAttachedStr=''"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label>
-              <input type="file" id="ddr" (change)="changeListener($event,10)" class="form-control" *ngIf="!isDdrLink"/>
-              <input type="text" [(ngModel)] = "ddrAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isDdrLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
-              <label>Attach Survey report</label> &nbsp;
-              <!-- <label> <input type="checkbox" [checked]="isSurveyReportLink" (change)="isSurveyReportLink = !isSurveyReportLink;surveyReportAttachedStr=''"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="surveyReport" (change)="changeListener($event,11)" class="form-control" *ngIf="!isSurveyReportLink"/>
-              <input type="text" [(ngModel)] = "surveyReportAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isSurveyReportLink"/>
-            </div>
-
-            <div class="col-md-12" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
-              <label>E-SEAF Portal URL</label> &nbsp; <i class="fa fa-link" aria-hidden="true"></i> 
-              <input type="text" [(ngModel)] = "eSeafPortalUrl" placeholder="Enter valid E-SEAF Portal URL" class="form-control"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15' || nbsDataObj.status == 'NB04') ">
-              <label>Attach RFI_Document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
-              <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06') ">
-              <label>Attach RFI_Document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
-              <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
-            </div>
-            
-            <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04') ">
-              <label>Attach RFI_Document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
-              <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15' || nbsDataObj.status == 'NB04') ">
-              <label>Attach NCSO</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
-              <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06') ">
-              <label>Attach NCSO</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
-              <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04') ">
-              <label>Attach NCSO</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
-              <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
-            </div>
-
-            
-
-            <div class="col-md-2" *ngIf="is_CreateNBS_Tab && (loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB05') ">
-              <label>Google Snapshot</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isGoogleSnapshotLink = !isGoogleSnapshotLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="googleSnapshot" (change)="changeListener($event,3)" class="form-control" *ngIf="!isGoogleSnapshotLink"/>
-              <input type="text" [(ngModel)] = "googleSnapshotStr" placeholder="Enter valid link" class="form-control" *ngIf="isGoogleSnapshotLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_PROJECT_CIVIL' && nbsDataObj.status == 'NB14'  ">
-              <label>Attach BOQ</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isBoqLink = !isBoqLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="boq" (change)="changeListener($event,5)" class="form-control" *ngIf="!isBoqLink"/>
-              <input type="text" [(ngModel)] = "boqAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isBoqLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB11'  ">
-              <label>Attach Aggrement</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAggrementLink = !isAggrementLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="aggrement" (change)="changeListener($event,7)" class="form-control" *ngIf="!isAggrementLink"/>
-              <input type="text" [(ngModel)] = "agreementStr" placeholder="Enter valid link" class="form-control" *ngIf="isAggrementLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB17'  ">
-              <label>Attach AT document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
-              <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB08'  ">
-              <label>Attach AT document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
-              <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB06'  ">
-              <label>Attach AT document</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
-              <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB06'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB09'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB07'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'RBH' && nbsDataObj.status == 'NB04'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'S&M' && 
-            (nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB10' || nbsDataObj.status == 'RNB16')  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_LEGAL' && nbsDataObj.status == 'NB12'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_PROJECT_EB' && nbsDataObj.status == 'NB13'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-            
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_COO' && nbsDataObj.status == 'NB12'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB04'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB07'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB02'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab) && loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB05'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
-
-            <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'LEGAL' && nbsDataObj.status == 'NBB12'  ">
-              <label>Any Attach</label> &nbsp;
-              <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
-                &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
-              </label> -->
-              <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
-              <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
-            </div>
+        <!-- accept=".jpg,.jpeg,.png,.pdf" -->
+        <div class="row mr-t mr-b no-border" >
+          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
+            <label>Attach SEAF</label> &nbsp;
+            <!-- <label> <input type="checkbox" [checked]="isSeafLink" (change)="isSeafLink = !isSeafLink;seafAttachedStr=''"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="seaf" (change)="changeListener($event,1)" class="form-control" *ngIf="!isSeafLink"/>
+            <input type="text" [(ngModel)] = "seafAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isSeafLink"/>
           </div>
+
+          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
+            <label>Attach DDR</label> &nbsp;
+            <!-- <label> <input type="checkbox" [checked]="isDdrLink" (change)="isDdrLink = !isDdrLink;ddrAttachedStr=''"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="ddr" (change)="changeListener($event,10)" class="form-control" *ngIf="!isDdrLink"/>
+            <input type="text" [(ngModel)] = "ddrAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isDdrLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB11' ">
+            <label>Attach DDR</label> &nbsp;
+            <label> <input type="checkbox" [checked]="isDdrLink" (change)="isDdrLink = !isDdrLink;ddrAttachedStr=''"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label>
+            <input type="file" id="ddr" (change)="changeListener($event,10)" class="form-control" *ngIf="!isDdrLink"/>
+            <input type="text" [(ngModel)] = "ddrAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isDdrLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
+            <label>Attach Survey report</label> &nbsp;
+            <!-- <label> <input type="checkbox" [checked]="isSurveyReportLink" (change)="isSurveyReportLink = !isSurveyReportLink;surveyReportAttachedStr=''"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="surveyReport" (change)="changeListener($event,11)" class="form-control" *ngIf="!isSurveyReportLink"/>
+            <input type="text" [(ngModel)] = "surveyReportAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isSurveyReportLink"/>
+          </div>
+
+          <div class="col-md-12" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03' ">
+            <label>E-SEAF Portal URL</label> &nbsp; <i class="fa fa-link" aria-hidden="true"></i> 
+            <input type="text" [(ngModel)] = "eSeafPortalUrl" placeholder="Enter valid E-SEAF Portal URL" class="form-control"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15' || nbsDataObj.status == 'NB04') ">
+            <label>Attach RFI_Document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
+            <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06') ">
+            <label>Attach RFI_Document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
+            <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
+          </div>
+          
+          <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04') ">
+            <label>Attach RFI_Document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isRfiDocLink = !isRfiDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="rfiDocument" (change)="changeListener($event,8)" class="form-control" *ngIf="!isRfiDocLink"/>
+            <input type="text" [(ngModel)] = "rfiAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isRfiDocLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15' || nbsDataObj.status == 'NB04') ">
+            <label>Attach NCSO</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
+            <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06') ">
+            <label>Attach NCSO</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
+            <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04') ">
+            <label>Attach NCSO</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isNcsoLink = !isNcsoLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="ncso" (change)="changeListener($event,2)" class="form-control" *ngIf="!isNcsoLink"/>
+            <input type="text" [(ngModel)] = "ncsoAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isNcsoLink"/>
+          </div>
+
+          
+
+          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && (loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB05') ">
+            <label>Google Snapshot</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isGoogleSnapshotLink = !isGoogleSnapshotLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="googleSnapshot" (change)="changeListener($event,3)" class="form-control" *ngIf="!isGoogleSnapshotLink"/>
+            <input type="text" [(ngModel)] = "googleSnapshotStr" placeholder="Enter valid link" class="form-control" *ngIf="isGoogleSnapshotLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_PROJECT_CIVIL' && nbsDataObj.status == 'NB14'  ">
+            <label>Attach BOQ</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isBoqLink = !isBoqLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="boq" (change)="changeListener($event,5)" class="form-control" *ngIf="!isBoqLink"/>
+            <input type="text" [(ngModel)] = "boqAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isBoqLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB11'  ">
+            <label>Attach Aggrement</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAggrementLink = !isAggrementLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="aggrement" (change)="changeListener($event,7)" class="form-control" *ngIf="!isAggrementLink"/>
+            <input type="text" [(ngModel)] = "agreementStr" placeholder="Enter valid link" class="form-control" *ngIf="isAggrementLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB17'  ">
+            <label>Attach AT document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
+            <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB08'  ">
+            <label>Attach AT document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
+            <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB06'  ">
+            <label>Attach AT document</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAtDocLink = !isAtDocLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="atDocument" (change)="changeListener($event,9)" class="form-control" *ngIf="!isAtDocLink"/>
+            <input type="text" [(ngModel)] = "atAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAtDocLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'Acquisition' && nbsDataObj.status == 'NB03'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB06'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB09'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB07'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'RBH' && nbsDataObj.status == 'NB04'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'S&M' && 
+          (nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB10' || nbsDataObj.status == 'RNB16')  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_LEGAL' && nbsDataObj.status == 'NB12'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_PROJECT_EB' && nbsDataObj.status == 'NB13'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+          
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'HO_COO' && nbsDataObj.status == 'NB12'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB04'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_New_Tenency_Tab || is_TCL_Redwin_Tab) && loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB07'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB02'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab || is_AirFiber_Tab) && loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB05'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+
+          <div class="col-md-2" *ngIf="(is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && loginEmpRole == 'LEGAL' && nbsDataObj.status == 'NBB12'  ">
+            <label>Any Attach</label> &nbsp;
+            <!-- <label> <input type="checkbox" (click)="isAnyLink = !isAnyLink"/> 
+              &nbsp;<i class="fa fa-link" aria-hidden="true"></i> 
+            </label> -->
+            <input type="file" id="anyAttach" (change)="changeListener($event,6)" class="form-control" *ngIf="!isAnyLink"/>
+            <input type="text" [(ngModel)] = "anyAttachedStr" placeholder="Enter valid link" class="form-control" *ngIf="isAnyLink"/>
+          </div>
+        </div>
         
         <fieldset class="the-fieldset" *ngIf="loginEmpRole == 'OPCO' && (nbsDataObj.opcoAttachment != 'NA' || nbsDataObj.atDocAttachment != 'NA') ">
           <legend class="the-legend">Attachment</legend>
@@ -4793,11 +4228,12 @@
           </div>
         </fieldset>
 
+        <!-- nbsDataObj.hoAqAttachment != 'NA' || -->
         <fieldset class="the-fieldset" *ngIf="loginEmpRole != 'OPCO' && (nbsDataObj.opcoAttachment != 'NA' || nbsDataObj.atDocAttachment != 'NA' || nbsDataObj.seafAttached != 'NA' || 
         nbsDataObj.ddrAttached != 'NA' || nbsDataObj.surveyReportAttached != 'NA' || nbsDataObj.eSeafPortalUrl != 'NA' || nbsDataObj.googleSnapshotAttachment != 'NA' || 
         nbsDataObj.aggrementAttachment != 'NA' || nbsDataObj.boqAttachment != 'NA' || nbsDataObj.rfiDocAttachment != 'NA' || 
         nbsDataObj.ncsoAttached != 'NA' || nbsDataObj.rbhAttachment != 'NA' || nbsDataObj.acquisitionAttachment != 'NA' || 
-        nbsDataObj.hoAqAttachment != 'NA' || nbsDataObj.hoRfPlanningAttachment != 'NA' || nbsDataObj.hoSnMAttachment != 'NA' || 
+        nbsDataObj.hoRfPlanningAttachment != 'NA' || nbsDataObj.hoSnMAttachment != 'NA' || 
         nbsDataObj.salesAttachment != 'NA' || nbsDataObj.hoLegalAttachment != 'NA' || nbsDataObj.hoProjectEbAttachment != 'NA') ">
           <legend class="the-legend">Attachment</legend>
           <div class="row mr-t mr-b" *ngIf="loginEmpRole != 'OPCO'">
@@ -4909,14 +4345,14 @@
               <label>Acquisition Attachment</label>
             </div>
 
-            <div class="col-md-2 text-center" *ngIf="nbsDataObj.hoAqAttachment != 'NA' ">
+            <!-- <div class="col-md-2 text-center" *ngIf="nbsDataObj.hoAqAttachment != 'NA' ">
               <h1>
                   <a href="{{nbsDataObj.hoAqAttachment}}" target="_blank">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                   </a>
               </h1>
               <label>HO Acquisition Attachment</label>
-            </div>
+            </div> -->
 
             <div class="col-md-2 text-center" *ngIf="nbsDataObj.hoRfPlanningAttachment != 'NA' ">
               <h1>
@@ -4985,340 +4421,16 @@
           </div>
         </fieldset>
 
-        <div class="row mr-t mr-b no-border" *ngIf="is_CreateNBS_Tab || is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab">
-          
-          <!-- Role wise approved button  -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && 
-          (nbsDataObj.status == 'NB09' || nbsDataObj.status == 'NB17' || nbsDataObj.status == 'NB18' || 
-          nbsDataObj.status == 'NB99')">
-              <button *ngIf="nbsDataObj.status == 'NB09'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB10')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB17'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB18')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB18'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB19')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB99'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB06'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB07')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="is_CreateNBS_Tab && loginEmpRole == 'HO_SnM_AT' && nbsDataObj.status == 'NB21'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB22')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && 
-          loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB06'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB08')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="(is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab) && 
-          loginEmpRole == 'HO_SnM_AT' && nbsDataObj.status == 'NB21'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB22')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && 
-          (nbsDataObj.status == 'NB01' || nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB10' || 
-          nbsDataObj.status == 'NB16' || nbsDataObj.status == 'NB19')">
-              <button *ngIf="nbsDataObj.status == 'NB01'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB02')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB08'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB09')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB10'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB11')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB16'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB17')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB19'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB20')">Approve</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RF_PLANNING' && 
-          (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB05')">
-            <button *ngIf="nbsDataObj.status == 'NB02'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-            <button *ngIf="is_CreateNBS_Tab && nbsDataObj.status == 'NB05'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB08')">Approve</button>
-            <button *ngIf="!is_CreateNBS_Tab && nbsDataObj.status == 'NB05'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB06')">Approve</button>
-          </div>  
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15') ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB16')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && nbsDataObj.status == 'NB015' ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB15')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'RBH'">
-            <button *ngIf="nbsDataObj.status == 'NB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB05')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'Acquisition' && 
-          (nbsDataObj.status == 'NB03' || nbsDataObj.status == 'NB11')">
-            <button *ngIf="nbsDataObj.status == 'NB03'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB04')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'NB11'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NBB12')">Approve</button>
-            <!-- <button *ngIf="nbsDataObj.status == 'NB11'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB12')">Approve</button> -->
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'LEGAL' && 
-          (nbsDataObj.status == 'NBB12')">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB12')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_LEGAL'">
-            <button *ngIf="nbsDataObj.status == 'NB12' && !(is_CreateNBS_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_ODSC_Anchor_Tab)"  class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB13')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'NB12' && (is_HPSC_Tab || is_HPSC_Sharing_Tab || is_ODSC_Anchor_Tab)"  class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB15')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'NB12' && (is_CreateNBS_Tab)"  class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB015')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_EB'">
-            <button *ngIf="nbsDataObj.status == 'NB13'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB14')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_CIVIL' && (is_ODSC_Anchor_Tab || is_HPSC_Tab || is_HPSC_Sharing_Tab || is_Smart_Split_Tab)">
-            <button *ngIf="nbsDataObj.status == 'NB14'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB15')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_Technical'">
-            <button *ngIf="nbsDataObj.status == 'NB20'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB21')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA'">
-            <button *ngIf="nbsDataObj.status == 'NB22'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB23')">Approve</button>
-          </div>
-
-           <!-- Role wise Revert button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB17' ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB16')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RF_PLANNING' && nbsDataObj.status == 'NB05' ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB01')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && (nbsDataObj.status == 'NB16' || nbsDataObj.status == 'RNB16') ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB15')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB99'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Close Request</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'NB98'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB99')">Close Request</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA'">
-            <button *ngIf="nbsDataObj.status == 'NB22'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB21')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="!is_ODSC_Anchor_Tab && loginEmpRole == 'HO_LEGAL' && nbsDataObj.status == 'NB12'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NBB12')">Revert</button>
-            <!-- <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB11')">Revert</button> -->
-          </div>
-
-          <!-- Role wise reject button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB09' ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RF_PLANNING' && 
-          (nbsDataObj.status == 'NB02')">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && 
-          (nbsDataObj.status == 'NB01' || nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB10')">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB99')">Reject</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB16'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Close Request</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'Acquisition' && 
-          (nbsDataObj.status == 'NB03' || nbsDataObj.status == 'NB11')">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'RBH' && nbsDataObj.status == 'NB04'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB06'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_LEGAL' && nbsDataObj.status == 'NB12'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_EB' && nbsDataObj.status == 'NB13'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_CIVIL' && nbsDataObj.status == 'NB14'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && (nbsDataObj.status == 'NB15' || nbsDataObj.status == 'RNB15') ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Close Request</button>
+        <div class="row mr-t mr-b" *ngIf="actionButtonList.length !=0">
+          <div class="col-md-12">
+            <label>Remark <span class="text-danger">*</span></label>
+            <textarea class="form-control forMakeBlank" rows="5" style="resize: none" [(ngModel)] = "remark"></textarea>
           </div>
         </div>
 
-        <div class="row mr-t mr-b no-border" *ngIf="is_New_Tenency_Tab || is_TCL_Redwin_Tab">
-          <!-- Role wise approved button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && 
-          (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'NB08' || nbsDataObj.status == 'NB09')">
-              <button *ngIf="nbsDataObj.status == 'NB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB05')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB08'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB09')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB09'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB10')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_S&M' && 
-          (nbsDataObj.status == 'NB97' || nbsDataObj.status == 'NB06')">
-            <button *ngIf="nbsDataObj.status == 'NB97' " class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'NB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB08')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_SnM_AT' && 
-          (nbsDataObj.status == 'NB12')">
-            <button *ngIf="nbsDataObj.status == 'NB12' " class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB13')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && 
-          (nbsDataObj.status == 'NB01' || nbsDataObj.status == 'NB03' || nbsDataObj.status == 'NB05' || 
-          nbsDataObj.status == 'NB07' || nbsDataObj.status == 'NB10')">
-              <button *ngIf="nbsDataObj.status == 'NB01'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB02')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB03'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB04')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB05'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB06')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB07'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB08')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB10'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB11')">Approve</button>
-          </div>
-           
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && 
-          (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06')">
-            <button *ngIf="nbsDataObj.status == 'NB02'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'NB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB07')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'RNB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB07')">Approve</button>
-          </div>
-  
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_HEAD' && nbsDataObj.status == 'NB96'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_Technical' && nbsDataObj.status == 'NB11'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB12')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB13'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB14')">Approve</button>
-          </div>
-
-           <!-- Role wise Revert button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB08'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB07')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && 
-          (nbsDataObj.status == 'NB07' || nbsDataObj.status == 'RNB07') ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB06')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && (nbsDataObj.status == 'RNB07') ">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Close Request</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB13'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB12')">Revert</button>
-          </div>
-
-          <!-- Role wise reject button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB99'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Reject</button>
-          </div>
-          
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'NB98'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB99')">Reject</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_S&M' && nbsDataObj.status == 'NB97'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_HEAD' && nbsDataObj.status == 'NB96'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB97')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_EB' && nbsDataObj.status == 'NB13'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_CIVIL' && nbsDataObj.status == 'NB14'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && 
-          (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB06' || nbsDataObj.status == 'RNB06')">
-            <button *ngIf="nbsDataObj.status == 'NB02'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB96')">Reject</button>
-            <button *ngIf="nbsDataObj.status == 'NB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-            <button *ngIf="nbsDataObj.status == 'RNB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-          </div>
-        </div>
-
-        <div class="row mr-t mr-b no-border" *ngIf="(is_Site_Upgrade_Tab || is_IWan_UBR_Tab || is_MCU_Tab || is_FibreTermination_Tab || is_HEX_OLT_Tab || is_TCU_Tab)">
-          <!-- Role wise approved button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && 
-          (nbsDataObj.status == 'NB02' || nbsDataObj.status == 'NB06' || nbsDataObj.status == 'NB07')">
-              <button *ngIf="nbsDataObj.status == 'NB02'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB06'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB07')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB07'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB08')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && 
-          (nbsDataObj.status == 'NB01' || nbsDataObj.status == 'NB03' || 
-          nbsDataObj.status == 'NB05' || nbsDataObj.status == 'NB08')">
-              <button *ngIf="nbsDataObj.status == 'NB01'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB02')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB03'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB04')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB05'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB06')">Approve</button>
-              <button *ngIf="nbsDataObj.status == 'NB08'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB09')">Approve</button>
-          </div>
-           
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && 
-          (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04')">
-            <button *ngIf="nbsDataObj.status == 'NB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB05')">Approve</button>
-            <button *ngIf="nbsDataObj.status == 'RNB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB05')">Approve</button>
-          </div>
-  
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_PROJECT_HEAD' && nbsDataObj.status == 'NB96'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB03')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_Technical' && nbsDataObj.status == 'NB09'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB10')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_SnM_AT' && nbsDataObj.status == 'NB10'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB11')">Approve</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB11'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB12')">Approve</button>
-          </div>
-
-           <!-- Role wise Revert button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB06'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB05')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'NB05'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB04')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB05'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('RNB04')">Revert</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'RNB05'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Close Request</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'HO_RA' && nbsDataObj.status == 'NB11'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB10')">Revert</button>
-          </div>
-
-          <!-- Role wise reject button -->
-          <div class="col-md-2" *ngIf="loginEmpRole == 'OPCO' && nbsDataObj.status == 'NB99'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB100')">Reject</button>
-          </div>
-          
-          <div class="col-md-2" *ngIf="loginEmpRole == 'S&M' && nbsDataObj.status == 'NB98'">
-            <button class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB99')">Reject</button>
-          </div>
-
-          <div class="col-md-2" *ngIf="loginEmpRole == 'DEPLOYMENT' && 
-          (nbsDataObj.status == 'NB04' || nbsDataObj.status == 'RNB04')">
-            <button *ngIf="nbsDataObj.status == 'NB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
-            <button *ngIf="nbsDataObj.status == 'RNB04'" class="btn tvi-yellow text-white" (click) = "changeSrStatus('NB98')">Reject</button>
+        <div class="row mr-t mr-b no-border" *ngIf="actionButtonList.length !=0">
+          <div class="col-md-2" *ngFor="let bl of actionButtonList">
+            <button class="btn tvi-yellow text-white" (click)="changeSrStatus(bl.afterStatus)">{{bl.button}}</button>
           </div>
         </div>
         

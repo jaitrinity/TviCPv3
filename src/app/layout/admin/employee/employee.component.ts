@@ -376,7 +376,7 @@ export class EmployeeComponent implements OnInit {
 
     // Validate employee exist on `Mobile`
     let empObj = this.employeeList.find(emp => emp.empId != this.editEmployeeId && 
-      emp.mobile == this.editMobile && emp.isActive == 'Y');
+      emp.mobile == this.editMobile && emp.isActive == 'Y' && emp.empRole != 'OPCO');
     if(empObj != null){
       alert("Employee already exist on "+this.editMobile+" `Mobile`.");
       return true;
@@ -384,7 +384,7 @@ export class EmployeeComponent implements OnInit {
 
     // Validate employee exist on `Email Id`
     empObj = this.employeeList.find(emp => emp.empId != this.editEmployeeId && 
-      emp.emailId == this.editEmailId && emp.isActive == 'Y');
+      emp.emailId == this.editEmailId && emp.isActive == 'Y' && emp.empRole != 'OPCO');
     if(empObj != null){
       alert("Employee already exist on "+this.editEmailId+" `Email Id`.");
       return true;

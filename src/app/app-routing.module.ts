@@ -29,6 +29,7 @@ import { ComplainComponent } from './layout/complain/complain.component';
 import { TcuComponent } from './layout/tcu/tcu.component';
 import { AirtelStatusComponent } from './layout/airtel-status/airtel-status.component';
 import { GraphComponent } from './layout/graph/graph.component';
+import { AirFiberComponent } from './layout/air-fiber/air-fiber.component';
 // import { OdcSmartSplitSharingComponent } from './layout/odc-smart-split-sharing/odc-smart-split-sharing.component';
 // import { CowComponent } from './layout/cow/cow.component';
 // import { MassiveMimoSharingComponent } from './layout/massive-mimo-sharing/massive-mimo-sharing.component';
@@ -73,6 +74,7 @@ const routes: Routes = [
     { path: 'bulk-upload', component: BulkUploadComponent, data : {title : 'Tower Vision | Bulk Upload'} },
     { path: 'complaint', component: ComplainComponent, data : {title : 'Tower Vision | Complaint'} },
     { path: 'tcu', component: TcuComponent, data : {title : 'Tower Vision | TCU'} },
+    { path: 'air-fiber', component: AirFiberComponent, data : {title : 'Tower Vision | Air Fiber'} },
     // { path: 'odc-smart-split-sharing', component: OdcSmartSplitSharingComponent },
     // { path: 'cow', component: CowComponent },
     // { path: 'massive-mimo-sharing', component: MassiveMimoSharingComponent },

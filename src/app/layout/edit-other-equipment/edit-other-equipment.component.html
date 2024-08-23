@@ -1,0 +1,81 @@
+<div class="row mr-t mr-b" *ngFor="let otEq of otherEquipmentList;">
+  <div class="col-md-3">
+    <label>Feasibility - {{otEq.typeNo}} <span class="text-danger">*</span></label>
+    <select class="form-control forMakeBlank" id="otEqFeas{{otEq.typeNo}}"
+    (change)="changeFeasibility($event,'nonEditOtherEquip','editOtherEquip',otEq.typeNo)">
+      <option value="">Select</option>
+      <option *ngFor="let fea of feasibilityArr" [value]="fea">{{fea}}</option>
+    </select>
+  </div>
+  <!-- <div class="col-md-3" *ngIf="tabName == 'Site_Upgrade' || tabName == 'New_Tenency'">
+    <label>Action - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Action}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqAction{{otEq.typeNo}}" [value]="otEq.Action"
+      [disabled]="true"/>
+    </div>
+  </div> -->
+  <!-- <div class="col-md-3">
+    <label>Source Request RefNo - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Source_Request_RefNo}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqA{{otEq.typeNo}}" [value]="otEq.Source_Request_RefNo"
+      [disabled]="true"/>
+    </div>
+  </div> -->
+  <div class="col-md-3">
+    <label>Other Equipment Category - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Other_Equipment_Category}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqB{{otEq.typeNo}}" [value]="otEq.Other_Equipment_Category"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Other Equipment Type - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Other_Equipment_Category}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqC{{otEq.typeNo}}" [value]="otEq.Other_Equipment_Type"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <!-- <div class="col-md-3">
+    <label>Equipment to be relocated - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Equipment_to_be_relocated}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqD{{otEq.typeNo}}" [value]="otEq.Equipment_to_be_relocated"
+      [disabled]="true"/>
+    </div>
+  </div> -->
+  <div class="col-md-3">
+    <label>Deletion OR Relocation - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Deletion_OR_Relocation}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqE{{otEq.typeNo}}" [value]="otEq.Deletion_OR_Relocation"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Target Indus Site Id - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Target_Indus_Site_Id}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqF{{otEq.typeNo}}" [value]="otEq.Target_Indus_Site_Id"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label>Target Request RefNo - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.Target_Request_RefNo}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqG{{otEq.typeNo}}" [value]="otEq.Target_Request_RefNo"
+      [disabled]="true"/>
+    </div>
+  </div>
+  <!-- <div class="col-md-3">
+    <label>Customer Punched Or Planning - {{otEq.typeNo}}</label>
+    <div class="nonEditOtherEquip{{otEq.typeNo}}">{{otEq.CustomerPunchedOrPlanning}}</div>
+    <div class="edit editOtherEquip{{otEq.typeNo}}">
+      <input type="text" class="form-control" id="otEqH{{otEq.typeNo}}" [value]="otEq.CustomerPunchedOrPlanning"/>
+    </div>
+  </div> -->
+</div>

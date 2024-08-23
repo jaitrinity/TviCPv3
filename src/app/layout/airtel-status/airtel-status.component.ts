@@ -39,6 +39,7 @@ export class AirtelStatusComponent implements OnInit {
   mcbData = {};
   mcbList = [];
   fibreNodeList = [];
+  otherEquipmentList = [];
   tmaTmbList = [];
   attachedList = [];
   auditList = [];
@@ -119,6 +120,7 @@ export class AirtelStatusComponent implements OnInit {
   viewMwIdu : boolean = false;
   viewMCB : boolean = false;
   viewFibreNode : boolean = false;
+  viewOtherEquipment : boolean = false;
   viewTmaTmb : boolean = false;
   isActionPending : boolean = false;
   workflowHistory : boolean = false;
@@ -403,6 +405,7 @@ export class AirtelStatusComponent implements OnInit {
     this.viewMwIdu = false;
     this.viewMCB = false;
     this.viewFibreNode = false;
+    this.viewOtherEquipment = false;
     this.viewTmaTmb = false;
     this.isActionPending = false;
     this.Date_of_Proposal = this.currentDate
@@ -513,6 +516,7 @@ export class AirtelStatusComponent implements OnInit {
           this.viewMwIdu = true;
           this.viewMCB = true;
           this.viewFibreNode = true;
+          this.viewOtherEquipment = true;
           this.viewTmaTmb = true;
           this.isActionPending = false;
         }
@@ -527,6 +531,7 @@ export class AirtelStatusComponent implements OnInit {
         this.mcbList = wrappedList.MCB;
         this.mcbData = this.mcbList[0];
         this.fibreNodeList = wrappedList.Fibre_Node;
+        this.otherEquipmentList = wrappedList.Other_Equipment;
         this.tmaTmbList = wrappedList.TMA_TMB;
         this.attachedList = wrappedList.attachedList;
         this.auditList = wrappedList.auditList;
@@ -1003,6 +1008,83 @@ export class AirtelStatusComponent implements OnInit {
           Full_Rack : $("#fibreNodeQ"+typeNo).val()
         }
         this.validFibreNodeList.push(json);
+      }
+    }
+    return true;
+  }
+
+  validOtherEquipmentList = [];
+  validateOtherEquipmentData() : any{
+    this.validOtherEquipmentList = [];
+    for(let i=0;i<this.otherEquipmentList.length;i++){
+      let typeNo = this.otherEquipmentList[i].typeNo;
+      let feas = $("#otEqFeas"+typeNo).val();
+      if(feas == ''){
+        alert("Please select `Other Equipment feasibility` of "+typeNo);
+        $("#otEqFeas"+typeNo).focus();
+        return false;
+      }
+      // else if(feas == this.PROPOSED && $("#otEqAction"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Action` of "+typeNo);
+      //   $("#otEqAction"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqA"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Source Request RefNo` of "+typeNo);
+      //   $("#otEqA"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqB"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Other Equipment Category` of "+typeNo);
+      //   $("#otEqB"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqC"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Other Equipment Type` of "+typeNo);
+      //   $("#otEqC"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqD"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Equipment to be relocated` of "+typeNo);
+      //   $("#otEqD"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqE"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Deletion OR Relocation` of "+typeNo);
+      //   $("#otEqE"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqF"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Target Indus Site Id` of "+typeNo);
+      //   $("#otEqF"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqG"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Target Request RefNo` of "+typeNo);
+      //   $("#otEqG"+typeNo).focus();
+      //   return false;
+      // }
+      // else if(feas == this.PROPOSED && $("#otEqH"+typeNo).val() == ''){
+      //   alert("Please select `Other Equipment Customer Punched Or Planning` of "+typeNo);
+      //   $("#otEqH"+typeNo).focus();
+      //   return false;
+      // }
+      else{
+        let json = {
+          typeNo : typeNo,
+          Feasibility : feas,
+          Action: $("#otEqAction"+typeNo).val(),
+          Source_Request_RefNo: $("#otEqA"+typeNo).val(),
+          Other_Equipment_Category: $("#otEqB"+typeNo).val(),
+          Other_Equipment_Type: $("#otEqC"+typeNo).val(),
+          Equipment_to_be_relocated: $("#otEqD"+typeNo).val(),
+          Deletion_OR_Relocation: $("#otEqE"+typeNo).val(),
+          Target_Indus_Site_Id: $("#otEqF"+typeNo).val(),
+          Target_Request_RefNo: $("#otEqG"+typeNo).val(),
+          // CustomerPunchedOrPlanning: $("#otEqH"+typeNo).val()
+          CustomerPunchedOrPlanning: 'Planning'
+        }
+        this.validOtherEquipmentList.push(json)
       }
     }
     return true;
@@ -2188,6 +2270,7 @@ export class AirtelStatusComponent implements OnInit {
       validOtherNodeList : this.validOtherNodeList,
       validMcbList : this.validMcbList,
       validFibreNodeList : this.validFibreNodeList,
+      validOtherEquipmentList: this.validOtherEquipmentList,
       validTmaTmbList : this.validTmaTmbList,
       tabName : this.tabName,
       Latitude : this.spLatitude,
