@@ -2008,6 +2008,9 @@ export class AirtelStatusComponent implements OnInit {
       else if(!this.validateFibreNodeData()){
         return;
       }
+      else if(!this.validateOtherEquipmentData()){
+        return;
+      }
       else if($("#mcbTotalNo").val() > 50){
         alert("`Total No of MCB Required` should be not more than 50");
         return false;
@@ -2053,6 +2056,9 @@ export class AirtelStatusComponent implements OnInit {
       else if(!this.validateFibreNodeData()){
         return;
       }
+      else if(!this.validateOtherEquipmentData()){
+        return;
+      }
       else if(!this.validateTmaTmbData()){
         return;
       }
@@ -2091,6 +2097,9 @@ export class AirtelStatusComponent implements OnInit {
         return;
       }
       else if(!this.validateFibreNodeData()){
+        return;
+      }
+      else if(!this.validateOtherEquipmentData()){
         return;
       }
       else if($("#mcbTotalNo").val() > 50){
