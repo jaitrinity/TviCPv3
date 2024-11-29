@@ -100,8 +100,8 @@
         <!-- </thead> -->
         <!-- <tbody> -->
           <tr *ngFor="let ad of airtelDetailsList" [ngStyle]= "{'color':getColor(ad.tabName, ad.status)}" style="font-weight: 500">
-            <td *ngIf="(loginEmpRole == 'HO_RF_PLANNING' &&  ad.status == 'NB02') || is_show_reject_all_btn">
-              <input type="checkbox" value="{{ad.srNumber}}-{{ad.circleName}}-{{ad.operator}}-{{ad.tabName}}" name="TVI_SITE" *ngIf="getHoRfCheckbox(ad.status)" />
+            <td *ngIf="(loginEmpRole == 'HO_RF_PLANNING' && ad.status == 'NB02' && (ad.tabName == 'CreateNBS' || ad.tabName == 'HPSC')) || is_show_reject_all_btn">
+              <input type="checkbox" value="{{ad.srNumber}}-{{ad.circleName}}-{{ad.operator}}-{{ad.tabName}}" name="TVI_SITE" *ngIf="getHoRfCheckbox(ad.tabName, ad.status)" />
             </td>
             <td>{{ad.srNumber}}</td><td>{{ad.spNumber}}</td><td>{{ad.soNumber}}</td><td>{{ad.airtelSiteId}}</td>
             <td>{{ad.tviSiteId}}</td>

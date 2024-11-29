@@ -2533,8 +2533,8 @@ export class AirtelStatusComponent implements OnInit {
   bulkRemark = "";
   bulkSharingPotential = "";
   is_show_reject_all_btn : boolean = false;
-  getHoRfCheckbox(status:string){
-    if(this.loginEmpRole == 'HO_RF_PLANNING' && status == 'NB02'){
+  getHoRfCheckbox(tabName:string,status:string){
+    if(this.loginEmpRole == 'HO_RF_PLANNING'  && status == 'NB02' && (tabName == 'CreateNBS' || tabName == 'HPSC')){
       this.is_show_reject_all_btn = true;
       return true;
     }
