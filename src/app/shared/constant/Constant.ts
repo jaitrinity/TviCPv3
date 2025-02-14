@@ -2,8 +2,7 @@ export class Constant{
     
     // public static serverURL = "http://localhost:8080/TVI_CP/tvi/";
     public static serverURL = "/TVI_CP/tvi/"; // prod URL
-    // public static serverURL = "http://www.in3.co.in:8080/TVI_CP/tvi/"; // prod URL
-    public static phpServerURL = "http://www.in3.co.in/in3.co.in/TVI_CP/php/"; // prod URL
+    public static phpServerURL = "http://in3.co.in/in3.co.in/TVI_CP/php/"; // prod URL
 
     // public static serverURL = "http://localhost:8080/TVI_CP_WS_test/tvi/";
     // public static serverURL = "/TVI_CP_WS_test/tvi/";

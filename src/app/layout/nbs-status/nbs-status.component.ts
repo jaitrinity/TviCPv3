@@ -1161,7 +1161,7 @@ export class NbsStatusComponent implements OnInit {
   }
 
   generatePdf(srNumber){
-    let pdfUrl = "http://www.in3.co.in/in3.co.in/TVI_CP/fpdf-1-6-es/generatePDF.php?srNumber=";
+    let pdfUrl = "http://in3.co.in/in3.co.in/TVI_CP/fpdf-1-6-es/generatePDF.php?srNumber=";
     window.open(pdfUrl+srNumber);
   }
 

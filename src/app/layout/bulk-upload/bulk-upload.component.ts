@@ -234,7 +234,7 @@ export class BulkUploadComponent implements OnInit {
   }
 
   downloadFormat(fileName : string){
-    let path = "http://www.in3.co.in/in3.co.in/TVI_CP/format/"+fileName+".xlsx";
+    let path = "http://in3.co.in/in3.co.in/TVI_CP/format/"+fileName+".xlsx";
     window.open(path);
   }
 
