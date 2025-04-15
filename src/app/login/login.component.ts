@@ -126,17 +126,18 @@ export class LoginComponent implements OnInit {
     .subscribe( (response) =>{
       this.spinner.hide(); 
        //console.log(response);
-         if(response.responseCode === Constant.SUCCESSFUL_STATUS_CODE){
+        if(response.responseCode === Constant.SUCCESSFUL_STATUS_CODE){
           this.validOTPNumber = response.wrappedList[0];
           this.spinner.hide();
         }
         else{
-          this.toastr.info('Invalid username or mobile number, please check', 'Alert');
+          // this.toastr.info('Invalid username or mobile number, please check', 'Alert');
           this.spinner.hide();
         }
+        this.toastr.warning(response.responseDesc,"Alert !");
   },
     (error)=>{
-      this.toastr.warning(Constant.returnServerErrorMessage("authenticate"),"Alert !");
+      this.toastr.warning(Constant.returnServerErrorMessage("sendOTP"),"Alert !");
       this.spinner.hide();
     })
   }

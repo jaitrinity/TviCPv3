@@ -140,6 +140,47 @@ export class ReportComponent implements OnInit {
     window.open(Constant.phpServerURL+'downloadReport.php?jsonData='+JSON.stringify(sendJson));
   }
 
+  iDeployDetailsReport(){
+    if(this.filterProductType == ""){
+      alert("Select a product type");
+      $("#iPT").focus();
+      return;
+    }
+    let localCircle = "";
+    if(this.isHoUser == "N"){
+      localCircle = this.circleName;
+    }
+    else{
+      localCircle = this.allCircleList;
+    }
+
+    let localRole = "";
+    if(this.loginEmpRole == "S&M"){
+      localRole = "SnM";
+    }
+    else if(this.loginEmpRole == "HO_S&M"){
+      localRole = "HO_SnM";
+    }
+    else if(this.loginEmpRole == "S&M_MIS_Head"){
+      localRole = "SnM_MIS_Head";
+    }
+    else{
+      localRole = this.loginEmpRole;
+    }
+
+    let sendJson = {
+      loginEmpId : this.loginEmpId,
+      loginEmpRole : localRole,
+      isHoUser : this.isHoUser,
+      circleName : localCircle,
+      filterCircleName : this.filterCircleName,
+      filterProductType : this.filterProductType,
+      filterStartDate : this.filterStartDate,
+      filterEndDate : this.filterEndDate
+    }
+    window.open(Constant.phpServerURL+'iDeployDetailReport.php?jsonData='+JSON.stringify(sendJson));
+  }
+
   iDeployReport(){
     if(this.filterProductType == ""){
       alert("Select a product type");
