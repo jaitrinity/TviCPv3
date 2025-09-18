@@ -21,6 +21,8 @@ export class BulkUploadComponent implements OnInit {
   hpscAntennaChecked : boolean = false;
   hpscBbuChecked : boolean = false;
   hpscRruChecked : boolean = false;
+  airFiberChecked : boolean = false;
+
 
   @ViewChild('headerFile') headerFileVariable: ElementRef;
   // @ViewChild('detailFile') detailFileVariable: ElementRef;
@@ -34,6 +36,10 @@ export class BulkUploadComponent implements OnInit {
   @ViewChild('rruFile2') rruFile2Variable: ElementRef;
   @ViewChild('polesFile') polesFileVariable: ElementRef;
   @ViewChild('hpscAntennaFile') hpscAntennaFileVariable: ElementRef;
+
+  @ViewChild('airFiberHdrFile') airFiberHdrFileVariable: ElementRef;
+  @ViewChild('airFiberFile') airFiberFileVariable: ElementRef;
+
   version : number = 0;
   portalRunningVersion : number = 0;
   loginEmpId = "";
@@ -83,6 +89,7 @@ export class BulkUploadComponent implements OnInit {
   bbuData : any = [];
   polesData : any = [];
   hpscAntennaData : any = [];
+  airFiberData : any = [];
   selectFileForUpload(event,fileType){
     // fileType 1 for Header, 2 for Detail
     var file : File = event.target.files[0];
@@ -142,6 +149,16 @@ export class BulkUploadComponent implements OnInit {
       alert("File name should be same as `HPSC_RRU.xlsx`, \n Please select correct file. ");
       return ;
     }
+    else if(fileType == "Air_Fiber_HDR" && file.name != "Air_Fiber_HDR.xlsx"){
+      this.airFiberHdrFileVariable.nativeElement.value = "";
+      alert("File name should be same as `Air_Fiber_HDR.xlsx`, \n Please select correct file. ");
+      return ;
+    }
+    else if(fileType == "Air_Fiber_DET" && file.name != "Air_Fiber_DET.xlsx"){
+      this.airFiberFileVariable.nativeElement.value = "";
+      alert("File name should be same as `Air_Fiber_DET.xlsx`, \n Please select correct file. ");
+      return ;
+    }
 
     let fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -153,7 +170,7 @@ export class BulkUploadComponent implements OnInit {
       var workbook = xlsx.read(bstr, {type:"binary",cellText:false,cellDates:true});
       var first_sheet_name = workbook.SheetNames[0];
       var worksheet = workbook.Sheets[first_sheet_name];
-      if(fileType == 1 || fileType == "HPSC_MASTER_HDR")
+      if(fileType == 1 || fileType == "HPSC_MASTER_HDR" || fileType == "Air_Fiber_HDR")
         this.headerData = xlsx.utils.sheet_to_json(worksheet,{raw:false,dateNF: "dd-MMM-yy"});
       if(fileType == 2) 
         this.detailData = xlsx.utils.sheet_to_json(worksheet,{raw:false,dateNF: "dd-MMM-yy"});
@@ -169,7 +186,10 @@ export class BulkUploadComponent implements OnInit {
         this.polesData = xlsx.utils.sheet_to_json(worksheet,{raw:false,dateNF: "dd-MMM-yy"});
       if(fileType == "HPSC_Antenna") 
         this.hpscAntennaData = xlsx.utils.sheet_to_json(worksheet,{raw:false,dateNF: "dd-MMM-yy"});
-      // console.log(this.importData);
+      if(fileType == "Air_Fiber_DET") 
+        this.airFiberData = xlsx.utils.sheet_to_json(worksheet,{raw:false,dateNF: "dd-MMM-yy"});
+      console.log(this.headerData);
+      console.log(this.airFiberData);
     }
     fileReader.readAsArrayBuffer(file);
   }
@@ -233,6 +253,45 @@ export class BulkUploadComponent implements OnInit {
       })
   }
 
+  uploadAirFiberFile(){
+    if(this.headerData.length == 0){
+      alert("Please Select Header File");
+      return ;
+    }
+    else if(!this.airFiberChecked && this.airFiberData.length == 0){
+      alert("Please Select Air Fiber File File");
+      return ;
+    }
+    // console.log(this.headerData)
+    // console.log(this.detailData)
+    let jsonData = {
+      loginEmpId : this.loginEmpId,
+      loginEmpRole : this.loginEmpRole,
+      circleName : this.circleName,
+      operator : this.operator,
+      headerData: this.headerData,
+      airFiberData: this.airFiberData,
+      tabName : "Air_Fiber"
+    }
+    this.spinner.show(); 
+    this.sharedService.uploadFile(jsonData)
+      .subscribe( (response) =>{
+        this.spinner.hide(); 
+        if(response.status == true){
+          this.toastr.success(response.message,"Alert !");
+          this.makeAsDefault();
+        }
+        else{
+          // this.toastr.error(response.message,"Alert !");
+          alert(response.message);
+        }
+    },
+      (error)=>{
+        this.toastr.warning(Constant.returnServerErrorMessage("uploadFile"),"Alert !");
+        this.spinner.hide();
+      })
+  }
+
   downloadFormat(fileName : string){
     let path = "http://in3.co.in/in3.co.in/TVI_CP/format/"+fileName+".xlsx";
     window.open(path);
@@ -248,6 +307,8 @@ export class BulkUploadComponent implements OnInit {
     this.bbuData = [];
     this.mwChecked = false;
     this.mwData = [];
+    this.airFiberChecked = false;
+    this.airFiberData = [];
     
     this.headerFileVariable.nativeElement.value = "";
     // this.detailFileVariable.nativeElement.value = "";
@@ -255,6 +316,9 @@ export class BulkUploadComponent implements OnInit {
     this.bbuFileVariable.nativeElement.value = "";
     this.rruFileVariable.nativeElement.value = "";
     this.mwFileVariable.nativeElement.value = "";
+
+    this.airFiberHdrFileVariable.nativeElement.value = "";
+    this.airFiberFileVariable.nativeElement.value = "";
   }
 
   uploadHPSCFile(){
@@ -372,6 +436,12 @@ export class BulkUploadComponent implements OnInit {
       this.rruFile2Variable.nativeElement.value = "";
       this.rruData = [];
     }
+    else if(checkBoxType == 9){
+      this.airFiberChecked = this.airFiberChecked ? false : true;
+      this.airFiberFileVariable.nativeElement.value = "";
+      this.airFiberData = [];
+    }
+    
       
   }
 

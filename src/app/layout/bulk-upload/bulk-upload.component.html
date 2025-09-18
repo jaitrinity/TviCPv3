@@ -125,4 +125,41 @@
       </div>
     </div>
   </fieldset>
+
+  <fieldset class="the-fieldset" *ngIf="operator == 'RJIO'">
+    <legend class="the-legend">Air Fiber</legend>
+    <div class="row mr-t mr-b">
+      <div class="col-md-3">
+        <label>Select Header File <span class="text-danger">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('Air_Fiber_HDR')"></i> 
+        </label>
+        <input type="file" #airFiberHdrFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'Air_Fiber_HDR')"/>
+      </div>
+
+      <div class="col-md-3">
+        <label> <input type="checkbox" [checked]="airFiberChecked" (click)= "checkboxClick(9)"/> Is 0 ? : </label>&nbsp;
+        <label>Select Air Fiber File <span class="text-danger" *ngIf="!airFiberChecked">*</span> &nbsp;&nbsp;
+          <i class="fa fa-download" title="Download Format" aria-hidden="true" (click)="downloadFormat('Air_Fiber_DET')"></i>
+        </label>
+        <input type="file" #airFiberFile class="input-sm form-control" accept=".xlsx" 
+        (change)="selectFileForUpload($event,'Air_Fiber_DET')" [disabled]="airFiberChecked"/>
+      </div>
+
+      <div class="col-md-9">
+        <label style="display: block;color:transparent">Apply filter</label>
+        <button class="btn btn-sm tvi-yellow text-white" (click)="uploadAirFiberFile()">
+          <i class="fa fa-upload" aria-hidden="true" ></i> Upload
+        </button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-sm tvi-yellow text-white" (click)="makeAsDefault()">
+          <i class="fa fa-refresh" aria-hidden="true" ></i> Refresh
+        </button>
+      </div>
+    </div>
+    <div class="row mr-t mr-b">
+      <div class="col-md-12">
+        <h6 class="text-danger blink"><i>{{info}}</i></h6>
+      </div>
+    </div>
+  </fieldset>
 </div>

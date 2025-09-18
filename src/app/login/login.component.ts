@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   checkAuthenticate(){
     
     this.spinner.show();
+    this.loginModel.password = window.btoa(this.loginModel.password);
     this.loginService.authenticate(this.loginModel)
     .subscribe( (response) =>{
       this.spinner.hide(); 
@@ -165,7 +166,7 @@ export class LoginComponent implements OnInit {
     let json = {
       loginEmpId : this.loginModel.username,
       mobileNumber : this.mobileNumber,
-      newPassword : this.newPassword
+      newPassword : window.btoa(this.newPassword)
     }
     this.loginService.changePassword(json)
     .subscribe( (response) =>{
